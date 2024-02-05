@@ -1,0 +1,24 @@
+# exec
+a.out
+libft/src/a.out*
+pipex
+
+# tmp
+*.gch
+
+# tester
+test.sh
+
+# libft.a
+libft.a
+
+# obj
+obj
+bonus_obj
+
+# vscode
+.vscode/*
+
+# other
+tags
+compile_flags.txt
