@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/15 15:44:16 by yliu             ###   ########.fr       */
+/*   Created: 2024/02/15 14:38:42 by yliu              #+#    #+#             */
+/*   Updated: 2024/02/16 16:39:20 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# define CHILD 0
 # ifndef FAIL
 #  define FAIL -1
 # endif
-
 # include "ft_printf.h"
-# include "get_next_line.h"
 # include "libft.h"
-# include "utils.h"
+# include <string.h>
+# include <sys/errno.h>
+# include <unistd.h>
 
-extern char	**environ;
-
-int			main(int argc, char **argv);
+void	redirect_fd(int src, int dst);
+void	exit_errno_msg(char *errno_msg);
+char	**xft_split(char *string);
 
 #endif

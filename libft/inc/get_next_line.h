@@ -14,10 +14,10 @@
 # define GET_NEXT_LINE_H
 
 # include <limits.h>
+# include <stdbool.h>
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdbool.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
