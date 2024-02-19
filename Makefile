@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/16 16:38:39 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/19 18:12:39 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,9 +48,16 @@ MAN_INC_DIR		= $(BASE_INC_DIR) ./inc
 LIB				= $(LIB_DIR)/$(LIBRARY)
 
 ORIGIN_HEADERS	= ./inc/$(NAME).h \
-				  ./inc/utils.h
-BASIC_SRCS 		= \
+				  ./inc/utils.h \
+				  ./inc/process.h
+
+BASIC_SRCS 		= ./src/process/process.c \
 				  ./src/utils/utils.c \
+				  ./src/process/close_fd.c \
+				  ./src/process/replace_fd.c \
+				  ./src/process/exec_process.c \
+				  ./src/process/return_infile_fd.c \
+				  ./src/process/return_outfile_fd.c
 
 # mandatory files
 SRCS			= $(BASIC_SRCS) ./src/main.c
@@ -107,6 +114,6 @@ format_norm:
 
 test:
 				@make all
-				@test.sh
+				@xtest.sh
 
 .PHONY:			all clean fclean re bonus norm format_norm test

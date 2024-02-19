@@ -7,7 +7,7 @@ pipex
 *.gch
 
 # tester
-test.sh
+xtest.sh
 
 # libft.a
 libft.a
@@ -22,3 +22,5 @@ bonus_obj
 # other
 tags
 compile_flags.txt
+infile
+outfile
