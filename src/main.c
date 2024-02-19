@@ -6,62 +6,82 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/18 11:47:51 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 14:53:12 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 #include "pipex.h"
-#include <string.h>
 
-void	_create_absolute_cmd_name(char *cmd_name)
+// no free because this func is for exeve.
+char	*_create_absolute_cmd_name(char *cmd_name)
 {
 	// char *path_adr;
 	// check if environ++ is allowed.
 
 	int	i;
 	char	**m_cmds;
+	char	*first = ft_strjoin("/", cmd_name);
+	const char	sep_string[] = "PATH=";
 
-	(void)m_cmds;
-	(void)cmd_name;
 	i = 0;
 	while (environ[i])
 	{
-		if (strncmp(environ[i], "PATH=", 5))
+		if (!strncmp(environ[i], sep_string, ft_strlen(sep_string)))
 			break;
 		i++;
 	}
-	ft_printf("%s\n", environ[i]);
+	m_cmds = ft_split(environ[i] + ft_strlen(sep_string), ':');
+	int j = 0;
+	char	*second;
+	while (m_cmds[j])
+	{
+		second = ft_strjoin(m_cmds[j], first);
+		if (access(second, F_OK | X_OK) == 0)
+			break;
+		j++;
+	}
+	return (second);
 
 }
 
 // since this is not multi-thread process,
-// malloc is safe to use.
+// alloc is safe to use.
 void	_exec_child(char *cmd, int pipefd[])
 {
 	char	**cmdstr;
+	char	*cmd_full_path;
 
-	_create_absolute_cmd_name(cmd);
-	cmdstr = xft_split(cmd);
+	cmdstr = ft_split(cmd, ' ');
+	cmd_full_path = _create_absolute_cmd_name(*cmdstr);
 	redirect_fd(pipefd[1], STDOUT_FILENO);
 	close(pipefd[0]);
-	execve(*cmdstr, cmdstr, environ);
+	execve(cmd_full_path, cmdstr, environ);
 	// exit_errno_msg(strerror(errno))
 	// _exit(EXIT_FAILURE);
 }
 
 // since this is not multi-thread process,
-// malloc is safe to use.
+// alloc is safe to use.
 void	_exec_parent(char *cmd, int pipefd[])
 {
 	char	**cmdstr;
+	char	*cmd_full_path;
 
-	cmdstr = xft_split(cmd);
+	cmdstr = ft_split(cmd, ' ');
+	cmd_full_path = _create_absolute_cmd_name(*cmdstr);
 	redirect_fd(pipefd[0], STDIN_FILENO);
 	close(pipefd[1]);
-	execve(*cmdstr, cmdstr, environ);
+	execve(cmd_full_path, cmdstr, environ);
 	// perror("execve");
 	// exit(EXIT_FAILURE);
+}
+
+
+__attribute__((destructor))void	destructor(void)
+{
+	system("leaks a.out");
 }
 
 int	main(int argc, char **argv)
