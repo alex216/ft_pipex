@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 16:37:44 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 17:02:54 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ extern char	**environ;
 
 typedef struct s_command
 {
-	char	*full_path;
-	char	**all_string;
-}			t_command;
+	const char	*full_path;
+	char		**all_string;
+}				t_command;
 
 int			main(int argc, char **argv);
 

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 16:35:23 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 16:50:43 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv)
 	pid_t	pid;
 	int		pipefd[2];
 
-	// TODO: whatif ls and wc is reversed in pid
 	// TODO: create popen-like func
 	if (argc != 5)
 		exit(42);
