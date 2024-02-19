@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 17:02:54 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 18:07:04 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 #  define FAIL -1
 # endif
 
+#include <fcntl.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "libft.h"
+
 # include "process.h"
 # include "utils.h"
 
-extern char	**environ;
+extern char		**environ;
 
 typedef struct s_command
 {
@@ -33,6 +35,6 @@ typedef struct s_command
 	char		**all_string;
 }				t_command;
 
-int			main(int argc, char **argv);
+int				main(int argc, char **argv);
 
 #endif

@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   return_outfile_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 17:29:11 by yliu             ###   ########.fr       */
+/*   Created: 2024/02/19 18:04:47 by yliu              #+#    #+#             */
+/*   Updated: 2024/02/19 18:04:55 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// __attribute__((destructor)) void destructor(void)
-// {
-// 	system("leaks a.out");
-// }
-
-int	main(int argc, char **argv)
+int	return_outfile_fd(const char *filename)
 {
-	pid_t	pid;
-	int		pipefd[2];
+	// need executable for bash
+	// many flags to explore
+	int fd;
 
-	// TODO: create popen-like func
-	if (argc != 5)
-		exit(42);
-	if (pipe(pipefd) == FAIL)
+	fd = open(filename, O_WRONLY);
+	if (fd == FAIL)
 		exit_errno_msg(strerror(errno));
-	pid = fork();
-	if (pid == FAIL)
-		exit_errno_msg(strerror(errno));
-	if (pid == CHILD)
-		exec_child(argv[2], argv[1], pipefd);
-	else
-		exec_parent(argv[3] , argv[4], pipefd);
-	return (0);
+	return (fd);
 }
+

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:38:42 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 17:00:35 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 18:09:53 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <sys/errno.h>
 # include <unistd.h>
 
-void	close_fd(int fd);
-void	replace_fd(int dst, int src);
 void	exit_errno_msg(const char *errno_msg);
 
 #endif
