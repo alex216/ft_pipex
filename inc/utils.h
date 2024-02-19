@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:38:42 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/16 16:39:20 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 16:17:42 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <sys/errno.h>
 # include <unistd.h>
 
-void	redirect_fd(int src, int dst);
+void	close_fd(int fd);
+void	replace_fd(int dst, int src);
 void	exit_errno_msg(char *errno_msg);
-char	**xft_split(char *string);
 
 #endif

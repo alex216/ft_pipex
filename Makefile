@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/19 14:53:31 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/19 16:39:42 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,10 @@ MAN_INC_DIR		= $(BASE_INC_DIR) ./inc
 LIB				= $(LIB_DIR)/$(LIBRARY)
 
 ORIGIN_HEADERS	= ./inc/$(NAME).h \
-				  ./inc/utils.h
-BASIC_SRCS 		= \
+				  ./inc/utils.h \
+				  ./inc/process.h
+
+BASIC_SRCS 		= ./src/process/process.c \
 				  ./src/utils/utils.c \
 
 # mandatory files

@@ -6,13 +6,19 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 13:11:37 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 16:19:02 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	redirect_fd(int src, int dst)
+void	close_fd(int fd)
+{
+	if (close(fd) == FAIL)
+		exit_errno_msg(strerror(errno));
+}
+
+void	replace_fd(int dst, int src)
 {
 	if (dup2(src, dst) == FAIL)
 		exit_errno_msg(strerror(errno));
