@@ -8,9 +8,10 @@ pipex
 
 # tester
 xtest.sh
+tester
 
 # libft.a
-libft.a
+/libft.a
 
 # obj
 obj
@@ -25,3 +26,5 @@ compile_flags.txt
 infile
 outfile
 outfile2
+
+gtest/*

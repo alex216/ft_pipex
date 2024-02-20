@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/20 17:35:25 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/20 19:10:11 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SHELL = /bin/zsh
 # compiler option and etc
 NAME			= pipex
 LIBRARY			= libft.a
-CFLAGS			= -Wall -Wextra -Werror -g -fsanitize=address,integer,undefined
+CFLAGS			= -Wall -Wextra -Werror -g #-fsanitize=address,integer,undefined
 CXXFLAGS		= -std=c++17 -Wall -Wextra -Werror
 RM				= rm -rf
 ECHO			= echo -e
@@ -77,14 +77,15 @@ GTEST_SRCS_DIR	= ./test/unit/gtest
 TEST_OBJS_DIR	= ./test/obj
 
 # src files
-TEST_SRCS		= $(TEST_SRCS_DIR)/test_check_args.cpp \
+TEST_SRCS		= $(TEST_SRCS_DIR)/test_check_args.cpp
+
 GTEST_SRCS		= $(GTEST_SRCS_DIR)/gtest_main.cc \
 				  $(GTEST_SRCS_DIR)/gtest-all.cc
 
 # obj files
 TEST_OBJS		= $(subst $(TEST_SRCS_DIR), $(TEST_OBJS_DIR), $(TEST_SRCS:.cpp=.o))
 # GTEST_OBJS		= $(subst $(GTEST_SRCS_DIR), $(TEST_OBJS_DIR), $(GTEST_SRCS:.cc=.o))
-GTEST_OBJ		= $(patsubst $(GTEST_SRCS_DIR)/%.cc, $(TEST_OBJS_DIR)/%.o, $(GTEST_SRCS))
+GTEST_OBJS		= $(patsubst $(GTEST_SRCS_DIR)/%.cc, $(TEST_OBJS_DIR)/%.o, $(GTEST_SRCS))
 OBJ_FILTER_MAIN	= $(filter-out $(OBJS_DIR)/main.o, $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS)))
 
 # gtest settings
@@ -152,8 +153,7 @@ format_norm:
 ##########################################
 test:			all $(GTEST_OBJS) $(TEST_OBJS)
 	echo "$(BLUE)\ntest linking$(RESET)"
-	# @$(CXX) -L $(LIB_DIR) -lft -lpthread $(OBJ_FILTER_MAIN) $(TEST_OBJS) $(GTEST_OBJS) -o $(TEST_NAME)
-	$(CXX) -L $(LIB_DIR) -lpthread $(OBJ_FILTER_MAIN) $(TEST_OBJS) $(GTEST_OBJS) -o $(TEST_NAME)
+	$(CXX) -L $(LIB_DIR) -lft -lpthread $(OBJ_FILTER_MAIN) $(TEST_OBJS) $(GTEST_OBJS) -o $(TEST_NAME)
 	./$(TEST_NAME)
 	$(RM) $(TEST_NAME)
 
@@ -171,9 +171,9 @@ $(TEST_OBJS_DIR)/%.o: $(TEST_SRCS_DIR)/%.cpp $(HEADERS) ./inc/utils.h ./inc/pipe
 $(GTEST_OBJS): $(GTEST_SRCS_DIR)
 	echo "$(BLUE)test compiling$(RESET)"
 	mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) ./inc -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
+	$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
 	printf "$(GREEN).$(RESET)"
-	$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) ./inc -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
+	$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
 	printf "$(GREEN).$(RESET)"
 
 $(GTEST_SRCS_DIR):
