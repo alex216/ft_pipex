@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/20 17:10:29 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/20 17:35:25 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,6 @@ BASIC_SRCS 		= ./src/process/process.c \
 				  ./src/process/exec_process.c \
 				  ./src/process/return_infile_fd.c \
 				  ./src/process/return_outfile_fd.c
-BASIC_SRCS 		= ./src/utils/utils.c \
 
 # mandatory files
 SRCS			= $(BASIC_SRCS) ./src/main.c
@@ -145,7 +144,7 @@ format_norm:
 # test:
 # 				@make all
 # 				@xtest.sh
-=======
+# =======
 # test:
 # 				@make all
 # 				@test.sh
