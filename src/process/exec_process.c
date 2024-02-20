@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 18:10:40 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 21:15:56 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static const char	*_create_cmd_full_path(const char *cmd_first_string)
 	while (*path_list)
 	{
 		full_path = ft_strjoin(*path_list, ft_strjoin("/", cmd_first_string));
-		if (access(full_path, F_OK | X_OK) == 0)
+		if (access(full_path, F_OK | X_OK) == SUCCESS)
 			break ;
 		path_list++;
 	}

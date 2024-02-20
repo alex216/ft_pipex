@@ -15,8 +15,8 @@
 
 void	close_fd(int fd);
 void	replace_fd(int dst, int src);
-int	return_infile_fd(const char *infile);
-int	return_outfile_fd(const char *outfile);
+int		return_infile_fd(const char *infile);
+int		return_outfile_fd(const char *outfile);
 void	exec_process(const char *arg_str);
 void	exec_child(const char *arg_str, const char *inflie, int pipefd[]);
 void	exec_parent(const char *arg_str, const char *outfile, int pipefd[]);
