@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/22 17:54:27 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/22 20:06:42 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ WARNING			:= -Wall -Wextra -Werror
 SANITIZE		:= -g -fsanitize=address,integer,undefined
 RM				:= rm -rf
 ECHO			:= echo -e
+MMD_MP			:= -MMD -MP
 ifdef DEBUG1
 	CFLAGS := $(WARNING) -DGTEST=1
 else
@@ -68,6 +69,7 @@ BASIC_SRCS 		:= ./src/process/process.c \
 SRCS			:= $(BASIC_SRCS) ./src/main.c
 BASIC_OBJS		:= $(subst $(SRCS_DIR), $(OBJS_DIR), $(BASIC_SRCS:.c=.o))
 OBJS			:= $(subst $(SRCS_DIR), $(OBJS_DIR), $(SRCS:.c=.o))
+DEP				:= $(subst $(SRCS_DIR), $(OBJS_DIR), $(SRCS:.c=.d))
 HEADERS 	   	:= $(ORIGIN_HEADERS)
 
 ##########################################
@@ -95,11 +97,12 @@ man_step_1:		$(OBJS) $(LIB)
 				@$(ECHO) "$(GREEN) \u2023 100% $(DEF_COLOR)"
 				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(GREEN)compiled \u2714$(DEF_COLOR)"
 
-$(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c #$(HEADERS)
+$(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c $(HEADERS)
 				@mkdir -p $(@D)
-				@$(CC) $(CFLAGS) $(foreach dir_element,$(MAN_INC_DIR),-I$(dir_element)) -c $< -o $@
+				@$(CC) $(CFLAGS) $(MMD_MP) $(foreach dir_element,$(MAN_INC_DIR),-I$(dir_element)) -c $< -o $@
 				@$(ECHO) -n "$(RED)\u2500$(DEF_COLOR)"
 
+-include $(DEP)
 ##########################################
 # other cmds
 .PHONY:			clean
