@@ -13,13 +13,6 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# define CHILD 0
-# define SUCCESS 0
-# define PARENT 1
-# ifndef FAIL
-#  define FAIL -1
-# endif
-
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "libft.h"
@@ -27,14 +20,20 @@
 # include "utils.h"
 # include <fcntl.h>
 
-extern char		**environ;
+# ifdef GTEST
+#  define STATIC
+# else
+#  define STATIC static
+# endif
 
-# define STATIC
-// # ifdef GOOGLE_TEST
-// #  define STATIC
-// # else
-// #  define STATIC static
-// # endif
+# define CHILD 0
+# define SUCCESS 0
+# define PARENT 1
+# ifndef FAIL
+#  define FAIL -1
+# endif
+
+extern char		**environ;
 
 typedef struct s_command
 {
@@ -44,8 +43,8 @@ typedef struct s_command
 
 int				main(int argc, char **argv);
 
-// # ifdef GOOGLE_TEST
+# ifdef GTEST
 const char		*_create_cmd_full_path(const char *cmd_first_string);
-// # endif
+# endif
 
 #endif

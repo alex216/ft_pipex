@@ -6,52 +6,49 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/22 10:53:08 by yliu              #+#    #+#              #
-#    Updated: 2024/02/22 12:01:16 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/22 17:53:01 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # test
-TEST_NAME		= tester
-CXXFLAGS		= -std=c++17 $(WARNING)
+TEST_NAME		:= tester
+CXXFLAGS		:= -std=c++17 $(WARNING) -DGTEST=1
 
 # gtest option
-GTEST_VERSION	= 1.14.0
-GTEST_ARCHIVE	= v$(GTEST_VERSION).tar.gz
-GTEST_REPO_URL	= https://github.com/google/googletest/archive/refs/tags/$(GTEST_ARCHIVE)
-GTEST_SRC_DIR	= googletest-$(GTEST_VERSION)
-GTEST_FUSE_URL	= https://raw.githubusercontent.com/google/googletest/ec44c6c1675c25b9827aacd08c02433cccde7780/googletest/scripts/$(GTEST_FUSE)
-GTEST_FUSE		= fuse_gtest_files.py
+GTEST_VERSION	:= 1.14.0
+GTEST_ARCHIVE	:= v$(GTEST_VERSION).tar.gz
+GTEST_REPO_URL	:= https://github.com/google/googletest/archive/refs/tags/$(GTEST_ARCHIVE)
+GTEST_SRC_DIR	:= googletest-$(GTEST_VERSION)
+GTEST_FUSE_URL	:= https://raw.githubusercontent.com/google/googletest/ec44c6c1675c25b9827aacd08c02433cccde7780/googletest/scripts/$(GTEST_FUSE)
+GTEST_FUSE		:= fuse_gtest_files.py
 
 ##########################################
 # directory
-TEST_SRCS_DIR	= ./test/unit
-GTEST_SRCS_DIR	= ./test/unit/gtest
-TEST_OBJS_DIR	= ./test/obj
+TEST_SRCS_DIR	:= ./test/unit
+GTEST_SRCS_DIR	:= ./test/unit/gtest
+TEST_OBJS_DIR	:= ./test/obj
 
 ##########################################
 # src files
-GTEST_SRCS		= $(GTEST_SRCS_DIR)/gtest_main.cc \
+GTEST_SRCS		:= $(GTEST_SRCS_DIR)/gtest_main.cc \
 				  $(GTEST_SRCS_DIR)/gtest-all.cc
 
-TEST_SRCS		= $(TEST_SRCS_DIR)/test_check_args.cpp
+TEST_SRCS		:= $(TEST_SRCS_DIR)/test_check_args.cpp
 
 # obj files
-TEST_OBJS		= $(subst $(TEST_SRCS_DIR), $(TEST_OBJS_DIR), $(TEST_SRCS:.cpp=.o))
+TEST_OBJS		:= $(subst $(TEST_SRCS_DIR), $(TEST_OBJS_DIR), $(TEST_SRCS:.cpp=.o))
 # GTEST_OBJS		= $(subst $(GTEST_SRCS_DIR), $(TEST_OBJS_DIR), $(GTEST_SRCS:.cc=.o))
-GTEST_OBJS		= $(patsubst $(GTEST_SRCS_DIR)/%.cc, $(TEST_OBJS_DIR)/%.o, $(GTEST_SRCS))
-OBJ_FILTER_MAIN	= $(filter-out $(OBJS_DIR)/main.o, $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS)))
+GTEST_OBJS		:= $(patsubst $(GTEST_SRCS_DIR)/%.cc, $(TEST_OBJS_DIR)/%.o, $(GTEST_SRCS))
+OBJ_FILTER_MAIN	:= $(filter-out $(OBJS_DIR)/main.o, $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS)))
 
 ifdef DEBUG
-    export DEBUG_FLAG := DEBUG=1
-else
-    export DEBUG_FLAG :=
+    export DEBUG_FLAG := DEBUG1=1
 endif
 
 ##########################################
 .PHONY:		test
 test:		fclean test_step_0
 
-test_step_0:CFLAGS = $(WARNING) #-DGOOGLE_TEST
 test_step_0:$(GTEST_OBJS) $(TEST_OBJS)
 			make DEBUG=1 $(NAME)
 			echo "$(BLUE)\ntest linking$(RESET)"
@@ -68,9 +65,9 @@ $(TEST_OBJS_DIR)/%.o: $(TEST_SRCS_DIR)/%.cpp
 $(GTEST_OBJS): $(GTEST_SRCS_DIR)
 			echo "$(BLUE)test compiling$(RESET)"
 			mkdir -p $(@D)
-			$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
+			$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
 			printf "$(GREEN).$(RESET)"
-			$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
+			$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
 			printf "$(GREEN).$(RESET)"
 
 $(GTEST_SRCS_DIR):
