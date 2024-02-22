@@ -29,6 +29,13 @@
 
 extern char		**environ;
 
+# define STATIC
+// # ifdef GOOGLE_TEST
+// #  define STATIC
+// # else
+// #  define STATIC static
+// # endif
+
 typedef struct s_command
 {
 	const char	*full_path;
@@ -36,5 +43,9 @@ typedef struct s_command
 }				t_command;
 
 int				main(int argc, char **argv);
+
+// # ifdef GOOGLE_TEST
+const char		*_create_cmd_full_path(const char *cmd_first_string);
+// # endif
 
 #endif

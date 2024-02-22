@@ -13,7 +13,7 @@
 #include "pipex.h"
 
 // no free because this func is for exeve.
-static const char	*_create_cmd_full_path(const char *cmd_first_string)
+STATIC const char *_create_cmd_full_path(const char *cmd_first_string)
 {
 	static const char	sep_string[] = "PATH=";
 	char				**path_list;
