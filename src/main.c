@@ -23,6 +23,8 @@ int	main(int argc, const char **argv, const char *envp[])
 	int		pipefd[2];
 
 	// TODO: create popen-like func
+	// TODO: test file gitignore
+	// TODO: include libft.a
 	if (argc != 5)
 		exit(1);
 	if (pipe(pipefd) == FAIL)
