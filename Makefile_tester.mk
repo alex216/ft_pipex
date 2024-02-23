@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/22 10:53:08 by yliu              #+#    #+#              #
-#    Updated: 2024/02/23 15:01:49 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/23 17:41:26 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ endif
 
 ##########################################
 .PHONY:		test
-test:		fclean test_step_0
+test:		test_step_0
 
 test_step_0:$(GTEST_OBJS) $(TEST_OBJS)
 			make DEBUG=1 $(NAME)
