@@ -17,7 +17,7 @@
 // 	system("leaks a.out");
 // }
 
-int	main(int argc, char **argv)
+int	main(int argc, const char **argv, const char *envp[])
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -31,8 +31,8 @@ int	main(int argc, char **argv)
 	if (pid == FAIL)
 		exit_errno_msg(strerror(errno));
 	if (pid == CHILD)
-		exec_child(argv[2], argv[1], pipefd);
+		exec_child(argv[2], argv[1], pipefd, envp);
 	else
-		exec_parent(argv[3], argv[4], pipefd);
+		exec_parent(argv[3], argv[4], pipefd, envp);
 	return (0);
 }

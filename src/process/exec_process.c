@@ -13,7 +13,8 @@
 #include "pipex.h"
 
 // no free because this func is for exeve.
-STATIC const char *_create_cmd_full_path(const char *cmd_first_string)
+STATIC const char *_create_cmd_full_path(const char *cmd_first_string,
+	const char *envp[])
 {
 	static const char	sep_string[] = "PATH=";
 	char				**path_list;
@@ -21,13 +22,13 @@ STATIC const char *_create_cmd_full_path(const char *cmd_first_string)
 
 	if (ft_strchr(cmd_first_string, '/'))
 		return (cmd_first_string);
-	while (environ)
+	while (envp)
 	{
-		if (!strncmp(*environ, sep_string, ft_strlen(sep_string)))
+		if (!strncmp(*envp, sep_string, ft_strlen(sep_string)))
 			break ;
-		environ++;
+		envp++;
 	}
-	path_list = ft_split(*environ + ft_strlen(sep_string), ':');
+	path_list = ft_split(*envp + ft_strlen(sep_string), ':');
 	while (*path_list)
 	{
 		full_path = ft_strjoin(*path_list, ft_strjoin("/", cmd_first_string));
@@ -40,12 +41,12 @@ STATIC const char *_create_cmd_full_path(const char *cmd_first_string)
 
 // since this is not multi-thread process,
 // alloc is safe to use.
-void	exec_process(const char *arg_str)
+void	exec_process(const char *arg_str, const char *envp[])
 {
 	t_command	cmd;
 
 	cmd.all_string = ft_split(arg_str, ' ');
-	cmd.full_path = _create_cmd_full_path(*cmd.all_string);
-	execve(cmd.full_path, cmd.all_string, environ);
+	cmd.full_path = _create_cmd_full_path(*cmd.all_string, envp);
+	execve(cmd.full_path, cmd.all_string, (char **)envp);
 	exit_errno_msg(strerror(errno));
 }
