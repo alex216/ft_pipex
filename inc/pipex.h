@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/20 15:38:55 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/23 17:58:56 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <fcntl.h>
 
 # ifdef GTEST
-#  define STATIC
+#  define STATIC extern
 # else
-#  define STATIC static
+#  define STATIC static 
 # endif
 
 # define CHILD 0
