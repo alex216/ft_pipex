@@ -65,7 +65,7 @@ pipex
 # tester
 xtest.sh
 tester
-gtest/*
+test/unit/gtest/
 
 # obj
 obj
