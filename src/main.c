@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 17:29:11 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/20 15:43:26 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 
 	// TODO: create popen-like func
 	if (argc != 5)
-		exit(42);
+		exit(1);
 	if (pipe(pipefd) == FAIL)
 		exit_errno_msg(strerror(errno));
 	pid = fork();
@@ -33,6 +33,6 @@ int	main(int argc, char **argv)
 	if (pid == CHILD)
 		exec_child(argv[2], argv[1], pipefd);
 	else
-		exec_parent(argv[3] , argv[4], pipefd);
+		exec_parent(argv[3], argv[4], pipefd);
 	return (0);
 }

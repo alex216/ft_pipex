@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 18:06:23 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/19 18:40:28 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	return_infile_fd(const char *filename)
 {
+	int	fd;
+
 	// need executable for bash
 	// many flags to explore
-	int fd;
-
 	fd = open(filename, O_RDONLY);
 	if (fd == FAIL)
-		exit_errno_msg(strerror(errno));
+		exit_with_perror(ft_strjoin("bash: ", filename));
 	return (fd);
 }
