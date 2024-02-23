@@ -33,15 +33,13 @@
 #  define FAIL -1
 # endif
 
-extern char		**environ;
-
 typedef struct s_command
 {
 	const char	*full_path;
 	char		**all_string;
 }				t_command;
 
-int				main(int argc, char **argv);
+int				main(int argc, const char **argv, const char *envp[]);
 
 # ifdef GTEST
 const char		*_create_cmd_full_path(const char *cmd_first_string);
