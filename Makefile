@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/23 18:16:51 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/24 03:19:48 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ ORIGIN_HEADERS	:= ./inc/$(NAME).h \
 BASIC_SRCS 		:= ./src/process/process.c \
 				  ./src/utils/utils.c \
 				  ./src/process/close_fd.c \
-				  ./src/process/replace_fd.c \
+				  ./src/process/dup2_fd.c \
 				  ./src/process/exec_process.c \
 				  ./src/process/return_infile_fd.c \
 				  ./src/process/return_outfile_fd.c
