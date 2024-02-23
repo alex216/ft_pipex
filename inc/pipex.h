@@ -42,7 +42,12 @@ typedef struct s_command
 int				main(int argc, const char **argv, const char *envp[]);
 
 # ifdef GTEST
-const char		*_create_cmd_full_path(const char *cmd_first_string);
+const char		*_return_complete_cmd_path(const char **path_list,
+					const char *cmd_first_string);
+const char		*_return_cmd_path_envp(const char *envp[],
+					const char *sep_string);
+const char		*_create_cmd_full_path(const char *cmd_first_string,
+					const char *envp[]);
 # endif
 
 #endif

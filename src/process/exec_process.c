@@ -13,22 +13,11 @@
 #include "pipex.h"
 
 // no free because this func is for exeve.
-STATIC const char *_create_cmd_full_path(const char *cmd_first_string,
-	const char *envp[])
+STATIC const char *_return_complete_cmd_path(const char **path_list,
+	const char *cmd_first_string)
 {
-	static const char	sep_string[] = "PATH=";
-	char				**path_list;
-	const char			*full_path;
+	const char	*full_path;
 
-	if (ft_strchr(cmd_first_string, '/'))
-		return (cmd_first_string);
-	while (envp)
-	{
-		if (!strncmp(*envp, sep_string, ft_strlen(sep_string)))
-			break ;
-		envp++;
-	}
-	path_list = ft_split(*envp + ft_strlen(sep_string), ':');
 	while (*path_list)
 	{
 		full_path = ft_strjoin(*path_list, ft_strjoin("/", cmd_first_string));
@@ -37,6 +26,33 @@ STATIC const char *_create_cmd_full_path(const char *cmd_first_string,
 		path_list++;
 	}
 	return (full_path);
+}
+
+STATIC const char *_return_cmd_path_envp(const char *envp[],
+	const char *sep_string)
+{
+	while (envp)
+	{
+		if (!strncmp(*envp, sep_string, ft_strlen(sep_string)))
+			break ;
+		envp++;
+	}
+	return (*envp);
+}
+
+// no free because this func is for exeve.
+STATIC const char *_create_cmd_full_path(const char *cmd_first_string,
+	const char *envp[])
+{
+	const char	**path_list;
+	const char	*envp_p;
+	const char	sep_string[] = "PATH=";
+
+	if (ft_strchr(cmd_first_string, '/'))
+		return (cmd_first_string);
+	envp_p = _return_cmd_path_envp(envp, sep_string);
+	path_list = (const char **)ft_split(envp_p + ft_strlen(sep_string), ':');
+	return (_return_complete_cmd_path(path_list, cmd_first_string));
 }
 
 // since this is not multi-thread process,

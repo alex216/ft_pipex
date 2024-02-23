@@ -14,31 +14,31 @@ extern "C"
 //   return (element);
 // }
 
-// TEST(exit_errno_msg, SampleMsg) {
-// 	char *msg = convert_const_char_to_void("hello");
-// 	EXPECT_EXIT(exit_errno_msg(msg), ::testing::ExitedWithCode(42), "hello\n");
-// }
-
-// TEST(exec_process, SampleArg)
-// {
-// 	const char	*cmd = "uname -n";
-//
-// 	EXPECT_EXIT(exec_process(cmd), ::testing::ExitedWithCode(0),
-// 		"XLIJFELKNIX.local\n");
-// }
-
-TEST(_create_cmd_full_path, Partial_Path)
-{
+TEST(_return_complete_cmd_path, Defined_Path) {
+	const char	*path_list[] = {"/bin", "/usr/bin", NULL};
 	const char	*cmd = "ls";
-	const char	*ans = "/bin/ls";
+	EXPECT_STREQ(_return_complete_cmd_path(path_list, cmd), "/bin/ls");
+};
 
-	EXPECT_STREQ(_create_cmd_full_path(cmd), ans);
-}
+// TEST(_return_complete_cmd_path, Undefined_Path)
+// {
+//
+// }
 
-TEST(_create_cmd_full_path, Partial_Path1)
-{
-	const char	*cmd = "uname";
-	const char	*ans = "/usr/bin/uname";
-
-	EXPECT_STREQ(_create_cmd_full_path(cmd), ans);
-}
+// TEST(_create_cmd_full_path, Partial_Path)
+// {
+// 	const char	*path_list[] = {"/bin/ls", "/bin/vim", NULL};
+// 	const char	*cmd = "ls";
+// 	const char	*ans = "/bin/ls";
+//
+// 	EXPECT_STREQ(_create_cmd_full_path(cmd, path_list), ans);
+// }
+//
+// TEST(_create_cmd_full_path, Partial_Path1)
+// {
+// 	const char	*path_list[] = {"/bin/ls", "/bin/vim", "/usr/bin/uname", NULL};
+// 	const char	*cmd = "uname";
+// 	const char	*ans = "/usr/bin/uname";
+//
+// 	EXPECT_STREQ(_create_cmd_full_path(cmd ,path_list), ans);
+// }
