@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/22 10:53:08 by yliu              #+#    #+#              #
-#    Updated: 2024/02/22 20:07:31 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/23 17:41:26 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ GTEST_VERSION	:= 1.14.0
 GTEST_ARCHIVE	:= v$(GTEST_VERSION).tar.gz
 GTEST_REPO_URL	:= https://github.com/google/googletest/archive/refs/tags/$(GTEST_ARCHIVE)
 GTEST_SRC_DIR	:= googletest-$(GTEST_VERSION)
-GTEST_FUSE_URL	:= https://raw.githubusercontent.com/google/googletest/ec44c6c1675c25b9827aacd08c02433cccde7780/googletest/scripts/$(GTEST_FUSE)
 GTEST_FUSE		:= fuse_gtest_files.py
+GTEST_FUSE_URL	:= https://raw.githubusercontent.com/google/googletest/ec44c6c1675c25b9827aacd08c02433cccde7780/googletest/scripts/$(GTEST_FUSE)
 
 ##########################################
 # directory
@@ -46,7 +46,7 @@ endif
 
 ##########################################
 .PHONY:		test
-test:		fclean test_step_0
+test:		test_step_0
 
 test_step_0:$(GTEST_OBJS) $(TEST_OBJS)
 			make DEBUG=1 $(NAME)
