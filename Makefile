@@ -128,12 +128,9 @@ format_norm:
 				@c_formatter_42 $(SRCS) $(HEADERS)
 				@make norm
 
-# test:
-# 				@make all
-# 				@xtest.sh
-# =======
-# test:
-# 				@make all
-# 				@test.sh
+.PHONY:			xtest
+xtest:
+				@make all
+				@xtest.sh
 
 include Makefile_tester.mk
