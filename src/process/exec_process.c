@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 20:13:37 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 21:51:17 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ STATIC const char *_join_dir_base(const char **dirname_list,
 	return (NULL);
 }
 
-STATIC const char *_search_path_envp(const char *envp[],
-	const char *sep_string)
+STATIC const char *_search_path_list(const char *envp[])
 {
-	while (envp)
+	while (*envp)
 	{
-		if (!strncmp(*envp, sep_string, ft_strlen(sep_string)))
+		if (!strncmp(*envp, PATH, ft_strlen(PATH)))
 			return (*envp);
 		envp++;
 	}
@@ -50,9 +49,10 @@ STATIC const char *_return_cmd_entire_path(const char *basename,
 
 	if (ft_strchr(basename, '/'))
 		return (basename);
-	path_list = _search_path_envp(envp, "PATH=");
-	// if (!envp_p) PATH doesn't exist
-	dirname_list = (const char **)ft_split(path_list + ft_strlen("PATH="), ':');
+	path_list = _search_path_list(envp);
+	if (!path_list)
+		return (NULL);
+	dirname_list = (const char **)ft_split(path_list + ft_strlen(PATH), ':');
 	return (_join_dir_base(dirname_list, basename));
 }
 
