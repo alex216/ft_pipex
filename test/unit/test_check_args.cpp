@@ -14,13 +14,13 @@ extern "C"
 //   return (element);
 // }
 
-TEST(_return_complete_cmd_path, Defined_Path) {
+TEST(_join_dir_base, Defined_Path) {
 	const char	*path_list[] = {"/bin", "/usr/bin", NULL};
 	const char	*cmd = "ls";
-	EXPECT_STREQ(_return_complete_cmd_path(path_list, cmd), "/bin/ls");
+	EXPECT_STREQ(_join_dir_base(path_list, cmd), "/bin/ls");
 };
 
-// TEST(_return_complete_cmd_path, Undefined_Path)
+// TEST(_join_dir_base, Undefined_Path)
 // {
 //
 // }
