@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/23 17:58:56 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 19:31:22 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define CHILD 0
 # define SUCCESS 0
 # define PARENT 1
+# define COMMAND_NOT_FOUND 127
 # ifndef FAIL
 #  define FAIL -1
 # endif

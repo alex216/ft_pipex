@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 08:34:33 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 19:32:41 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ STATIC const char *_return_complete_cmd_path(const char **path_list,
 		path_list++;
 	}
 	ft_dprintf(STDERR_FILENO, "bash: %s: command not found\n", (const char *)cmd_first_string);
-	// not exsiting other
-	exit(41);
+	return (NULL);
 }
 
 STATIC const char *_return_cmd_path_envp(const char *envp[],
@@ -66,6 +65,8 @@ void	exec_process(const char *arg_str, const char *envp[])
 
 	cmd.all_string = ft_split(arg_str, ' ');
 	cmd.full_path = _create_cmd_full_path(*cmd.all_string, envp);
+	if (!cmd.full_path)
+		exit(COMMAND_NOT_FOUND);
 	execve(cmd.full_path, cmd.all_string, (char **)envp);
 	exit_errno_msg(strerror(errno));
 }
