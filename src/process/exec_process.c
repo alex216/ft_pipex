@@ -6,10 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 21:15:56 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 08:34:33 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "pipex.h"
 
 // no free because this func is for exeve.
@@ -22,10 +23,12 @@ STATIC const char *_return_complete_cmd_path(const char **path_list,
 	{
 		full_path = ft_strjoin(*path_list, ft_strjoin("/", cmd_first_string));
 		if (access(full_path, F_OK | X_OK) == SUCCESS)
-			break ;
+			return (full_path);
 		path_list++;
 	}
-	return (full_path);
+	ft_dprintf(STDERR_FILENO, "bash: %s: command not found\n", (const char *)cmd_first_string);
+	// not exsiting other
+	exit(41);
 }
 
 STATIC const char *_return_cmd_path_envp(const char *envp[],

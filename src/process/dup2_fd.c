@@ -6,13 +6,13 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:05:26 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 03:17:32 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 17:35:40 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	dup2_fd(int dst, int src)
+void	dup2_fd(int src, int dst)
 {
 	if (dup2(src, dst) == FAIL)
 		exit_errno_msg(strerror(errno));

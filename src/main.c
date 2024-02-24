@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/20 15:43:26 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 03:38:56 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, const char **argv, const char *envp[])
 	// TODO: create popen-like func
 	// TODO: test file gitignore
 	// TODO: include libft.a
+	// TODO: when both with invalid cmd, order of error msg not sorted
 	if (argc != 5)
 		exit(1);
 	if (pipe(pipefd) == FAIL)

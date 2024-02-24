@@ -58,7 +58,6 @@ dkms.conf
 # End of https://www.toptal.com/developers/gitignore/api/c
 
 # exec
-a.out
 libft/src/a.out*
 pipex
 
@@ -79,4 +78,3 @@ tags
 compile_flags.txt
 infile
 outfile
-outfile2
