@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/20 15:43:26 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 18:42:43 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // __attribute__((destructor)) void destructor(void)
 // {
-// 	system("leaks a.out");
+// 	system("leaks --atExit -- ./pipex");
 // }
 
 int	main(int argc, const char **argv, const char *envp[])
@@ -23,8 +23,8 @@ int	main(int argc, const char **argv, const char *envp[])
 	int		pipefd[2];
 
 	// TODO: create popen-like func
-	// TODO: test file gitignore
 	// TODO: include libft.a
+	// TODO: exe status num when invalid cmd
 	if (argc != 5)
 		exit(1);
 	if (pipe(pipefd) == FAIL)

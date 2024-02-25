@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/22 10:53:08 by yliu              #+#    #+#              #
-#    Updated: 2024/02/23 17:41:26 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/24 20:42:52 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,31 +43,35 @@ OBJ_FILTER_MAIN	:= $(filter-out $(OBJS_DIR)/main.o, $(patsubst $(SRCS_DIR)/%.c, 
 ifdef DEBUG
     export DEBUG_FLAG := DEBUG1=1
 endif
+LINE1			:= 	\u2500
 
 ##########################################
 .PHONY:		test
 test:		test_step_0
 
 test_step_0:$(GTEST_OBJS) $(TEST_OBJS)
-			make DEBUG=1 $(NAME)
-			echo "$(BLUE)\ntest linking$(RESET)"
-			$(CXX) -L $(LIB_DIR) -lft -lpthread $(OBJ_FILTER_MAIN) $(TEST_OBJS) $(GTEST_OBJS) -o $(TEST_NAME)
-			./$(TEST_NAME)
-			$(RM) $(TEST_NAME)
+			@make DEBUG=1 $(NAME)
+			@$(CXX) -L $(LIB_DIR) -lft -lpthread $(OBJ_FILTER_MAIN) $(TEST_OBJS) $(GTEST_OBJS) -o $(TEST_NAME)
+			@./$(TEST_NAME)
+			@$(RM) $(TEST_NAME)
 
 $(TEST_OBJS_DIR)/%.o: $(TEST_SRCS_DIR)/%.cpp
-			mkdir -p $(@D)
-			$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./libft/inc -I ./inc -c $< -o $@
-			printf "$(GREEN).$(RESET)"
+			@mkdir -p $(@D)
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(WHITE)checking...$(DEF_COLOR)"
+			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./libft/inc -I ./inc -c $< -o $@
+			@$(ECHO) -n "\e$(GRAY)$(LINE1)\r$(DEF_COLOR)"
+			@$(ECHO) -n "\r\e$(GREEN)$(LINE1)$(DEF_COLOR)"
+			@$(ECHO) "$(GREEN) \u2023 100% $(DEF_COLOR)"
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(GREEN)compiled \u2714$(DEF_COLOR)"
 
 ##########################################
 $(GTEST_OBJS): $(GTEST_SRCS_DIR)
-			echo "$(BLUE)test compiling$(RESET)"
-			mkdir -p $(@D)
-			$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
-			printf "$(GREEN).$(RESET)"
-			$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
-			printf "$(GREEN).$(RESET)"
+			@mkdir -p $(@D)
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\tgtest configs\t$(WHITE)checking...$(DEF_COLOR)"
+			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
+			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\tgtest configs\t$(GREEN)compiled \u2714$(DEF_COLOR)"
+
 
 $(GTEST_SRCS_DIR):
 			echo "fetching google test"
@@ -83,8 +87,8 @@ $(GTEST_SRCS_DIR):
 ##########################################
 .PHONY:		test_clean
 test_clean:
-			@echo "$(BLUE)test cleaning$(RESET)"
-			$(RM) -r $(TEST_OBJS_DIR)
+			@$(RM) -r $(TEST_OBJS_DIR)
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\tobject files \t$(GREEN)deleted \u2714$(DEF_COLOR)"
 
 .PHONY:		retest
 retest:		test_clean test

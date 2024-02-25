@@ -11,34 +11,37 @@ extern "C"
 //   const char *const_element = static_cast<const char *>(str);
 //   char *element = const_cast<char *>(const_element);
 //
-//   return (element);
-// }
+//   return (element); }
 
-TEST(_return_complete_cmd_path, Defined_Path) {
+TEST(_join_dir_base, Valid_command_basename) {
 	const char	*path_list[] = {"/bin", "/usr/bin", NULL};
 	const char	*cmd = "ls";
-	EXPECT_STREQ(_return_complete_cmd_path(path_list, cmd), "/bin/ls");
+	EXPECT_STREQ(_join_dir_base(path_list, cmd), "/bin/ls");
 };
 
-// TEST(_return_complete_cmd_path, Undefined_Path)
-// {
-//
-// }
+TEST(_join_dir_base, Invalid_command_basename) {
+	const char	*path_list[] = {"/bin", "/usr/bin", NULL};
+	const char	*cmd = "cmd42";
+	EXPECT_STREQ(_join_dir_base(path_list, cmd), NULL);
+};
 
-// TEST(_create_cmd_full_path, Partial_Path)
-// {
-// 	const char	*path_list[] = {"/bin/ls", "/bin/vim", NULL};
-// 	const char	*cmd = "ls";
-// 	const char	*ans = "/bin/ls";
-//
-// 	EXPECT_STREQ(_create_cmd_full_path(cmd, path_list), ans);
-// }
-//
-// TEST(_create_cmd_full_path, Partial_Path1)
-// {
-// 	const char	*path_list[] = {"/bin/ls", "/bin/vim", "/usr/bin/uname", NULL};
-// 	const char	*cmd = "uname";
-// 	const char	*ans = "/usr/bin/uname";
-//
-// 	EXPECT_STREQ(_create_cmd_full_path(cmd ,path_list), ans);
-// }
+TEST(_search_path_list, Path_exist) {
+	const char	*env_list[] = {"PAGER=less", "PATH=/bin:/usr/bin", NULL};
+	EXPECT_STREQ(_search_path_list(env_list), env_list[1]);
+};
+
+#include <cstdlib>
+TEST(_search_path_list, Path_doesnt_exist) {
+    unsetenv("PATH");
+	const char	*env_list[] = {"PAGER=less", NULL};
+	EXPECT_STREQ(_search_path_list(env_list), NULL);
+};
+
+TEST(_return_entire_path, Full_path)
+{
+	const char	*path_list[] = {"/bin/ls", "/bin/vim", NULL};
+	const char	*cmd = "/bin/ls";
+	const char	*ans = "/bin/ls";
+
+	EXPECT_STREQ(_return_entire_path(cmd, path_list), ans);
+}
