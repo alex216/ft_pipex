@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 21:51:17 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 23:36:17 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ STATIC const char *_search_path_list(const char *envp[])
 }
 
 // no free because this func is for exeve.
-STATIC const char *_return_cmd_entire_path(const char *basename,
+STATIC const char *_return_entire_path(const char *basename,
 	const char *envp[])
 {
 	const char	**dirname_list;
@@ -63,7 +63,7 @@ void	exec_process(const char *cmd_with_options, const char *envp[])
 	t_command	cmd;
 
 	cmd.sep_by_space = (const char **)ft_split(cmd_with_options, ' ');
-	cmd.entire_path = _return_cmd_entire_path(*cmd.sep_by_space, envp);
+	cmd.entire_path = _return_entire_path(*cmd.sep_by_space, envp);
 	if (!cmd.entire_path)
 	{
 		ft_dprintf(STDERR_FILENO, "bash: %s: command not found\n", (const char *)*cmd.sep_by_space);

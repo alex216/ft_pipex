@@ -65,6 +65,7 @@ pipex
 xtest.sh
 tester
 test/unit/gtest/*
+pipexMedic
 
 # obj
 obj

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 21:54:01 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/24 23:36:29 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				main(int argc, const char **argv, const char *envp[]);
 const char *_join_dir_base(const char **dirname_list,
 	const char *basename);
 const char *_search_path_list(const char *envp[]);
-STATIC const char *_return_cmd_entire_path(const char *basename,
+STATIC const char *_return_entire_path(const char *basename,
 	const char *envp[]);
 # endif
 

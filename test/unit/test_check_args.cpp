@@ -11,8 +11,7 @@ extern "C"
 //   const char *const_element = static_cast<const char *>(str);
 //   char *element = const_cast<char *>(const_element);
 //
-//   return (element);
-// }
+//   return (element); }
 
 TEST(_join_dir_base, Valid_command_basename) {
 	const char	*path_list[] = {"/bin", "/usr/bin", NULL};
@@ -38,20 +37,11 @@ TEST(_search_path_list, Path_doesnt_exist) {
 	EXPECT_STREQ(_search_path_list(env_list), NULL);
 };
 
-// TEST(_create_cmd_full_path, Partial_Path)
-// {
-// 	const char	*path_list[] = {"/bin/ls", "/bin/vim", NULL};
-// 	const char	*cmd = "ls";
-// 	const char	*ans = "/bin/ls";
-//
-// 	EXPECT_STREQ(_create_cmd_full_path(cmd, path_list), ans);
-// }
-//
-// TEST(_create_cmd_full_path, Partial_Path1)
-// {
-// 	const char	*path_list[] = {"/bin/ls", "/bin/vim", "/usr/bin/uname", NULL};
-// 	const char	*cmd = "uname";
-// 	const char	*ans = "/usr/bin/uname";
-//
-// 	EXPECT_STREQ(_create_cmd_full_path(cmd ,path_list), ans);
-// }
+TEST(_return_entire_path, Full_path)
+{
+	const char	*path_list[] = {"/bin/ls", "/bin/vim", NULL};
+	const char	*cmd = "/bin/ls";
+	const char	*ans = "/bin/ls";
+
+	EXPECT_STREQ(_return_entire_path(cmd, path_list), ans);
+}
