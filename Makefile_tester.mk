@@ -62,7 +62,7 @@ $(TEST_OBJS_DIR)/%.o: $(TEST_SRCS_DIR)/%.cpp
 			@$(ECHO) -n "\e$(GRAY)$(LINE1)\r$(DEF_COLOR)"
 			@$(ECHO) -n "\r\e$(GREEN)$(LINE1)$(DEF_COLOR)"
 			@$(ECHO) "$(GREEN) \u2023 100% $(DEF_COLOR)"
-			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(GREEN)compiled \u2714$(DEF_COLOR)"
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(GREEN)compiled ✓$(DEF_COLOR)"
 
 ##########################################
 $(GTEST_OBJS): $(GTEST_SRCS_DIR)
@@ -88,7 +88,7 @@ $(GTEST_SRCS_DIR):
 .PHONY:		test_clean
 test_clean:
 			@$(RM) -r $(TEST_OBJS_DIR)
-			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\tobject files \t$(GREEN)deleted \u2714$(DEF_COLOR)"
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\tobject files \t$(GREEN)deleted ✓$(DEF_COLOR)\n"
 
 .PHONY:		retest
 retest:		test_clean test

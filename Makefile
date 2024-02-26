@@ -10,16 +10,18 @@
 #                                                                              #
 # **************************************************************************** #
 
-SHELL = /bin/zsh
-
 # compiler option and etc
 NAME			:= pipex
 LIBRARY			:= libft.a
 WARNING			:= -Wall -Wextra -Werror
-SANITIZE		:= -g -fsanitize=address,integer,undefined
 RM				:= rm -rf
-ECHO			:= echo -e
+ECHO			:= printf
 MMD_MP			:= -MMD -MP
+ifeq ($(shell uname),Linux)
+SANITIZE		:= -g -fsanitize=address,undefined
+else ifeq ($(shell uname),Debian)
+SANITIZE		:= -g -fsanitize=address,integer,undefined
+endif
 ifdef DEBUG1
 	CFLAGS := $(WARNING) -DGTEST=1
 else
@@ -37,7 +39,7 @@ BLUE			:=	\033[0;94m
 MAGENTA			:=	\033[0;95m
 CYAN			:=	\033[0;96m
 WHITE			:=	\033[0;97m
-LINE			:= 	\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+LINE			:= 	────────
 
 ##########################################
 # library directory
@@ -79,42 +81,42 @@ all:			$(NAME)
 
 $(NAME):		$(LIB) $(SRCS)
 				@git submodule update --init --recursive
-				@make man_step_0 $(DEBUG_FLAG)
+				@make -s man_step_0 $(DEBUG_FLAG)
 
 $(LIB):
-				@make -C ./libft
+				@make -s -C ./libft
 
 .PHONY:			man_step_0
 man_step_0:
-				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(WHITE)checking...$(DEF_COLOR)"
-				@$(ECHO) -n "\e$(GRAY)$(LINE)\r$(DEF_COLOR)"
-				@make man_step_1 $(DEBUG_FLAG)
+				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(WHITE)checking...$(DEF_COLOR)\n"
+				@$(ECHO) "\e$(GRAY)$(LINE)\r$(DEF_COLOR)"
+				@make -s man_step_1 $(DEBUG_FLAG)
 
 .PHONY:			man_step_1
 man_step_1:		$(OBJS) $(LIB)
 				@$(CC) $(CFLAGS) $^ -o $(NAME)
-				@$(ECHO) -n "\r\e$(GREEN)$(LINE)$(DEF_COLOR)"
-				@$(ECHO) "$(GREEN) \u2023 100% $(DEF_COLOR)"
-				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(GREEN)compiled \u2714$(DEF_COLOR)"
+				@$(ECHO) "\r\e$(GREEN)$(LINE)$(DEF_COLOR)"
+				@$(ECHO) "$(GREEN) ‣ 100%% $(DEF_COLOR)\n"
+				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(GREEN)compiled ✓$(DEF_COLOR)\n"
 
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c $(HEADERS)
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) $(MMD_MP) $(foreach dir_element,$(MAN_INC_DIR),-I$(dir_element)) -c $< -o $@
-				@$(ECHO) -n "$(RED)\u2500$(DEF_COLOR)"
+				@$(ECHO) "$(RED)─$(DEF_COLOR)"
 
 -include $(DEP)
 ##########################################
 # other cmds
 .PHONY:			clean
 clean:			test_clean
-				@make fclean -C $(LIB_DIR)
+				@make -s fclean -C $(LIB_DIR)
 				@$(RM) $(OBJS_DIR)
-				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\tobject files \t$(GREEN)deleted \u2714$(DEF_COLOR)"
+				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\tobject files \t$(GREEN)deleted ✓$(DEF_COLOR)\n"
 
 .PHONY:			fclean
 fclean:			clean
 				@$(RM) $(NAME)
-				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(GREEN)deleted \u2714$(DEF_COLOR)"
+				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(GREEN)deleted ✓$(DEF_COLOR)\n"
 
 .PHONY:			re
 re:				fclean all
@@ -126,11 +128,11 @@ norm:
 .PHONY:			format_norm
 format_norm:
 				@c_formatter_42 $(SRCS) $(HEADERS)
-				@make norm
+				@make -s norm
 
 .PHONY:			xtest
 xtest:
-				@make all
+				@make -s all
 				@xtest.sh
 
 include Makefile_tester.mk
