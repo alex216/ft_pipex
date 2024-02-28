@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 23:36:29 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/26 20:34:55 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # ifdef GTEST
 #  define STATIC extern
 # else
-#  define STATIC static 
+#  define STATIC static
 # endif
 
 # define PATH "PATH="

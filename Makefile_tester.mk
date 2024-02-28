@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/22 10:53:08 by yliu              #+#    #+#              #
-#    Updated: 2024/02/24 20:42:52 by yliu             ###   ########.fr        #
+#    Updated: 2024/02/28 17:08:37 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,10 +57,10 @@ test_step_0:$(GTEST_OBJS) $(TEST_OBJS)
 
 $(TEST_OBJS_DIR)/%.o: $(TEST_SRCS_DIR)/%.cpp
 			@mkdir -p $(@D)
-			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(WHITE)checking...$(DEF_COLOR)"
+			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(WHITE)checking...$(DEF_COLOR)\n"
 			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./libft/inc -I ./inc -c $< -o $@
-			@$(ECHO) -n "\e$(GRAY)$(LINE1)\r$(DEF_COLOR)"
-			@$(ECHO) -n "\r\e$(GREEN)$(LINE1)$(DEF_COLOR)"
+			@$(ECHO)  "\e$(GRAY)$(LINE1)\r$(DEF_COLOR)\n"
+			@$(ECHO)  "\r\e$(GREEN)$(LINE1)$(DEF_COLOR)"
 			@$(ECHO) "$(GREEN) \u2023 100% $(DEF_COLOR)"
 			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(GREEN)compiled ✓$(DEF_COLOR)"
 
@@ -74,9 +74,9 @@ $(GTEST_OBJS): $(GTEST_SRCS_DIR)
 
 
 $(GTEST_SRCS_DIR):
-			echo "fetching google test"
+			$(ECHO) "fetching google test"
 			curl -#OL $(GTEST_REPO_URL)
-			echo "fetching fuse_gtest_files.py"
+			$(ECHO) "fetching fuse_gtest_files.py"
 			curl -#OL $(GTEST_FUSE_URL)
 			tar -xzf $(GTEST_ARCHIVE) $(GTEST_SRC_DIR)
 			python3 $(GTEST_FUSE) $(GTEST_SRC_DIR)/googletest $(GTEST_SRCS_DIR)
