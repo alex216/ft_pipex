@@ -75,6 +75,7 @@ bonus_obj
 .vscode/*
 
 # other
+*.swp
 tags
 compile_flags.txt
 infile
