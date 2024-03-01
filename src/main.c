@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/25 13:49:00 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/29 20:58:55 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, const char **argv, const char *envp[])
 	pid = fork();
 	if (pid == FAIL)
 		exit_errno_msg(strerror(errno));
-	if (pid == CHILD)
+	if (pid == 0)
 		exec_child(argv[2], argv[1], pipefd, envp);
 	else
 		exec_parent(argv[3], argv[4], pipefd, envp);

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/26 20:34:55 by yliu             ###   ########.fr       */
+/*   Updated: 2024/02/29 20:59:05 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # endif
 
 # define PATH "PATH="
-# define CHILD 0
 # define SUCCESS 0
 # define PARENT 1
 # define COMMAND_NOT_FOUND 127
