@@ -1,10 +1,10 @@
-#include "process.h"
 #include "gtest/gtest.h"
 
 extern "C"
 {
 #include "pipex.h"
 #include "utils.h"
+#include "process.h"
 }
 
 // static char *convert_const_char_to_void(const char *str) {
