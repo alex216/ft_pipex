@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 18:39:51 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/01 22:08:44 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	exit_errno_msg(const char *errno_msg)
 {
-	ft_printf("%s\n", errno_msg);
+	ft_dprintf(STDERR_FILENO, "%s\n", errno_msg);
 	exit(42);
 }
 
