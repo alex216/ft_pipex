@@ -23,7 +23,7 @@ jobs:
             python3 -m pip install --upgrade pip setuptools
             python3 -m pip install norminette
         - name: Step 3:run norm
-          run: make norm
+          run: norminette
 
     check:
       name: check forbidden functions.
