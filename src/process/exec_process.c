@@ -6,12 +6,13 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 23:36:17 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/01 22:31:33 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "pipex.h"
+#include "utils.h"
 
 // no free because this func is for exeve.
 STATIC const char *_join_dir_base(const char **dirname_list,
@@ -47,13 +48,25 @@ STATIC const char *_return_entire_path(const char *basename,
 	const char	**dirname_list;
 	const char	*path_list;
 
+	// unsetenv("PATH");
 	if (ft_strchr(basename, '/'))
-		return (basename);
-	path_list = _search_path_list(envp);
-	if (!path_list)
-		return (NULL);
-	dirname_list = (const char **)ft_split(path_list + ft_strlen(PATH), ':');
-	return (_join_dir_base(dirname_list, basename));
+	{
+		if (access(basename, F_OK | X_OK) == SUCCESS)
+			return (basename);
+		else
+		{
+			ft_dprintf(STDERR_FILENO, "bash: %s: %s\n", basename, strerror(NO_SUCH_FILE_OR_DIRECTORY));
+			exit(NO_FILE_OR_CMD_ERR);
+		}
+	}
+	else
+	{
+		path_list = _search_path_list(envp);
+		if (!path_list)
+			return (NULL);
+		dirname_list = (const char **)ft_split(path_list + ft_strlen(PATH), ':');
+		return (_join_dir_base(dirname_list, basename));
+	}
 }
 
 // since this is not multi-thread process,
@@ -67,7 +80,7 @@ void	exec_process(const char *cmd_with_options, const char *envp[])
 	if (!cmd.entire_path)
 	{
 		ft_dprintf(STDERR_FILENO, "bash: %s: command not found\n", (const char *)*cmd.sep_by_space);
-		exit(COMMAND_NOT_FOUND);
+		exit(NO_FILE_OR_CMD_ERR);
 	}
 	execve(cmd.entire_path, (char * const*)cmd.sep_by_space, (char **)envp);
 	exit_errno_msg(strerror(errno));

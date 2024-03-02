@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/29 20:59:05 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/01 22:25:41 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@
 # define PATH "PATH="
 # define SUCCESS 0
 # define PARENT 1
-# define COMMAND_NOT_FOUND 127
 # ifndef FAIL
 #  define FAIL -1
 # endif
+# define NO_SUCH_FILE_OR_DIRECTORY 2
+# define NO_FILE_OR_CMD_ERR 127
 
 typedef struct s_command
 {
