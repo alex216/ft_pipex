@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/01 22:25:41 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/03 15:26:55 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 # endif
 # define NO_SUCH_FILE_OR_DIRECTORY 2
 # define NO_FILE_OR_CMD_ERR 127
+
+# define SPACE 32
+# define DOUBLE_QUOTE 34
+# define SINGLE_QUOTE 39
 
 typedef struct s_command
 {

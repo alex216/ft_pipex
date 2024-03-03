@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/24 20:24:28 by yliu             ###   ########.fr        #
+#    Updated: 2024/03/02 20:51:56 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,13 +59,14 @@ ORIGIN_HEADERS	:= ./inc/$(NAME).h \
 				  ./inc/utils.h \
 				  ./inc/process.h
 
-BASIC_SRCS 		:= ./src/process/process.c \
-				  ./src/utils/utils.c \
-				  ./src/process/close_fd.c \
-				  ./src/process/dup2_fd.c \
-				  ./src/process/exec_process.c \
-				  ./src/process/return_infile_fd.c \
-				  ./src/process/return_outfile_fd.c
+BASIC_SRCS 		:=	./src/process/process.c \
+				  	./src/utils/utils.c \
+				  	./src/process/close_fd.c \
+				  	./src/process/dup2_fd.c \
+				  	./src/process/exec_process.c \
+				  	./src/process/return_infile_fd.c \
+				  	./src/process/return_outfile_fd.c \
+					./src/process/parse_string.c
 
 # mandatory files
 SRCS			:= $(BASIC_SRCS) ./src/main.c
