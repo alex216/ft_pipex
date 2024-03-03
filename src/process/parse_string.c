@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:49:32 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/03 15:45:36 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/03 15:53:06 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ const char **parse_string(const char *cmd_with_options)
 		tmp = (const char **)ft_split(cmd_with_options, SPACE);
 	else if (!single_quote_index && double_quote_index)					// double only
 		tmp = (const char **)ft_split(cmd_with_options, DOUBLE_QUOTE);
-	else if (single_quote_index && !double_quote_index)				// single only
+	else if (single_quote_index && !double_quote_index)					// single only
 		tmp = (const char **)ft_split(cmd_with_options, SINGLE_QUOTE);
 	else if (single_quote_index < double_quote_index)					// single do
 		tmp = (const char **)ft_split(cmd_with_options, SINGLE_QUOTE);
