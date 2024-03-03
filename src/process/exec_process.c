@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/02 11:23:41 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/02 20:50:02 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	exec_process(const char *cmd_with_options, const char *envp[])
 {
 	t_command	cmd;
 
-	cmd.sep_by_space = (const char **)ft_split(cmd_with_options, ' ');
+	// cmd.sep_by_space = (const char **)ft_split(cmd_with_options, ' ');
+	cmd.sep_by_space = (const char **)parse_string(cmd_with_options);
 	cmd.entire_path = _return_entire_path(*cmd.sep_by_space, envp);
 	if (!cmd.entire_path)
 	{

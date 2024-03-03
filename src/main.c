@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/29 20:58:55 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/02 20:33:10 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, const char **argv, const char *envp[])
 	// TODO: create popen-like func
 	// TODO: include libft.a
 	if (argc != 5)
-		exit(1);
+		exit(42);
 	if (pipe(pipefd) == FAIL)
 		exit_errno_msg(strerror(errno));
 	pid = fork();
