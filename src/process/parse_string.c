@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:49:32 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/04 14:34:28 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/04 17:20:44 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,42 @@ char *_return_if_empty_str(char *str)
 	return (str);
 }
 
-char	**_ret_string(const char *str, const char quote)
+const char *real_strchr(const char *str, char quote)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == quote && (i == 0 || str[i - 1] != '\\'))
+			return (str + i);
+		i++;
+	}
+	return (NULL);
+}
+
+const char *real_strrchr(const char *str, char quote)
+{
+	int i;
+
+	i = ft_strlen(str) - 1;
+	while(i >= 0)
+	{
+		if (str[i] == quote && (i == (int)ft_strlen(str) - 1 || str[i - 1] != '\\'))
+			return (str + i);
+		i--;
+	}
+	return (NULL);
+}
+
+char	**_ret_string(const char *str, char quote)
 {
 	const char *first;
 	const char *last;
 	char **stored_str;
 
-	first = ft_strchr(str, quote);
-	last = ft_strrchr(str, quote);
+	first = real_strchr(str, quote);
+	last = real_strrchr(str, quote);
 	stored_str = (char **)ft_xcalloc(sizeof(char *) * 4);
 	stored_str[0] = _return_if_empty_str(ft_substr(str, 0, first - str));
 	stored_str[1] = _return_if_empty_str(ft_substr(str, first - str + 1, last - (first + 1)));
@@ -40,11 +68,11 @@ const char **parse_string(const char *str)
 {
 	int i;
 	char **tmp;
-	char	*single_pos;
-	char	*double_pos;
+	const char	*single_pos;
+	const char	*double_pos;
 
-	single_pos = ft_strchr(str, SINGLE_QUOTE);
-	double_pos = ft_strchr(str, DOUBLE_QUOTE);
+	single_pos = real_strchr(str, SINGLE_QUOTE);
+	double_pos = real_strchr(str, DOUBLE_QUOTE);
 	if (!single_pos && !double_pos)
 		tmp = ft_split(str, SPACE);
 	else if (single_pos && !double_pos)
