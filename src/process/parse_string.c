@@ -6,51 +6,105 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:49:32 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/03 15:53:06 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/04 18:55:09 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "pipex.h"
 
-const char	*parse_point(const char *str, const char quote)
+char	*_delete_backslash(char *str)
+{
+	char	*dst;
+	char	*ans;
+
+	dst = ft_xcalloc(ft_strlen(str));
+	ans = dst;
+	while (*str)
+	{
+		if (!(*str == '\\' && *(str + 1) == '"'))
+			*dst++ = *str;
+		str++;
+	}
+	return (ans);
+}
+
+char *_return_if_empty_str(char *str)
+{
+	if (*str == '\0')
+		return (NULL);
+	return (str);
+}
+
+const char *real_strchr(const char *str, char quote)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == quote && (i == 0 || str[i - 1] != '\\'))
+			return (str + i);
+		i++;
+	}
+	return (NULL);
+}
+
+const char *real_strrchr(const char *str, char quote)
+{
+	int i;
+
+	i = ft_strlen(str) - 1;
+	while(i >= 0)
+	{
+		if (str[i] == quote && (i == (int)ft_strlen(str) - 1 || str[i - 1] != '\\'))
+			return (str + i);
+		i--;
+	}
+	return (NULL);
+}
+
+char	**_ret_string(const char *str, char quote)
 {
 	const char *first;
 	const char *last;
+	char **stored_str;
 
-	first = ft_strchr(str, quote);
-	last = ft_strrchr(str, quote);
-	if (first == last)
-		return (NULL);
-	return(first);
+	first = real_strchr(str, quote);
+	last = real_strrchr(str, quote);
+	stored_str = (char **)ft_xcalloc(sizeof(char *) * 4);
+	stored_str[0] = _return_if_empty_str(ft_substr(str, 0, first - str));
+	stored_str[1] = _return_if_empty_str(ft_substr(str, first - str + 1, last - (first + 1)));
+	stored_str[2] = _return_if_empty_str(ft_substr(str, last - str + 1, ft_strlen(last)));
+	stored_str[3] = NULL;
+	// ft_dprintf(2, "#%s#\n#%s#\n#%s#\n#%s#\n",stored_str[0], stored_str[1], stored_str[2],stored_str[3]);
+	return (stored_str);
 }
 
-const char **parse_string(const char *cmd_with_options)
+const char **parse_string(const char *str)
 {
 	int i;
-	const char **tmp;
-	const char *single_quote_index;
-	const char *double_quote_index;
+	char **tmp;
+	const char	*single_pos;
+	const char	*double_pos;
 
-	single_quote_index = parse_point(cmd_with_options, SINGLE_QUOTE);
-	double_quote_index = parse_point(cmd_with_options, DOUBLE_QUOTE);
-
-	if (!single_quote_index && !double_quote_index)						// no 2 quotes
-		tmp = (const char **)ft_split(cmd_with_options, SPACE);
-	else if (!single_quote_index && double_quote_index)					// double only
-		tmp = (const char **)ft_split(cmd_with_options, DOUBLE_QUOTE);
-	else if (single_quote_index && !double_quote_index)					// single only
-		tmp = (const char **)ft_split(cmd_with_options, SINGLE_QUOTE);
-	else if (single_quote_index < double_quote_index)					// single do
-		tmp = (const char **)ft_split(cmd_with_options, SINGLE_QUOTE);
-	else																// double do
-		tmp = (const char **)ft_split(cmd_with_options, DOUBLE_QUOTE);
+	single_pos = real_strchr(str, SINGLE_QUOTE);
+	double_pos = real_strchr(str, DOUBLE_QUOTE);
+	if (!single_pos && !double_pos)
+		tmp = ft_split(str, SPACE);
+	else if (single_pos && !double_pos)
+		tmp = _ret_string(str, SINGLE_QUOTE);
+	else if (double_pos && !single_pos)
+		tmp = _ret_string(str, DOUBLE_QUOTE);
+	else if (single_pos < double_pos)
+		tmp = _ret_string(str, SINGLE_QUOTE);
+	else
+		tmp = _ret_string(str, DOUBLE_QUOTE);
 	i = 0;
 	while (tmp[i])
 	{
-		tmp[i] = ft_strtrim(tmp[i], " ");
+		tmp[i] = _delete_backslash(ft_strtrim(tmp[i], " "));
 		// ft_dprintf(STDERR_FILENO, "##%s##\n", tmp[i]);
 		i++;
 	}
-	return (tmp);
+	return ((const char **)tmp);
 }
