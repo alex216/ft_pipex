@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/03 15:26:55 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/04 19:42:03 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #  define FAIL -1
 # endif
 # define NO_SUCH_FILE_OR_DIRECTORY 2
+# define COMMAND_NOT_EXECUTABLE 126
 # define NO_FILE_OR_CMD_ERR 127
 
 # define SPACE 32

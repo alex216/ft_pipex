@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/02 20:50:02 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/04 19:42:11 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ STATIC const char *_return_entire_path(const char *basename,
 		else
 		{
 			ft_dprintf(STDERR_FILENO, "bash: %s: %s\n", basename, strerror(NO_SUCH_FILE_OR_DIRECTORY));
-			exit(NO_FILE_OR_CMD_ERR);
+			exit(COMMAND_NOT_EXECUTABLE);
 		}
 	}
 	else
