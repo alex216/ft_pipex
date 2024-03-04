@@ -6,11 +6,27 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:49:32 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/04 17:20:44 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/04 18:55:09 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+char	*_delete_backslash(char *str)
+{
+	char	*dst;
+	char	*ans;
+
+	dst = ft_xcalloc(ft_strlen(str));
+	ans = dst;
+	while (*str)
+	{
+		if (!(*str == '\\' && *(str + 1) == '"'))
+			*dst++ = *str;
+		str++;
+	}
+	return (ans);
+}
 
 char *_return_if_empty_str(char *str)
 {
@@ -86,7 +102,7 @@ const char **parse_string(const char *str)
 	i = 0;
 	while (tmp[i])
 	{
-		tmp[i] = ft_strtrim(tmp[i], " ");
+		tmp[i] = _delete_backslash(ft_strtrim(tmp[i], " "));
 		// ft_dprintf(STDERR_FILENO, "##%s##\n", tmp[i]);
 		i++;
 	}
