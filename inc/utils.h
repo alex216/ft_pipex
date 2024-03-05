@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:38:42 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 18:40:02 by yliu             ###   ########.fr       */
+/*   Updated: 2024/03/05 15:19:37 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/errno.h>
 # include <unistd.h>
 
+int	dprint_exit_with_bash_str(const char *basename, int err, int exit_status);
 void	exit_errno_msg(const char *errno_msg);
 void	exit_with_perror(const char *errno_msg);
 
