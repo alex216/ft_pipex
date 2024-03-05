@@ -23,10 +23,12 @@ STATIC const char *_join_dir_base(const char **dirname_list,
 	while (*dirname_list)
 	{
 		entire_path = ft_strjoin(*dirname_list, ft_strjoin("/", basename));
-		if (access(entire_path, F_OK | X_OK) == SUCCESS)
+		if (access(entire_path, F_OK | X_OK) == SUCCESS) // what if X_OK is not actually OK?
 			return (entire_path);
 		dirname_list++;
 	}
+	if (access(basename, F_OK | X_OK) == SUCCESS)
+		return (ft_strjoin("./", basename));
 	return (NULL);
 }
 
