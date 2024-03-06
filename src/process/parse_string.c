@@ -101,10 +101,20 @@ const char **parse_string(const char *str)
 		tmp = _ret_string(str, DOUBLE_QUOTE);
 	i = 0;
 	while (tmp[i])
+		i++;
+	const char **ans = ft_xcalloc(sizeof(char *) *(i + 1));
+
+	i = 0;
+	while (tmp[i])
 	{
-		tmp[i] = _delete_backslash(ft_strtrim(tmp[i], " "));
-		// ft_dprintf(STDERR_FILENO, "##%s##\n", tmp[i]);
+		//tmp[i] = _delete_backslash(ft_strtrim(tmp[i], " "));
+		//ft_dprintf(STDERR_FILENO, "##%s##\n", tmp[i]);
+		char *ttmp = ft_strtrim(tmp[i], " ");
+		ans[i] = _delete_backslash(ttmp);
+		free(tmp[i]);
+		free(ttmp);
 		i++;
 	}
-	return ((const char **)tmp);
+	free(tmp);
+	return ((const char **)ans);
 }

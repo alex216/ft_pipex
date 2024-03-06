@@ -22,9 +22,12 @@ STATIC const char *_join_dir_base(const char **dirname_list,
 
 	while (*dirname_list)
 	{
-		entire_path = ft_strjoin(*dirname_list, ft_strjoin("/", basename));
+		char *tmp = ft_strjoin("/", basename);
+		entire_path = ft_strjoin(*dirname_list, tmp);
+		free(tmp);
 		if (access(entire_path, F_OK | X_OK) == SUCCESS) // what if X_OK is not actually OK?
 			return (entire_path);
+		free((void *)entire_path);
 		dirname_list++;
 	}
 	if (access(basename, F_OK | X_OK) == SUCCESS)
@@ -67,7 +70,12 @@ STATIC const char *_return_entire_path(const char *basename, const char *envp[])
 		if (!path_list)
 			exit(dprint_exit_with_bash_str(basename, ENOENT, NO_FILE_OR_CMD_ERR));
 		dirname_list = (const char **)ft_split(path_list + ft_strlen(PATH), ':');
-		return (_join_dir_base(dirname_list, basename));
+		const char *ans = _join_dir_base(dirname_list, basename);
+		int i = 0;
+		while (dirname_list[i])
+			free((void *)dirname_list[i++]);
+		free((void *)dirname_list);
+		return (ans);
 	}
 }
 
