@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/22 10:53:08 by yliu              #+#    #+#              #
-#    Updated: 2024/03/04 16:34:24 by yliu             ###   ########.fr        #
+#    Updated: 2024/03/24 14:50:24 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # test
@@ -42,7 +42,7 @@ OBJ_FILTER_MAIN	:= $(filter-out $(OBJS_DIR)/main.o, $(patsubst $(SRCS_DIR)/%.c, 
 ifdef DEBUG
     export DEBUG_FLAG := DEBUG1=1
 endif
-LINE1			:= ──
+LINE1			:= ━━
 
 ##########################################
 .PHONY:		test
@@ -67,7 +67,7 @@ test_step_1:$(TEST_OBJS)
 $(TEST_OBJS_DIR)/%.o: $(TEST_SRCS_DIR)/%.cpp
 			@mkdir -p $(@D)
 			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./libft/inc -I ./inc -c $< -o $@
-			@$(ECHO) "$(RED)─$(DEF_COLOR)"
+			@$(ECHO) "$(RED)━$(DEF_COLOR)"
 
 ##########################################
 $(GTEST_OBJS): $(GTEST_SRCS_DIR)

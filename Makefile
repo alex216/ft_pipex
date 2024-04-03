@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/03/02 20:51:56 by yliu             ###   ########.fr        #
+#    Updated: 2024/03/24 14:52:32 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ BLUE			:=	\033[0;94m
 MAGENTA			:=	\033[0;95m
 CYAN			:=	\033[0;96m
 WHITE			:=	\033[0;97m
-LINE			:= 	────────
+LINE			:= 	━━━━━━━━
 
 ##########################################
 # library directory
@@ -81,10 +81,10 @@ HEADERS 	   	:= $(ORIGIN_HEADERS)
 all:			$(NAME)
 
 $(NAME):		$(LIB) $(SRCS)
-				@git submodule update --init --recursive
 				@make -s man_step_0 $(DEBUG_FLAG)
 
 $(LIB):
+				@git submodule update --init --recursive
 				@make -s -C ./libft
 
 .PHONY:			man_step_0
@@ -103,14 +103,14 @@ man_step_1:		$(OBJS) $(LIB)
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c $(HEADERS)
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) $(MMD_MP) $(foreach dir_element,$(MAN_INC_DIR),-I$(dir_element)) -c $< -o $@
-				@$(ECHO) "$(RED)─$(DEF_COLOR)"
+				@$(ECHO) "$(RED)━$(DEF_COLOR)"
 
 -include $(DEP)
 ##########################################
 # other cmds
 .PHONY:			clean
 clean:			test_clean
-				@make -s fclean -C $(LIB_DIR)
+				@make -s fclean -C $(LIB_DIR) || true
 				@$(RM) $(OBJS_DIR)
 				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\tobject files \t$(GREEN)deleted ✓$(DEF_COLOR)\n"
 
