@@ -37,20 +37,20 @@ TEST(_search_path_list, Path_doesnt_exist) {
 	EXPECT_STREQ(_search_path_list(env_list), NULL);
 };
 
-TEST(_return_entire_path, InValidFull_path)
+TEST(return_entire_path, InValidFull_path)
 {
 	const char	*path_list[] = {"/bin/ls", "/bin/vim", NULL};
 	const char	*cmd = "/bin/cmd42";
 	const char *err_msg = "bash: /bin/cmd42: No such file or directory";
 
-	EXPECT_EXIT(_return_entire_path(cmd, path_list), ::testing::ExitedWithCode(127), err_msg);
+	EXPECT_EXIT(return_entire_path(cmd, path_list), ::testing::ExitedWithCode(127), err_msg);
 }
 
-TEST(_return_entire_path, Full_path)
+TEST(return_entire_path, Full_path)
 {
 	const char	*path_list[] = {"/bin/ls", "/bin/vim", NULL};
 	const char	*cmd = "/bin/ls";
 	const char	*ans = "/bin/ls";
 
-	EXPECT_STREQ(_return_entire_path(cmd, path_list), ans);
+	EXPECT_STREQ(return_entire_path(cmd, path_list), ans);
 }

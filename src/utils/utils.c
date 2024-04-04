@@ -6,25 +6,12 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 12:25:39 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 18:18:39 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "utils.h"
-#include <stdio.h>
-
-int	dprint_with_bash_colon(const char *basename, char *str, int exit_status)
-{
-	ft_dprintf(STDERR_FILENO, "bash: %s: %s\n", basename, str);
-	return (exit_status);
-}
-
-void	exit_errno_msg(const char *errno_msg)
-{
-	ft_dprintf(STDERR_FILENO, "%s\n", errno_msg);
-	exit(1);
-}
 
 void	free_list(void **list)
 {
@@ -34,4 +21,39 @@ void	free_list(void **list)
 	while (list[i])
 		free(list[i++]);
 	free(list);
+}
+
+char	*strjooin(int argc, const char *a, const char *b, ...)
+{
+	const char	*tmp;
+	char		*tmp2;
+	char		*ans;
+	va_list		ap;
+	int			i;
+
+	va_start(ap, b);
+	ans = ft_strjoin(a, b);
+	i = 2;
+	while (i < argc)
+	{
+		tmp = va_arg(ap, const char *);
+		tmp2 = ft_strjoin(ans, tmp);
+		free(ans);
+		ans = ft_strdup(tmp2);
+		free(tmp2);
+		i++;
+	}
+	va_end(ap);
+	return (ans);
+}
+
+const char	*search_path_list(const char *envp[])
+{
+	while (*envp)
+	{
+		if (!strncmp(*envp, PATH, ft_strlen(PATH)))
+			return (*envp);
+		envp++;
+	}
+	return (NULL);
 }

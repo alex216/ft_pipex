@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:49:32 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/04 18:55:09 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 18:41:29 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ char	*_delete_backslash(char *str)
 	return (ans);
 }
 
-char *_return_if_empty_str(char *str)
+char	*_return_if_empty_str(char *str)
 {
 	if (*str == '\0')
 		return (NULL);
 	return (str);
 }
 
-const char *real_strchr(const char *str, char quote)
+const char	*real_strchr(const char *str, char quote)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == quote && (i == 0 || str[i - 1] != '\\'))
 			return (str + i);
@@ -49,12 +49,12 @@ const char *real_strchr(const char *str, char quote)
 	return (NULL);
 }
 
-const char *real_strrchr(const char *str, char quote)
+const char	*real_strrchr(const char *str, char quote)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(str) - 1;
-	while(i >= 0)
+	while (i >= 0)
 	{
 		if (str[i] == quote && (i == (int)ft_strlen(str) - 1 || str[i - 1] != '\\'))
 			return (str + i);
@@ -65,27 +65,30 @@ const char *real_strrchr(const char *str, char quote)
 
 char	**_ret_string(const char *str, char quote)
 {
-	const char *first;
-	const char *last;
-	char **stored_str;
+	const char	*first;
+	const char	*last;
+	char		**stored_str;
 
 	first = real_strchr(str, quote);
 	last = real_strrchr(str, quote);
 	stored_str = (char **)ft_xcalloc(sizeof(char *) * 4);
 	stored_str[0] = _return_if_empty_str(ft_substr(str, 0, first - str));
-	stored_str[1] = _return_if_empty_str(ft_substr(str, first - str + 1, last - (first + 1)));
-	stored_str[2] = _return_if_empty_str(ft_substr(str, last - str + 1, ft_strlen(last)));
+	stored_str[1] = _return_if_empty_str(ft_substr(str, first - str + 1, last
+				- (first + 1)));
+	stored_str[2] = _return_if_empty_str(ft_substr(str, last - str + 1,
+				ft_strlen(last)));
 	stored_str[3] = NULL;
-	// ft_dprintf(2, "#%s#\n#%s#\n#%s#\n#%s#\n",stored_str[0], stored_str[1], stored_str[2],stored_str[3]);
 	return (stored_str);
 }
 
-const char **parse_string(const char *str)
+const char	**parse_string(const char *str)
 {
-	int i;
-	char **tmp;
+	int			i;
+	char		**tmp;
 	const char	*single_pos;
 	const char	*double_pos;
+	const char	**ans;
+	char		*ttmp;
 
 	single_pos = real_strchr(str, SINGLE_QUOTE);
 	double_pos = real_strchr(str, DOUBLE_QUOTE);
@@ -102,14 +105,11 @@ const char **parse_string(const char *str)
 	i = 0;
 	while (tmp[i])
 		i++;
-	const char **ans = ft_xcalloc(sizeof(char *) *(i + 1));
-
+	ans = ft_xcalloc(sizeof(char *) * (i + 1));
 	i = 0;
 	while (tmp[i])
 	{
-		//tmp[i] = _delete_backslash(ft_strtrim(tmp[i], " "));
-		//ft_dprintf(STDERR_FILENO, "##%s##\n", tmp[i]);
-		char *ttmp = ft_strtrim(tmp[i], " ");
+		ttmp = ft_strtrim(tmp[i], " ");
 		ans[i] = _delete_backslash(ttmp);
 		free(tmp[i]);
 		free(ttmp);

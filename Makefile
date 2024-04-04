@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/04/03 17:02:43 by yliu             ###   ########.fr        #
+#    Updated: 2024/04/04 17:57:34 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ BLUE			:=	\033[0;94m
 MAGENTA			:=	\033[0;95m
 CYAN			:=	\033[0;96m
 WHITE			:=	\033[0;97m
-LINE			:= 	━━━━━━━━
+LINE			:= 	━━━━━━━━━━
 
 ##########################################
 # library directory
@@ -60,13 +60,16 @@ ORIGIN_HEADERS	:= ./inc/$(NAME).h \
 				  ./inc/process.h
 
 BASIC_SRCS 		:=	./src/process/process.c \
-				  	./src/utils/utils.c \
-				  	./src/utils_xwrapper/xclose.c \
-				  	./src/utils_xwrapper/xdup2.c \
-				  	./src/process/exec_process.c \
 				  	./src/process/return_infile_fd.c \
 				  	./src/process/return_outfile_fd.c \
-					./src/parse/parse_string.c
+				  	./src/process/exec_process/exec_process.c \
+				  	./src/utils/utils.c \
+					./src/utils/error.c \
+					./src/utils_xwrapper/xaccess_is.c \
+				  	./src/utils_xwrapper/xclose.c \
+				  	./src/utils_xwrapper/xdup2.c \
+					./src/process/exec_process/return_entire_path.c \
+					./src/process/exec_process/parse_string/parse_string.c
 
 # mandatory files
 SRCS			:= $(BASIC_SRCS) ./src/main.c

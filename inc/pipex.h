@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 12:13:31 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 16:42:06 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,5 @@ typedef struct s_command
 }				t_command;
 
 int				main(int argc, const char **argv, const char *envp[]);
-
-# ifdef GTEST
-const char		*_join_dir_base(const char **dirname_list,
-					const char *basename);
-const char		*_search_path_list(const char *envp[]);
-STATIC const char *_return_entire_path(const char *basename,
-	const char *envp[]);
-# endif
 
 #endif
