@@ -6,17 +6,17 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/05 15:19:29 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 12:24:24 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
 #include "pipex.h"
+#include "utils.h"
 #include <stdio.h>
 
-int	dprint_exit_with_bash_str(const char *basename, int err, int exit_status)
+int	dprint_with_bash_colon(const char *basename, char *str, int exit_status)
 {
-	ft_dprintf(STDERR_FILENO, "bash: %s: %s\n", basename, strerror(err));
+	ft_dprintf(STDERR_FILENO, "bash: %s: %s\n", basename, str);
 	return (exit_status);
 }
 
@@ -26,8 +26,12 @@ void	exit_errno_msg(const char *errno_msg)
 	exit(1);
 }
 
-void	exit_with_perror(const char *errno_msg)
+void	free_list(void **list)
 {
-	perror(errno_msg);
-	exit(1);
+	int i;
+
+	i = 0;
+	while (list[i])
+		free(list[i++]);
+	free(list);
 }

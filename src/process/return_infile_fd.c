@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/04 21:05:06 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 12:24:24 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@ int	return_infile_fd(const char **argv, const char *filename)
 {
 	int	fd;
 
-	// need executable for bash
-	// many flags to explore
+	(void)argv;
 	fd = open(filename, O_RDONLY);
 	if (fd == FAIL)
-	{
-		(void)argv;
-		exit_with_perror(ft_strjoin("bash: ", filename));
-	}
+		exit(dprint_with_bash_colon(filename, strerror(PERMISSION_DENIED),
+				1));
 	return (fd);
 }

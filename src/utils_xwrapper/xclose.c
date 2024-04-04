@@ -6,13 +6,13 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:05:45 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 18:05:51 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/03 16:01:34 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	close_fd(int fd)
+void	xclose(int fd)
 {
 	if (close(fd) == FAIL)
 		exit_errno_msg(strerror(errno));

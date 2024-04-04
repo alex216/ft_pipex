@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/05 15:26:43 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 12:13:31 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@
 #  define FAIL -1
 # endif
 
+typedef enum e_errno
+{
+	PERMISSION_DENIED = 13
+}				t_errno;
+
 typedef enum e_exit_status
 {
 	NOT_EXECUTABLE = 126,
@@ -44,7 +49,7 @@ typedef enum e_char
 	SPACE = 32,
 	DOUBLE_QUOTE = 34,
 	SINGLE_QUOTE = 39
-}			t_char;
+}				t_char;
 
 typedef struct s_command
 {
