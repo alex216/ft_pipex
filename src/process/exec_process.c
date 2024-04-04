@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 12:24:24 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 14:38:20 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,24 @@ STATIC const char *_join_dir_base(const char **dirname_list,
 		tmp = ft_strjoin("/", basename);
 		entire_path = ft_strjoin(*dirname_list, tmp);
 		free(tmp);
-		if (access(entire_path, F_OK | X_OK) == SUCCESS)
-			// what if X_OK is not actually OK?
+		// what if X_OK is not actually OK?
+		if (access(entire_path, F_OK) == SUCCESS)
+		{
+			if (access(entire_path, X_OK) != SUCCESS)
+				exit(dprint_with_bash_colon(entire_path, strerror(EACCES),
+						NOT_EXECUTABLE));
 			return (entire_path);
+		}
 		free((void *)entire_path);
 		dirname_list++;
 	}
-	if (access(basename, F_OK | X_OK) == SUCCESS)
-		return (ft_strjoin("./", basename));
-	return (NULL);
+	if (access(basename, F_OK) != SUCCESS)
+		exit(dprint_with_bash_colon(basename, CMD_NOT_FOUND,
+				NO_FILE_OR_CMD_ERR));
+	if (access(basename, X_OK) != SUCCESS)
+		exit(dprint_with_bash_colon(basename, strerror(EACCES),
+				NOT_EXECUTABLE));
+	return (ft_strjoin("./", basename));
 }
 
 STATIC const char *_search_path_list(const char *envp[])
@@ -86,9 +95,6 @@ void	exec_process(const char *cmd_with_options, const char *envp[])
 
 	cmd.sep_by_space = (const char **)parse_string(cmd_with_options);
 	cmd.entire_path = _return_entire_path(*cmd.sep_by_space, envp);
-	if (!cmd.entire_path)
-		exit(dprint_with_bash_colon((const char *)*cmd.sep_by_space,
-				CMD_NOT_FOUND, NO_FILE_OR_CMD_ERR));
 	execve(cmd.entire_path, (char *const *)cmd.sep_by_space, (char **)envp);
-	// exit_errno_msg(strerror(errno));
+	exit_errno_msg(strerror(errno));
 }

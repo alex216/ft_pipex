@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/03/08 13:07:08 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 12:27:58 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ int	main(int argc, const char **argv, const char *envp[])
 	pid_t	pid;
 	int		pipefd[2];
 
-	// TODO: create popen-like func
-	// TODO: include libft.a
-	// TODO: large file under 32bit?
 	if (argc != 5)
 		exit(42);
 	if (pipe(pipefd) == FAIL)
