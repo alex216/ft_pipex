@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - main # push to main
-      - release/* # push to release
+      - 'release/**' # push to release
+      - '!develop'
   pull_request:
     branches:
       - main # pr opened targeting main
-      - release # pr opened targeting release
+      - 'release/**' # pr opened targeting release
+      - '!develop'
   workflow_dispatch:
 
 jobs:
@@ -18,12 +20,14 @@ jobs:
       steps:
         - name: Step 1:checkout repo
           uses: actions/checkout@v4
+          with:
+            submodules: true
         - name: Step 2:install norm
           run: |
             python3 -m pip install --upgrade pip setuptools
             python3 -m pip install norminette
         - name: Step 3:run norm
-          run: make norm
+          run: norminette
 
     check:
       name: check forbidden functions.
@@ -31,6 +35,8 @@ jobs:
       steps:
         - name: Step 1:checkout
           uses: actions/checkout@v4
+          with:
+            submodules: true
         - name: Step 2:build
           run:  make
         - name: Step 3:run cmd.
@@ -42,5 +48,7 @@ jobs:
       steps:
         - name: Step 1:checkout
           uses: actions/checkout@v4
+          with:
+            submodules: true
         - name: Step 2:build test
           run:  make test

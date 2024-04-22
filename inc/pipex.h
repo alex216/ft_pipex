@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 23:36:29 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 16:42:06 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,33 @@
 # ifdef GTEST
 #  define STATIC extern
 # else
-#  define STATIC static 
+#  define STATIC static
 # endif
 
 # define PATH "PATH="
-# define CHILD 0
 # define SUCCESS 0
 # define PARENT 1
-# define COMMAND_NOT_FOUND 127
 # ifndef FAIL
 #  define FAIL -1
 # endif
+
+typedef enum e_errno
+{
+	PERMISSION_DENIED = 13
+}				t_errno;
+
+typedef enum e_exit_status
+{
+	NOT_EXECUTABLE = 126,
+	NO_FILE_OR_CMD_ERR = 127
+}				t_exit_status;
+
+typedef enum e_char
+{
+	SPACE = 32,
+	DOUBLE_QUOTE = 34,
+	SINGLE_QUOTE = 39
+}				t_char;
 
 typedef struct s_command
 {
@@ -42,13 +58,5 @@ typedef struct s_command
 }				t_command;
 
 int				main(int argc, const char **argv, const char *envp[]);
-
-# ifdef GTEST
-const char *_join_dir_base(const char **dirname_list,
-	const char *basename);
-const char *_search_path_list(const char *envp[]);
-STATIC const char *_return_entire_path(const char *basename,
-	const char *envp[]);
-# endif
 
 #endif

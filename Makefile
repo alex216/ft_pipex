@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/02/24 20:24:28 by yliu             ###   ########.fr        #
+#    Updated: 2024/04/04 17:57:34 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ BLUE			:=	\033[0;94m
 MAGENTA			:=	\033[0;95m
 CYAN			:=	\033[0;96m
 WHITE			:=	\033[0;97m
-LINE			:= 	────────
+LINE			:= 	━━━━━━━━━━
 
 ##########################################
 # library directory
@@ -59,13 +59,17 @@ ORIGIN_HEADERS	:= ./inc/$(NAME).h \
 				  ./inc/utils.h \
 				  ./inc/process.h
 
-BASIC_SRCS 		:= ./src/process/process.c \
-				  ./src/utils/utils.c \
-				  ./src/process/close_fd.c \
-				  ./src/process/dup2_fd.c \
-				  ./src/process/exec_process.c \
-				  ./src/process/return_infile_fd.c \
-				  ./src/process/return_outfile_fd.c
+BASIC_SRCS 		:=	./src/process/process.c \
+				  	./src/process/return_infile_fd.c \
+				  	./src/process/return_outfile_fd.c \
+				  	./src/process/exec_process/exec_process.c \
+				  	./src/utils/utils.c \
+					./src/utils/error.c \
+					./src/utils_xwrapper/xaccess_is.c \
+				  	./src/utils_xwrapper/xclose.c \
+				  	./src/utils_xwrapper/xdup2.c \
+					./src/process/exec_process/return_entire_path.c \
+					./src/process/exec_process/parse_string/parse_string.c
 
 # mandatory files
 SRCS			:= $(BASIC_SRCS) ./src/main.c
@@ -80,10 +84,10 @@ HEADERS 	   	:= $(ORIGIN_HEADERS)
 all:			$(NAME)
 
 $(NAME):		$(LIB) $(SRCS)
-				@git submodule update --init --recursive
 				@make -s man_step_0 $(DEBUG_FLAG)
 
 $(LIB):
+				@git submodule update --init --recursive
 				@make -s -C ./libft
 
 .PHONY:			man_step_0
@@ -102,14 +106,14 @@ man_step_1:		$(OBJS) $(LIB)
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c $(HEADERS)
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) $(MMD_MP) $(foreach dir_element,$(MAN_INC_DIR),-I$(dir_element)) -c $< -o $@
-				@$(ECHO) "$(RED)─$(DEF_COLOR)"
+				@$(ECHO) "$(RED)━$(DEF_COLOR)"
 
 -include $(DEP)
 ##########################################
 # other cmds
 .PHONY:			clean
 clean:			test_clean
-				@make -s fclean -C $(LIB_DIR)
+				@make -s fclean -C $(LIB_DIR) || true
 				@$(RM) $(OBJS_DIR)
 				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\tobject files \t$(GREEN)deleted ✓$(DEF_COLOR)\n"
 

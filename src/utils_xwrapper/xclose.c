@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dup2_fd.c                                          :+:      :+:    :+:   */
+/*   xclose.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:05:26 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/24 17:35:40 by yliu             ###   ########.fr       */
+/*   Created: 2024/02/19 18:05:45 by yliu              #+#    #+#             */
+/*   Updated: 2024/04/04 18:07:40 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	dup2_fd(int src, int dst)
+void	xclose(int fd)
 {
-	if (dup2(src, dst) == FAIL)
-		exit_errno_msg(strerror(errno));
+	if (close(fd) == FAIL)
+		exit(print_errno(strerror(errno)));
 }

@@ -6,20 +6,20 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 18:40:28 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/04 15:04:56 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	return_infile_fd(const char *filename)
+int	return_infile_fd(const char **argv, const char *filename)
 {
 	int	fd;
 
-	// need executable for bash
-	// many flags to explore
+	(void)argv;
 	fd = open(filename, O_RDONLY);
 	if (fd == FAIL)
-		exit_with_perror(ft_strjoin("bash: ", filename));
+		exit(print_error(filename, strerror(PERMISSION_DENIED),
+				1));
 	return (fd);
 }
