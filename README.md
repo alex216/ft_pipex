@@ -1,3 +1,6 @@
+# Version
+ver0.1 only simple quoting system is allowed.
+
 # Features
 * only simple commands is allowed.
 ```bash
@@ -13,9 +16,6 @@ $./pipex infile cat "cd ..; ls" /dev/stdout
 # compound commands as cmd
 $./pipex infile cat "{ cd ..; ls; }" /dev/stdout
 ```
-
-# Version
-ver1.0 only simple quoting system is allowed.
 
 # Requirement
 * the c compiler `gcc`
