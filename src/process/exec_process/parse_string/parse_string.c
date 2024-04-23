@@ -6,115 +6,65 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:49:32 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 18:41:29 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/23 20:06:57 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
+#include "libft.h"
+#include "parse_string.h"
 #include "pipex.h"
+#include "util.h"
+#include "utils.h"
 
-char	*_delete_backslash(char *str)
+static void	_append_str(t_lst **lst_pp, const char *str)
 {
-	char	*dst;
-	char	*ans;
+	ft_dl_lstadd_back_with_lst(lst_pp, create_lst_node(str));
+}
 
-	dst = ft_xcalloc(ft_strlen(str));
-	ans = dst;
-	while (*str)
+static t_lst	**parse_string_by_blank(const char *cmd)
+{
+	int	token_len;
+	int	pos;
+	t_lst	**lst_pp;
+
+	pos = 0;
+	*lst_pp = NULL;
+	while (cmd[pos])
 	{
-		if (!(*str == '\\' && *(str + 1) == '"'))
-			*dst++ = *str;
-		str++;
+		if (ft_isblank(cmd[pos]))
+			pos++;
+		token_len = 0;
+		while (cmd[pos + token_len] && !ft_isblank(cmd[pos + token_len]))
+			token_len++;
+		_append_str(lst_pp, ft_substr(cmd, pos, token_len));
+		pos += token_len;
+	}
+	return (lst_pp);
+}
+
+static char	**_lst_2_char(t_lst *lst_p)
+{
+	int			i;
+	char	**ans;
+
+	i = 0;
+	ans = ft_xcalloc(sizeof(char *) * (ft_dl_lstsize(lst_p) + 1));
+	while (!lst_p->is_sentinel)
+	{
+		ans[i] = return_printable(lst_p);
+		lst_p = lst_p->next_p;
+		i++;
 	}
 	return (ans);
 }
 
-char	*_return_if_empty_str(char *str)
+const char	**parse_string(const char *cmd)
 {
-	if (*str == '\0')
-		return (NULL);
-	return (str);
-}
+	t_lst	**lst_pp;
+	char	**ans;
 
-const char	*real_strchr(const char *str, char quote)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == quote && (i == 0 || str[i - 1] != '\\'))
-			return (str + i);
-		i++;
-	}
-	return (NULL);
-}
-
-const char	*real_strrchr(const char *str, char quote)
-{
-	int	i;
-
-	i = ft_strlen(str) - 1;
-	while (i >= 0)
-	{
-		if (str[i] == quote && (i == (int)ft_strlen(str) - 1 || str[i - 1] != '\\'))
-			return (str + i);
-		i--;
-	}
-	return (NULL);
-}
-
-char	**_ret_string(const char *str, char quote)
-{
-	const char	*first;
-	const char	*last;
-	char		**stored_str;
-
-	first = real_strchr(str, quote);
-	last = real_strrchr(str, quote);
-	stored_str = (char **)ft_xcalloc(sizeof(char *) * 4);
-	stored_str[0] = _return_if_empty_str(ft_substr(str, 0, first - str));
-	stored_str[1] = _return_if_empty_str(ft_substr(str, first - str + 1, last
-				- (first + 1)));
-	stored_str[2] = _return_if_empty_str(ft_substr(str, last - str + 1,
-				ft_strlen(last)));
-	stored_str[3] = NULL;
-	return (stored_str);
-}
-
-const char	**parse_string(const char *str)
-{
-	int			i;
-	char		**tmp;
-	const char	*single_pos;
-	const char	*double_pos;
-	const char	**ans;
-	char		*ttmp;
-
-	single_pos = real_strchr(str, SINGLE_QUOTE);
-	double_pos = real_strchr(str, DOUBLE_QUOTE);
-	if (!single_pos && !double_pos)
-		tmp = ft_split(str, SPACE);
-	else if (single_pos && !double_pos)
-		tmp = _ret_string(str, SINGLE_QUOTE);
-	else if (double_pos && !single_pos)
-		tmp = _ret_string(str, DOUBLE_QUOTE);
-	else if (single_pos < double_pos)
-		tmp = _ret_string(str, SINGLE_QUOTE);
-	else
-		tmp = _ret_string(str, DOUBLE_QUOTE);
-	i = 0;
-	while (tmp[i])
-		i++;
-	ans = ft_xcalloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (tmp[i])
-	{
-		ttmp = ft_strtrim(tmp[i], " ");
-		ans[i] = _delete_backslash(ttmp);
-		free(tmp[i]);
-		free(ttmp);
-		i++;
-	}
-	free(tmp);
+	lst_pp = parse_string_by_blank(cmd);
+	ans = (char **)_lst_2_char(*lst_pp);
 	return ((const char **)ans);
 }

@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parse_string.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/22 19:47:42 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/17 18:15:47 by yliu              #+#    #+#             */
+/*   Updated: 2024/04/21 18:07:08 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "utils.h"
+#ifndef PARSE_STRING_H
+# define PARSE_STRING_H
 
-const char	*search_path_list(const char *envp[])
-{
-	while (*envp)
-	{
-		if (!strncmp(*envp, PATH, ft_strlen(PATH)))
-			return (*envp);
-		envp++;
-	}
-	return (NULL);
-}
+# include "ft_printf.h"
 
-bool	is_basename_has_slash(const char *basename)
-{
-	return (ft_strchr(basename, '/'));
-}
+const char	**parse_string(const char *cmd);
+#endif

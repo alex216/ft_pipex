@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/04/04 17:57:34 by yliu             ###   ########.fr        #
+#    Updated: 2024/04/22 18:29:13 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,6 @@ SANITIZE		:= -g -fsanitize=address,undefined
 else ifeq ($(shell uname),Debian)
 SANITIZE		:= -g -fsanitize=address,integer,undefined
 endif
-ifdef DEBUG1
-	CFLAGS := $(WARNING) -DGTEST=1
-else
-	CFLAGS := $(WARNING) $(SANITIZE)
-endif
 
 # color and line
 DEF_COLOR		:=	\033[0;39m
@@ -39,31 +34,38 @@ BLUE			:=	\033[0;94m
 MAGENTA			:=	\033[0;95m
 CYAN			:=	\033[0;96m
 WHITE			:=	\033[0;97m
-LINE			:= 	━━━━━━━━━━
+-				:=	━
+FILE_NUM		= $(words $(SRCS))
+LINE			= $(shell yes $- | head -n $(FILE_NUM) | tr -d '\n'; echo)
+
 
 ##########################################
 # library directory
 LIB_DIR			:= ./libft
-BASE_INC_DIR	:= ./libft/inc
+LIB_INC_DIR	:= ./libft/inc
 
 # mandatory directory
 SRCS_DIR		:= ./src
 OBJS_DIR		:= ./obj
-MAN_INC_DIR		:= $(BASE_INC_DIR) ./inc
+INC_DIR			:= ./inc
+MAN_INC_DIR		:= $(LIB_INC_DIR) $(INC_DIR)
 
 ##########################################
 # base files
 LIB				:= $(LIB_DIR)/$(LIBRARY)
 
-ORIGIN_HEADERS	:= ./inc/$(NAME).h \
-				  ./inc/utils.h \
-				  ./inc/process.h
+ORIGIN_HEADERS	:=	./inc/$(NAME).h \
+					./inc/utils.h \
+					./inc/process.h \
+					./inc/parse_string.h
 
 BASIC_SRCS 		:=	./src/process/process.c \
 				  	./src/process/return_infile_fd.c \
 				  	./src/process/return_outfile_fd.c \
 				  	./src/process/exec_process/exec_process.c \
 				  	./src/utils/utils.c \
+					./src/utils/utils_struct.c \
+					./src/utils/operate_record.c \
 					./src/utils/error.c \
 					./src/utils_xwrapper/xaccess_is.c \
 				  	./src/utils_xwrapper/xclose.c \
@@ -84,7 +86,7 @@ HEADERS 	   	:= $(ORIGIN_HEADERS)
 all:			$(NAME)
 
 $(NAME):		$(LIB) $(SRCS)
-				@make -s man_step_0 $(DEBUG_FLAG)
+				@make -s man_step_0
 
 $(LIB):
 				@git submodule update --init --recursive
@@ -94,7 +96,7 @@ $(LIB):
 man_step_0:
 				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\t./$(NAME) \t$(WHITE)checking...$(DEF_COLOR)\n"
 				@$(ECHO) "\e$(GRAY)$(LINE)\r$(DEF_COLOR)"
-				@make -s man_step_1 $(DEBUG_FLAG)
+				@make -s man_step_1
 
 .PHONY:			man_step_1
 man_step_1:		$(OBJS) $(LIB)
@@ -106,7 +108,7 @@ man_step_1:		$(OBJS) $(LIB)
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c $(HEADERS)
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) $(MMD_MP) $(foreach dir_element,$(MAN_INC_DIR),-I$(dir_element)) -c $< -o $@
-				@$(ECHO) "$(RED)━$(DEF_COLOR)"
+				@$(ECHO) "$(RED)$-$(DEF_COLOR)"
 
 -include $(DEP)
 ##########################################

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 16:42:06 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/21 17:51:09 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libft.h"
 # include "process.h"
 # include "utils.h"
+# include "parse_string.h"
 # include <fcntl.h>
 
 # ifdef GTEST
@@ -50,6 +51,13 @@ typedef enum e_char
 	DOUBLE_QUOTE = 34,
 	SINGLE_QUOTE = 39
 }				t_char;
+
+typedef struct	s_record
+{
+	char	*str;
+	size_t	length;
+	// qoute	
+}				t_record;
 
 typedef struct s_command
 {

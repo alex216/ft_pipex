@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:36:06 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 17:56:50 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/17 18:20:33 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,4 @@ void		exec_child(const char **argv, const char *inflie, int pipefd[],
 				const char *envp[]);
 void		exec_parent(const char **argv, const char *outfile, int pipefd[],
 				const char *envp[]);
-const char	*real_strchr(const char *str, char quote);
-const char	*real_strrchr(const char *str, char quote);
-const char	**parse_string(const char *cmd_with_options);
 #endif

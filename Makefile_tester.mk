@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/22 10:53:08 by yliu              #+#    #+#              #
-#    Updated: 2024/03/24 14:50:24 by yliu             ###   ########.fr        #
+#    Updated: 2024/04/22 18:29:06 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 # test
@@ -32,24 +32,24 @@ TEST_OBJS_DIR	:= ./test/obj
 GTEST_SRCS		:= $(GTEST_SRCS_DIR)/gtest_main.cc \
 				  $(GTEST_SRCS_DIR)/gtest-all.cc
 
-TEST_SRCS		:= $(TEST_SRCS_DIR)/test_check_args.cpp $(TEST_SRCS_DIR)/test_parse_string.cpp
+TEST_SRCS		:= $(TEST_SRCS_DIR)/test_cmds.cpp \
+				   $(TEST_SRCS_DIR)/test_parse.cpp
 
 # obj files
 TEST_OBJS		:= $(subst $(TEST_SRCS_DIR), $(TEST_OBJS_DIR), $(TEST_SRCS:.cpp=.o))
 GTEST_OBJS		:= $(subst $(GTEST_SRCS_DIR), $(TEST_OBJS_DIR), $(GTEST_SRCS:.cc=.o))
 OBJ_FILTER_MAIN	:= $(filter-out $(OBJS_DIR)/main.o, $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS)))
 
-ifdef DEBUG
-    export DEBUG_FLAG := DEBUG1=1
-endif
-LINE1			:= ━━
+-				:= ━
+FILE_NUM1		= $(words $(TEST_SRCS))
+LINE1			= $(shell yes $- | head -n $(FILE_NUM1) | tr -d '\n'; echo)
 
 ##########################################
 .PHONY:		test
 test:		test_step_0
 
 .PHONY:		test_step_0
-test_step_0:$(GTEST_OBJS)
+test_step_0:$(NAME) $(GTEST_OBJS)
 			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(WHITE)checking...$(DEF_COLOR)\n"
 			@$(ECHO)  "\e$(GRAY)$(LINE1)\r$(DEF_COLOR)"
 			@make -s test_step_1
@@ -59,22 +59,21 @@ test_step_1:$(TEST_OBJS)
 			@$(ECHO)  "\r\e$(GREEN)$(LINE1)$(DEF_COLOR)"
 			@$(ECHO) "$(GREEN) ‣ 100%% $(DEF_COLOR)\n"
 			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\ttest files \t$(GREEN)compiled ✓$(DEF_COLOR)\n"
-			@make DEBUG=1 $(NAME)
 			@$(CXX) -L $(LIB_DIR) -lft -lpthread $(OBJ_FILTER_MAIN) $(TEST_OBJS) $(GTEST_OBJS) -o $(TEST_NAME)
 			@./$(TEST_NAME)
 			@$(RM) $(TEST_NAME)
 
 $(TEST_OBJS_DIR)/%.o: $(TEST_SRCS_DIR)/%.cpp
 			@mkdir -p $(@D)
-			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./libft/inc -I ./inc -c $< -o $@
-			@$(ECHO) "$(RED)━$(DEF_COLOR)"
+			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) $(foreach dir_element,$(MAN_INC_DIR),-I$(dir_element)) -c $< -o $@
+			@$(ECHO) "$(RED)$-$(DEF_COLOR)"
 
 ##########################################
 $(GTEST_OBJS): $(GTEST_SRCS_DIR)
 			@mkdir -p $(@D)
 			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\tgtest configs\t$(WHITE)checking...$(DEF_COLOR)\n"
-			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
-			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I ./inc/ -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
+			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I $(INC_DIR) -c $(GTEST_SRCS_DIR)/gtest-all.cc -o $(TEST_OBJS_DIR)/gtest-all.o
+			@$(CXX) $(CXXFLAGS) -I $(TEST_SRCS_DIR) -I $(INC_DIR) -c $(GTEST_SRCS_DIR)/gtest_main.cc -o $(TEST_OBJS_DIR)/gtest_main.o
 			@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(TEST_NAME)]\tgtest configs\t$(GREEN)compiled ✔$(DEF_COLOR)\n"
 
 
