@@ -6,65 +6,44 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 20:49:32 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/23 20:06:57 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/29 18:15:10 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft.h"
+#include "dlist.h"
+#include "ft_double_linked_list.h"
+#include "ft_str.h"
 #include "parse_string.h"
-#include "pipex.h"
-#include "util.h"
-#include "utils.h"
 
-static void	_append_str(t_lst **lst_pp, const char *str)
+static void	concate_token(void *void_p)
 {
-	ft_dl_lstadd_back_with_lst(lst_pp, create_lst_node(str));
+	char		*a;
+	char		*b;
+	t_record	*record_p;
+	t_lst		*lst_p;
+
+	lst_p = (t_lst *)void_p;
+	a = get_char_of(lst_p);
+	b = get_char_of(lst_p->next_p);
+	record_p = (lst_p->payload_p);
+	record_p->str = ft_strjooin(2, a, b);
+	record_p->length = record_p->length + (lst_p->next_p->payload_p->length);
+	ft_dl_lstdelone(lst_p->next_p, *del);
 }
 
-static t_lst	**parse_string_by_blank(const char *cmd)
+static bool	should_concat(const t_lst *lst_p)
 {
-	int	token_len;
-	int	pos;
-	t_lst	**lst_pp;
-
-	pos = 0;
-	*lst_pp = NULL;
-	while (cmd[pos])
-	{
-		if (ft_isblank(cmd[pos]))
-			pos++;
-		token_len = 0;
-		while (cmd[pos + token_len] && !ft_isblank(cmd[pos + token_len]))
-			token_len++;
-		_append_str(lst_pp, ft_substr(cmd, pos, token_len));
-		pos += token_len;
-	}
-	return (lst_pp);
-}
-
-static char	**_lst_2_char(t_lst *lst_p)
-{
-	int			i;
-	char	**ans;
-
-	i = 0;
-	ans = ft_xcalloc(sizeof(char *) * (ft_dl_lstsize(lst_p) + 1));
-	while (!lst_p->is_sentinel)
-	{
-		ans[i] = return_printable(lst_p);
-		lst_p = lst_p->next_p;
-		i++;
-	}
-	return (ans);
+	return (lst_p->payload_p->type != BLANK
+		&& lst_p->next_p->payload_p->type != BLANK);
 }
 
 const char	**parse_string(const char *cmd)
 {
-	t_lst	**lst_pp;
-	char	**ans;
+	t_lst	*lst_p;
 
-	lst_pp = parse_string_by_blank(cmd);
-	ans = (char **)_lst_2_char(*lst_pp);
-	return ((const char **)ans);
+	lst_p = parse_string_by_blank(cmd);
+	ft_dl_lstmap(&lst_p, *remove_quote);
+	ft_dl_lstreduce(&lst_p, *should_concat, *concate_token);
+	ft_dl_lstfilter(&lst_p, *is_node_token, *del);
+	return ((const char **)lst_2_char(&lst_p));
 }

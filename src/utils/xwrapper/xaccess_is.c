@@ -6,12 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:33:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/22 19:16:35 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/24 22:37:42 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "utils.h"
+#include "xwrapper.h"
 
 bool	xaccess_is_f_ok(const char *name)
 {

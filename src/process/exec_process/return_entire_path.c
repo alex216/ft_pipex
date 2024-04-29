@@ -6,12 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:52:14 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/22 23:03:28 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/25 10:11:35 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "utils.h"
+#include "process.h"
 
 static const char	*_join_dir_base(char **dirname_list, const char *basename)
 {

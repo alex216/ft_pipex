@@ -29,15 +29,31 @@ TEST(parse_string, Blank_char)
 	ASSERT_TRUE(ans2[2] == nullptr);
 }
 
-// TEST(parse_string, BackSlash_22_special_charactor) {
-//
-// 	const char **res = parse_string("echo 'hello world'");
-// 	EXPECT_STREQ(res[0], "echo");
-// 	EXPECT_STREQ(res[1], "hello world");
-// 	ASSERT_TRUE(res[2] == nullptr);
-//
-//   // const char **res = parse_string("\\~\\`\\#\\$\\*\\(\\)\\\\|\\,\\[\\]\\{\\}\\;\\'\"\\<\\>\\/\\?\\!");
-//   //
-//   // EXPECT_EQ(std::string(res[0]), std::string("~`#$*()\\|,[]{};'\"<>/?!"));
-//   // EXPECT_EQ(res[1], nullptr);
-// }
+TEST(parse_string, Quotation) {
+
+	const char **res = parse_string("echo 'hello world'");
+	EXPECT_STREQ(res[0], "echo");
+	EXPECT_STREQ(res[1], "hello world");
+	ASSERT_TRUE(res[2] == nullptr);
+
+	const char **res1 = parse_string("echo 'hello ''world'");
+	EXPECT_STREQ(res1[0], "echo");
+	EXPECT_STREQ(res1[1], "hello world");
+	ASSERT_TRUE(res1[2] == nullptr);
+
+	// test str: [echo wendy\'s]
+	const char **res2 = parse_string("echo wendy\\\'s");
+	EXPECT_STREQ(res2[0], "echo");
+	EXPECT_STREQ(res2[1], "wendy's");
+	ASSERT_TRUE(res2[2] == nullptr);
+
+	// test str: [\]
+	const char **res3 = parse_string("\\\\");
+	EXPECT_STREQ(res3[0], "\\"); // this is [\]
+	ASSERT_TRUE(res3[1] == nullptr);
+
+	// various input
+	const char **res4 = parse_string("\\~\\`\\#\\$\\*\\(\\)\\\\|\\,\\[\\]\\{\\}\\;\\'\"\\<\\>\\/\\?\\!");
+	EXPECT_STREQ(res4[0], "~`#$*()\\|,[]{};'\"<>/?!");
+	ASSERT_TRUE(res4[1] == nullptr);
+}

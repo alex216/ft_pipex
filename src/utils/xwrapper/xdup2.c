@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_struct.c                                     :+:      :+:    :+:   */
+/*   xdup2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/21 16:56:10 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/23 19:22:43 by yliu             ###   ########.fr       */
+/*   Created: 2024/02/19 18:05:26 by yliu              #+#    #+#             */
+/*   Updated: 2024/04/25 10:08:52 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "xwrapper.h"
 
-char	*return_printable(const t_lst *lst_p)
+void	xdup2(int src, int dst)
 {
-	if (!lst_p)
-		return (NULL);
-	return (lst_p->payload_p->str);
+	if (dup2(src, dst) == FAIL)
+		exit(print_errno(strerror(errno)));
 }
