@@ -6,11 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:05:26 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 18:07:46 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/25 10:08:52 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "xwrapper.h"
 
 void	xdup2(int src, int dst)
 {

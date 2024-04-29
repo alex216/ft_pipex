@@ -6,13 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:06:36 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 18:07:32 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/25 09:55:18 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "pipex.h"
-#include "utils.h"
+#include "process.h"
 
 // since this is not multi-thread process,
 // alloc is safe to use.

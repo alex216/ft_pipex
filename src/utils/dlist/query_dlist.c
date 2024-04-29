@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   query_dlist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 16:35:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/28 15:06:56 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/21 16:56:10 by yliu              #+#    #+#             */
+/*   Updated: 2024/04/28 19:31:01 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "dlist.h"
 
-int	print_error(const char *basename, char *str, int exit_status)
+char	*get_char_of(const t_lst *lst_p)
 {
-	ft_dprintf(STDERR_FILENO, "bash: %s: %s\n", basename, str);
-	return (exit_status);
+	if (!lst_p)
+		return (NULL);
+	return (lst_p->payload_p->str);
 }
 
-int	print_errno(const char *errno_msg)
+int	get_type_of(const t_lst *lst_p)
 {
-	ft_dprintf(STDERR_FILENO, "%s\n", errno_msg);
-	return (1);
+	if (!lst_p)
+		return (-1);
+	return (lst_p->payload_p->type);
 }
 
-int	print_quote_error(void)
+bool	is_node_token(const t_lst *lst_p)
 {
-	ft_dprintf(STDERR_FILENO, "quote>\n");
-	return (1);
+	return (get_type_of(lst_p) != BLANK);
 }

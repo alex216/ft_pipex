@@ -6,13 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:52:14 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 18:20:20 by yliu             ###   ########.fr       */
+/*   Updated: 2024/04/25 10:11:35 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "pipex.h"
-#include "utils.h"
+#include "process.h"
 
 static const char	*_join_dir_base(char **dirname_list, const char *basename)
 {
@@ -20,7 +18,7 @@ static const char	*_join_dir_base(char **dirname_list, const char *basename)
 
 	while (*dirname_list)
 	{
-		entire_path = strjooin(3, *dirname_list, "/", basename);
+		entire_path = ft_strjooin(3, *dirname_list, "/", basename);
 		if (access(entire_path, F_OK) == SUCCESS)
 		{
 			xaccess_is_x_ok(entire_path);
@@ -40,7 +38,7 @@ const char	*return_entire_path(const char *basename, const char *envp[])
 	char		**dirname_list;
 	const char	*ans;
 
-	if (ft_strchr(basename, '/'))
+	if (is_basename_has_slash(basename))
 	{
 		xaccess_is_f_ok(basename);
 		xaccess_is_x_ok(basename);
@@ -53,7 +51,7 @@ const char	*return_entire_path(const char *basename, const char *envp[])
 			exit(print_error(basename, strerror(ENOENT), NO_FILE_OR_CMD_ERR));
 		dirname_list = ft_split(path_list + ft_strlen(PATH), ':');
 		ans = _join_dir_base(dirname_list, basename);
-		free_list((void **)dirname_list);
+		ft_free_list((void **)dirname_list);
 		return (ans);
 	}
 }

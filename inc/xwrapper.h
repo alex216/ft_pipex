@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xclose.c                                           :+:      :+:    :+:   */
+/*   xwrapper.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:05:45 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/04 18:07:40 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/24 10:52:00 by yliu              #+#    #+#             */
+/*   Updated: 2024/04/25 10:13:00 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef XWRAPPER_H
+# define XWRAPPER_H
 
-void	xclose(int fd)
-{
-	if (close(fd) == FAIL)
-		exit(print_errno(strerror(errno)));
-}
+# include "utils.h"
+# include <stdbool.h>
+
+# define SUCCESS 0
+
+void	xclose(int fd);
+void	xdup2(int dst, int src);
+bool	xaccess_is_x_ok(const char *name);
+bool	xaccess_is_f_ok(const char *name);
+bool	xaccess_is_f_ok_alt(const char *name);
+
+#endif
