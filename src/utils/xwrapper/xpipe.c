@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xwrapper.h                                         :+:      :+:    :+:   */
+/*   xpipe.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 10:52:00 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/01 10:46:08 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/30 10:01:53 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/01 10:44:05 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XWRAPPER_H
-# define XWRAPPER_H
+#include "xwrapper.h"
 
-# include "utils.h"
-# include <stdbool.h>
-
-# define SUCCESS 0
-
-pid_t	xfork(void);
-void	xclose(int fd);
-void	xpipe(int *pipefd);
-void	xdup2(int dst, int src);
-bool	xaccess_is_x_ok(const char *name);
-bool	xaccess_is_f_ok(const char *name);
-bool	xaccess_is_f_ok_alt(const char *name);
-
-#endif
+void	xpipe(int *pipefd)
+{
+	if (pipe(pipefd) == FAIL)
+		exit(print_errno(strerror(errno)));
+}

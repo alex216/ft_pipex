@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/04/29 13:00:22 by yliu             ###   ########.fr        #
+#    Updated: 2024/04/30 10:02:21 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,8 @@ BASIC_SRCS 		:=	./src/process/process.c \
 					./src/utils/xwrapper/xaccess_is.c \
 				  	./src/utils/xwrapper/xclose.c \
 				  	./src/utils/xwrapper/xdup2.c \
+				  	./src/utils/xwrapper/xfork.c \
+				  	./src/utils/xwrapper/xpipe.c \
 					\
 					./src/process/exec_process/return_entire_path.c \
 					./src/process/exec_process/parse_string/parse_string.c \
