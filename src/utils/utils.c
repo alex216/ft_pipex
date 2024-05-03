@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/28 20:23:58 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/03 18:02:01 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,9 @@ char	**lst_2_char(t_lst **lst_pp)
 		i++;
 	}
 	return (ans);
+}
+
+const char	*return_cmd(const char **argv, int cmd_num)
+{
+	return (argv[cmd_num + 2]);
 }

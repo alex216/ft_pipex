@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_infile_fd.c                                 :+:      :+:    :+:   */
+/*   overtake_io.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:06:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/03 16:19:13 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/03 17:56:57 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/03 17:59:56 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 
-int	return_infile_fd(const char *filename)
+static void _appoint_stdin_fd(int pfd)
 {
-	int	fd;
+	xdup2(pfd, STDIN_FILENO);
+	xclose(pfd);
+}
 
-	fd = open(filename, O_RDONLY);
-	if (fd == FAIL)
-		exit(print_error(filename, strerror(PERMISSION_DENIED), 1));
-	return (fd);
+static void _appoint_stdout_fd(int pfd)
+{
+	xdup2(pfd, STDOUT_FILENO);
+	xclose(pfd);
+}
+
+void	overtake_io(int new_in, int new_out)
+{
+	_appoint_stdin_fd(new_in);
+	_appoint_stdout_fd(new_out);
 }

@@ -29,7 +29,7 @@
 #  define FAIL -1
 # endif
 
-int	main(int argc, const char **argv, const char *envp[]);
+int		main(int argc, const char **argv, const char *envp[]);
 void	checker(int pipefd[]);
 
 #endif
