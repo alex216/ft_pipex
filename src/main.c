@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/02 18:44:17 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/03 12:13:09 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,42 @@ void	checker(int pipefd[])
 	ft_dprintf(2, buf);
 }
 
+static pid_t fork_exec(const char **argv, int num, const char *file,
+					  int prev_fd[], int curr_fd[], const char *envp[])
+{
+	pid_t pid = xfork();
+	if (pid == CHILD)
+	{
+		if (num == 1)
+			exec_first(argv, 1, file, curr_fd, envp);
+		else if(num == 3)
+			exec_last(argv, 3, file, prev_fd, envp);
+		else
+			exec_middle(argv, 2, prev_fd, curr_fd, envp);
+	}
+	return (pid);
+}
+
 int	main(int argc, const char **argv, const char *envp[])
 {
-	int	cmd_num; int	pipefd[2][2]; pid_t	pid;
+	int	pfd_pp[2][2];
 	const char *infile; const char *outfile;
-
+	pid_t pid0,pid1; (void)pid0;(void)pid1;
 	infile = argv[1]; outfile = argv[argc - 1];
-	cmd_num = 1;
 
-	xpipe(pipefd[0]);
-	pid = xfork();
-	if (pid == CHILD)
-		exec_first(argv, cmd_num, infile, pipefd[0], envp);
-	// close(pipefd[0][1]);
-	// checker(pipefd[0]);
+	///////////// 1
+	xpipe(pfd_pp[0]);
+	pid0 = fork_exec(argv, 1, infile, NULL, pfd_pp[0], envp);
+	close(pfd_pp[0][1]);
+	// checker(pfd_pp[0]);
 
-	// xpipe(pipefd[1]);
-	// pid = xfork();
-	// if (pid == CHILD)
-	// 	exec_middle(argv, cmd_num, pipefd[0], pipefd[1], envp);
-	cmd_num++;
-	//
-	// // }
-	// waitpid(pid, NULL, 0);
+	///////////// 2
+	xpipe(pfd_pp[1]);
+	pid1 = fork_exec(argv, 2, NULL, pfd_pp[0], pfd_pp[1], envp);
+	// checker(pfd_pp[1]);
 
-	pid = xfork();
-	if (pid == CHILD)
-		exec_last(argv, cmd_num, outfile, pipefd[0], envp);
+	///////////// 3
+	fork_exec(argv, 3, outfile, pfd_pp[1], NULL, envp);
 
 	return (0);
 }
