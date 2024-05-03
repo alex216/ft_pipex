@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:34:24 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/03 12:07:04 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/03 12:22:10 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@
  ------ ->[1]-> ---         ------  STDOUT:outfile
 */
 
+static const char *_return_cmd(const char **argv, int cmd_num)
+{
+	return (argv[cmd_num + 2]);
+}
+
 void	exec_first(const char **argv, int cmd_num, const char *infile,
 		int pipefd[], const char *envp[])
 {
@@ -50,7 +55,7 @@ void	exec_first(const char **argv, int cmd_num, const char *infile,
 	xdup2(pipefd[1], STDOUT_FILENO);
 	xclose(pipefd[0]);
 	xclose(pipefd[1]);
-	exec_process(argv[cmd_num + 1], envp);
+	exec_process(_return_cmd(argv, cmd_num), envp);
 }
 
 void	exec_middle(const char **argv, int cmd_num, int prev_pfd[],
@@ -64,7 +69,7 @@ void	exec_middle(const char **argv, int cmd_num, int prev_pfd[],
 	xclose(curr_pfd_p[0]);
 	xclose(curr_pfd_p[1]);
 
-	exec_process(argv[cmd_num + 1], envp);
+	exec_process(_return_cmd(argv, cmd_num), envp);
 }
 
 void	exec_last(const char **argv, int cmd_num, const char *outfile,
@@ -73,5 +78,5 @@ void	exec_last(const char **argv, int cmd_num, const char *outfile,
 	xdup2(pipefd[0], STDIN_FILENO);
 	xdup2(return_outfile_fd(outfile), STDOUT_FILENO);
 	xclose(pipefd[1]);
-	exec_process(argv[cmd_num + 1], envp);
+	exec_process(_return_cmd(argv, cmd_num), envp);
 }
