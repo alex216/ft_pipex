@@ -12,8 +12,8 @@
 
 #include "ft_printf.h"
 #include "pipex.h"
-#include "xfork_exec.h"
 #include "utils.h"
+#include "xfork_exec.h"
 #include "xwrapper.h"
 
 /*
@@ -45,12 +45,12 @@
 
 static void	_overtake_io(int cmd_i, t_fd *fd_info, int argc)
 {
-		if (is_first(cmd_i))
-			overtake_io_fd(fd_info->infile_fd, fd_info->export_fd);
-		else if (is_middle(cmd_i, argc))
-			overtake_io_fd(fd_info->import_fd, fd_info->export_fd);
-		else
-			overtake_io_fd(fd_info->import_fd, fd_info->outfile_fd);
+	if (is_first(cmd_i))
+		overtake_io_fd(fd_info->infile_fd, fd_info->export_fd);
+	else if (is_middle(cmd_i, argc))
+		overtake_io_fd(fd_info->import_fd, fd_info->export_fd);
+	else
+		overtake_io_fd(fd_info->import_fd, fd_info->outfile_fd);
 }
 
 pid_t	xfork_exec(int cmd_i, t_fd *fd_info, t_arg *arg_info)

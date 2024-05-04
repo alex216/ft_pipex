@@ -27,7 +27,7 @@ typedef enum e_char
 }			t_char;
 
 // concat_token.c
-void	concate_token(void *void_p);
+void		concate_token(void *void_p);
 
 // remove_quote.c
 void		remove_quote(void *lst_p);

@@ -17,8 +17,8 @@
 
 const char	**parse_string(const char *cmd)
 {
-	t_lst	*lst_p;
-	const char **ans;
+	t_lst		*lst_p;
+	const char	**ans;
 
 	lst_p = parse_string_by_blank(cmd);
 	ft_dl_lstmap(&lst_p, *remove_quote);

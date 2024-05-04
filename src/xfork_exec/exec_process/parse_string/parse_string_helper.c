@@ -55,4 +55,3 @@ bool	should_concat_token(const t_lst *lst_p)
 	return (lst_p->payload_p->type != BLANK
 		&& lst_p->next_p->payload_p->type != BLANK);
 }
-

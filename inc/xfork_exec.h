@@ -35,9 +35,9 @@ typedef struct s_command
 typedef struct s_fd		t_fd;
 typedef struct s_arg	t_arg;
 
-void		overtake_io_fd(int new_in, int new_out);
-const char	*return_entire_path(const char *basename,
+void					overtake_io_fd(int new_in, int new_out);
+const char				*return_entire_path(const char *basename,
 							const char *envp[]);
-void		exec_process(const char *arg_str, const char *envp[]);
-pid_t		xfork_exec(int cmd_num, t_fd *fd_info, t_arg *arg_info);
+void					exec_process(const char *arg_str, const char *envp[]);
+pid_t					xfork_exec(int cmd_num, t_fd *fd_info, t_arg *arg_info);
 #endif
