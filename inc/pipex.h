@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 14:25:13 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 15:29:05 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #  define FAIL -1
 # endif
 
-int	main(int argc, const char **argv, const char *envp[]);
+void	exec_pipe(t_arg *arg_cve_info, t_fd *fd_info, int *pipefd);
+int		main(int argc, const char **argv, const char *envp[]);
 
 #endif

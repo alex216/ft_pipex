@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/04 14:26:50 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/04 15:28:43 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ ORIGIN_HEADERS	:=	./inc/$(NAME).h \
 
 BASIC_SRCS 		:=	./src/main/main_helper/main_helper.c \
 					./src/main/main_helper/pipe_utils.c \
+					./src/main/exec_pipe.c \
 					./src/xfork_exec/xfork_exec.c \
 				  	./src/xfork_exec/overtake_io_fd.c \
 				  	./src/xfork_exec/exec_process/exec_process.c \
