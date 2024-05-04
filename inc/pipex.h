@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 00:13:36 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 09:27:52 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ typedef struct s_arg
 	const char	**envp;
 }				t_arg;
 
+// main_helper.c
+void			init_arg_info(int argc, const char **argv, const char **envp,
+					t_arg *arg_info);
+void			init_fd_info(int argc, const char **argv, t_fd *fd_info);
+bool			is_first(int cmd_num);
+bool			is_last(int cmd_num, int argc);
+bool			is_middle(int cmd_num, int argc);
+
+// main.c
 int				main(int argc, const char **argv, const char *envp[]);
 
 #endif

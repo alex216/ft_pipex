@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/03 17:57:13 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/04 09:28:27 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,8 @@ ORIGIN_HEADERS	:=	./inc/$(NAME).h \
 					./inc/process.h \
 					./inc/parse_string.h
 
-BASIC_SRCS 		:=	./src/process/process.c \
+BASIC_SRCS 		:=	./src/main_helper.c \
+					./src/process/process.c \
 				  	./src/process/return_infile_fd.c \
 				  	./src/process/return_outfile_fd.c \
 				  	./src/process/overtake_io.c \
