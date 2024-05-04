@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_infile_fd.c                                 :+:      :+:    :+:   */
+/*   argv_check_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:06:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/24 22:35:11 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 09:40:35 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/04 09:40:42 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "process.h"
+#include "utils.h"
 
-int	return_infile_fd(const char **argv, const char *filename)
+bool	is_first(int cmd_num)
 {
-	int	fd;
+	return (cmd_num == 0);
+}
 
-	(void)argv;
-	fd = open(filename, O_RDONLY);
-	if (fd == FAIL)
-		exit(print_error(filename, strerror(PERMISSION_DENIED), 1));
-	return (fd);
+bool	is_last(int cmd_num, int argc)
+{
+	return (cmd_num == argc - 4);
+}
+
+bool	is_middle(int cmd_num, int argc)
+{
+	return (cmd_num > 0 && cmd_num < argc - 4);
 }

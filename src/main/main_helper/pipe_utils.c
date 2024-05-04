@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xwrapper.h                                         :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 10:52:00 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/01 10:46:08 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 14:18:47 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/04 14:19:59 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XWRAPPER_H
-# define XWRAPPER_H
+#include "main_helper.h"
 
-# include "utils.h"
-# include <stdbool.h>
+void	_mk_xpipe(int *pip_arr, int i)
+{
+	int	tmp_fd[2];
 
-# define SUCCESS 0
+	xpipe(tmp_fd);
+	pip_arr[2 * i] = tmp_fd[0];
+	pip_arr[2 * i + 1] = tmp_fd[1];
+}
 
-pid_t	xfork(void);
-void	xclose(int fd);
-void	xpipe(int *pipefd);
-void	xdup2(int dst, int src);
-bool	xaccess_is_x_ok(const char *name);
-bool	xaccess_is_f_ok(const char *name);
-bool	xaccess_is_f_ok_alt(const char *name);
+int	_pipe_read_fd(int *pipefd, int i)
+{
+	return (pipefd[2 * i + 0]);
+}
 
-#endif
+int	_pipe_write_fd(int *pipefd, int i)
+{
+	return (pipefd[2 * i + 1]);
+}

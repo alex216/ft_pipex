@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/24 15:21:56 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 17:03:21 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,17 @@
 // {
 // 	system("leaks --atExit -- ./pipex");
 // }
+//
 
-int	main(int argc, const char **argv, const char *envp[])
+int	main(int argc, const char **argv, const char **envp)
 {
-	pid_t	pid;
-	int		pipefd[2];
+	t_arg	arg_cve_info;
+	t_fd	fd_info;
+	int		*pipefd;
 
-	if (argc != 5)
-		exit(42);
-	if (pipe(pipefd) == FAIL)
-		exit(print_errno(strerror(errno)));
-	pid = fork();
-	if (pid == FAIL)
-		exit(print_errno(strerror(errno)));
-	if (pid == 0)
-		exec_child(argv, argv[1], pipefd, envp);
-	else
-		exec_parent(argv, argv[4], pipefd, envp);
+	pipefd = ft_xcalloc(2 * (argc - 4));
+	init_arg_info(argc, argv, envp, &arg_cve_info);
+	init_fd_info(arg_cve_info.argc, arg_cve_info.argv, &fd_info);
+	exec_pipe(&arg_cve_info, &fd_info, pipefd);
 	return (0);
 }

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xwrapper.h                                         :+:      :+:    :+:   */
+/*   overtake_io_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 10:52:00 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/01 10:46:08 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/03 17:56:57 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/04 13:00:03 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XWRAPPER_H
-# define XWRAPPER_H
+#include "xfork_exec.h"
 
-# include "utils.h"
-# include <stdbool.h>
+static void	_appoint_stdin_fd(int pfd)
+{
+	xdup2(pfd, STDIN_FILENO);
+	xclose(pfd);
+}
 
-# define SUCCESS 0
+static void	_appoint_stdout_fd(int pfd)
+{
+	xdup2(pfd, STDOUT_FILENO);
+	xclose(pfd);
+}
 
-pid_t	xfork(void);
-void	xclose(int fd);
-void	xpipe(int *pipefd);
-void	xdup2(int dst, int src);
-bool	xaccess_is_x_ok(const char *name);
-bool	xaccess_is_f_ok(const char *name);
-bool	xaccess_is_f_ok_alt(const char *name);
-
-#endif
+void	overtake_io_fd(int new_in, int new_out)
+{
+	_appoint_stdin_fd(new_in);
+	_appoint_stdout_fd(new_out);
+}

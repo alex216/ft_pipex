@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xwrapper.h                                         :+:      :+:    :+:   */
+/*   concat_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 10:52:00 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/01 10:46:08 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 10:32:43 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/04 10:38:39 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XWRAPPER_H
-# define XWRAPPER_H
+#include "parse_string.h"
 
-# include "utils.h"
-# include <stdbool.h>
+void	concate_token(void *void_p)
+{
+	char		*a;
+	char		*b;
+	t_record	*record_p;
+	t_lst		*lst_p;
 
-# define SUCCESS 0
-
-pid_t	xfork(void);
-void	xclose(int fd);
-void	xpipe(int *pipefd);
-void	xdup2(int dst, int src);
-bool	xaccess_is_x_ok(const char *name);
-bool	xaccess_is_f_ok(const char *name);
-bool	xaccess_is_f_ok_alt(const char *name);
-
-#endif
+	lst_p = (t_lst *)void_p;
+	a = get_char_of(lst_p);
+	b = get_char_of(lst_p->next_p);
+	record_p = (lst_p->payload_p);
+	record_p->str = ft_strjooin(2, a, b);
+	free(a);
+	record_p->length = record_p->length + (lst_p->next_p->payload_p->length);
+	ft_dl_lstdelone(lst_p->next_p, *del);
+}

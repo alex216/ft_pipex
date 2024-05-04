@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_outfile_fd.c                                :+:      :+:    :+:   */
+/*   xpipe.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:04:47 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/24 21:55:50 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/30 10:01:53 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/01 10:44:05 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "process.h"
+#include "xwrapper.h"
 
-int	return_outfile_fd(const char *filename)
+void	xpipe(int *pipefd)
 {
-	int	fd;
-
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == FAIL)
-		exit(print_error(filename, strerror(errno), 1));
-	return (fd);
+	if (pipe(pipefd) == FAIL)
+		exit(print_errno(strerror(errno)));
 }
