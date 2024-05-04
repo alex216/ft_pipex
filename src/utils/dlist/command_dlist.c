@@ -6,13 +6,12 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:47:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/24 11:16:22 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 09:49:01 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_string.h"
 #include "utils.h"
-#include <pipex.h>
 
 static void	*_creat_record(const char *str, int type)
 {

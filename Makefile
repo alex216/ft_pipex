@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/04 09:41:10 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/04 10:36:05 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,7 @@ BASIC_SRCS 		:=	./src/main_helper.c \
 				  	./src/utils/xwrapper/xpipe.c \
 					\
 					./src/process/exec_process/return_entire_path.c \
+					./src/process/exec_process/parse_string/concat_token.c \
 					./src/process/exec_process/parse_string/parse_string.c \
 					./src/process/exec_process/parse_string/remove_quote.c \
 					./src/process/exec_process/parse_string/parse_string_by_blank.c \

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:15:47 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/28 22:36:42 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 10:33:33 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef enum e_char
 	B_QUOTE = 92
 }			t_char;
 
+// concat_token.c
+void	concate_token(void *void_p);
+
 // remove_quote.c
 void		remove_quote(void *lst_p);
 t_lst		*parse_string_by_blank(const char *cmd);
@@ -35,6 +38,7 @@ bool		is_sep(const char *cmd, int position);
 bool		is_backslash_quoted(const char *cmd, int position);
 bool		is_s_quote_start(const char *cmd, int position);
 bool		is_s_quote_end(const char *cmd, int position);
+bool		should_concat_token(const t_lst *lst_p);
 
 // parse_string_extract.c
 void		extract_single_quotated_area(const char *cmd, int *p,

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:01:34 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/29 18:17:05 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 10:32:14 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,10 @@ bool	is_s_quote_end(const char *cmd, int position)
 {
 	return (cmd[position] == S_QUOTE);
 }
+
+bool	should_concat_token(const t_lst *lst_p)
+{
+	return (lst_p->payload_p->type != BLANK
+		&& lst_p->next_p->payload_p->type != BLANK);
+}
+
