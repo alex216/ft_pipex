@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/03 18:04:54 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 09:21:27 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,68 @@
 // {
 // 	system("leaks --atExit -- ./pipex");
 // }
-//
 
-void	checker(int pipefd[])
+static void	_init_arg_info(int argc, const char **argv, const char **envp,
+		t_arg *arg_info)
 {
-	char	*buf;
-
-	buf = calloc(10, 1);
-	read(pipefd[0], buf, 10);
-	ft_dprintf(2, buf);
+	arg_info->argv = argv;
+	arg_info->argc = argc;
+	arg_info->envp = envp;
 }
 
-int	main(int argc, const char **argv, const char *envp[])
+static void	_init_fd_info(int argc, const char **argv, t_fd *fd_info)
 {
-	int	infile_fd;
-	int	outfile_fd;
-	int	total_cmd;
-	total_cmd = argc - 3;
-	int	cmd_num;
-	int	pfd_pp[total_cmd - 1][2];
+	fd_info->infile_fd = return_infile_fd(argv[1]);
+	fd_info->outfile_fd = return_outfile_fd(argv[argc - 1]);
+}
 
-	infile_fd = return_infile_fd(argv[1]);
-	outfile_fd = return_outfile_fd(argv[argc - 1]);
-	pid_t pid0, pid1;
-	(void)pid0;
-	(void)pid1;
-	///////////// 0
-	cmd_num = 0;
-	xpipe(pfd_pp[0]);
-	pid0 = fork_exec(argv, cmd_num, total_cmd, infile_fd, NULL, pfd_pp[0],
-			envp);
-	close(pfd_pp[cmd_num][1]);
-	cmd_num++;
-	///////////// 1, 2
-	while (cmd_num <= total_cmd - 2)
+static bool _is_first(int cmd_num)
+{
+	return (cmd_num == 0);
+}
+
+static bool	_is_last(int cmd_num, int argc)
+{
+	return (cmd_num == argc - 4);
+}
+
+static bool	_is_middle(int cmd_num, int argc)
+{
+	return (cmd_num > 0 && cmd_num < argc - 4);
+}
+
+int	main(int argc, const char **argv, const char **envp)
+{
+	int		pfd_pp[argc - 4][2];
+	t_arg	arg_info;
+	t_fd	fd_info;
+	int		i;
+
+	_init_arg_info(argc, argv, envp, &arg_info);
+	_init_fd_info(argc, argv, &fd_info);
+	i = 0;
+	// while (!_is_last(i, argc))
+	while (_is_first(i) || _is_middle(i, argc) || _is_last(i, argc))
 	{
-		xpipe(pfd_pp[cmd_num]);
-		pid1 = fork_exec(argv, cmd_num, total_cmd, 0, pfd_pp[cmd_num - 1],
-				pfd_pp[cmd_num], envp);
-		close(pfd_pp[cmd_num][1]);
-		cmd_num++;
+		if (_is_first(i) || _is_middle(i, argc))
+			xpipe(pfd_pp[i]);
+	
+		if (_is_middle(i, argc))
+			fd_info.import_fd = pfd_pp[i - 1][0];
+		if (_is_first(i) || _is_middle(i, argc))
+			fd_info.export_fd = pfd_pp[i][1];
+	
+		if (_is_first(i))
+			fork_exec(i, fd_info.infile_fd, fd_info.export_fd, &arg_info);
+		else if (_is_last(i, argc))
+			fork_exec(i, pfd_pp[i - 1][0], fd_info.outfile_fd, &arg_info);
+		else
+			fork_exec(i, fd_info.import_fd, fd_info.export_fd, &arg_info);
+
+		if (_is_first(i) || _is_middle(i, argc))
+			close(pfd_pp[i][1]);
+
+		i++;
 	}
-	///////////// 3
-	fork_exec(argv, cmd_num, total_cmd, outfile_fd, pfd_pp[cmd_num - 1], NULL,
-		envp);
 	return (0);
 }

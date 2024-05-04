@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:34:24 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/03 18:01:00 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 00:24:40 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,15 @@
  ------ ->[1]-> ---         ------  STDOUT:outfile
 */
 
-//////////////////////////////////////////
-
-pid_t	fork_exec(const char **argv, int cmd_num, int total, int file_fd,
-		int prev_fd[], int curr_fd[], const char *envp[])
+pid_t	fork_exec(int cmd_num, int input_fd, int output_fd, t_arg *arg_info)
 {
 	pid_t	pid;
 
 	pid = xfork();
 	if (pid == CHILD)
 	{
-		if (cmd_num == 0)
-			overtake_io(file_fd, curr_fd[1]);
-		else if (cmd_num == total - 1)
-			overtake_io(prev_fd[0], file_fd);
-		else
-			overtake_io(prev_fd[0], curr_fd[1]);
-		exec_process(return_cmd(argv, cmd_num), envp);
+		overtake_io(input_fd, output_fd);
+		exec_process(return_cmd(arg_info->argv, cmd_num), arg_info->envp);
 	}
 	return (pid);
 }

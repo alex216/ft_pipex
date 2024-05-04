@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/02 18:40:27 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 00:13:36 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,21 @@
 #  define FAIL -1
 # endif
 
-int		main(int argc, const char **argv, const char *envp[]);
-void	checker(int pipefd[]);
+typedef struct s_fd
+{
+	int			infile_fd;
+	int			outfile_fd;
+	int			import_fd;
+	int			export_fd;
+}				t_fd;
+
+typedef struct s_arg
+{
+	const char	**argv;
+	int			argc;
+	const char	**envp;
+}				t_arg;
+
+int				main(int argc, const char **argv, const char *envp[]);
 
 #endif
