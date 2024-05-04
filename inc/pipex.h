@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 15:29:05 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 21:50:51 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "dlist.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
+# include "here_doc.h"
 # include "libft.h"
 # include "main_helper.h"
 # include "parse_string.h"

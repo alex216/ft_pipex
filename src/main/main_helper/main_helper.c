@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 09:26:06 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 14:23:28 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 22:31:54 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@ static int	return_infile_fd(const char *filename)
 	return (fd);
 }
 
-static int	return_outfile_fd(const char *filename)
+static int	return_created_outfile_fd(const char *filename)
 {
 	int	fd;
 
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == FAIL)
+		exit(print_error(filename, strerror(errno), 1));
+	return (fd);
+}
+
+static int	return_appended_outfile_fd(const char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_WRONLY | O_APPEND | O_TRUNC, 0644);
 	if (fd == FAIL)
 		exit(print_error(filename, strerror(errno), 1));
 	return (fd);
@@ -38,10 +48,19 @@ void	init_arg_info(int argc, const char **argv, const char **envp,
 	arg_info->argv = argv;
 	arg_info->argc = argc;
 	arg_info->envp = envp;
+	arg_info->is_heredoc = is_heredoc(argv);
 }
 
-void	init_fd_info(int argc, const char **argv, t_fd *fd_info)
+void	init_fd_info(t_arg *arg_info, t_fd *fd_info)
 {
-	fd_info->infile_fd = return_infile_fd(argv[1]);
-	fd_info->outfile_fd = return_outfile_fd(argv[argc - 1]);
+	int			argc;
+	const char	**argv;
+
+	argc = arg_info->argc;
+	argv = arg_info->argv;
+	fd_info->infile_fd = return_infile_fd(argv[1 + arg_info->is_heredoc]);
+	if (arg_info->is_heredoc)
+		fd_info->outfile_fd = return_appended_outfile_fd(argv[argc - 1]);
+	else
+		fd_info->outfile_fd = return_created_outfile_fd(argv[argc - 1]);
 }
