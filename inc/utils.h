@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:38:42 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/03 18:01:58 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 09:41:21 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,10 @@ const char	*search_path_list(const char *envp[]);
 bool		is_basename_has_slash(const char *basename);
 char		**lst_2_char(t_lst **lst_pp);
 const char	*return_cmd(const char **argv, int cmd_num);
+
+// argv_check_utils.c
+bool		is_first(int cmd_num);
+bool		is_last(int cmd_num, int argc);
+bool		is_middle(int cmd_num, int argc);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/04 09:28:27 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/04 09:41:10 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,12 +66,11 @@ ORIGIN_HEADERS	:=	./inc/$(NAME).h \
 
 BASIC_SRCS 		:=	./src/main_helper.c \
 					./src/process/process.c \
-				  	./src/process/return_infile_fd.c \
-				  	./src/process/return_outfile_fd.c \
 				  	./src/process/overtake_io.c \
 				  	./src/process/exec_process/exec_process.c \
 					\
 				  	./src/utils/utils.c \
+				  	./src/utils/argv_check_utils.c \
 					./src/utils/error.c \
 					\
 					./src/utils/dlist/query_dlist.c \

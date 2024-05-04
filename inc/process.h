@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:36:06 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 00:13:17 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 09:38:40 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef struct s_command
 typedef struct s_fd		t_fd;
 typedef struct s_arg	t_arg;
 
-int						return_infile_fd(const char *filename);
-int						return_outfile_fd(const char *outfile);
 void					overtake_io(int new_in, int new_out);
 const char				*return_entire_path(const char *basename,
 							const char *envp[]);
