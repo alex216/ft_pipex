@@ -4,7 +4,7 @@ extern "C"
 {
 #include "pipex.h"
 #include "utils.h"
-#include "process.h"
+#include "xfork_exec.h"
 }
 
 TEST(return_entire_path, CmdWithSlash_NoF_OK)

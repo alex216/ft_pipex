@@ -6,13 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 09:48:05 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 12:53:21 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "pipex.h"
-#include "process.h"
 
 // __attribute__((destructor)) void destructor(void)
 // {
@@ -26,6 +24,8 @@ int	main(int argc, const char **argv, const char **envp)
 	t_fd	fd_info;
 	int		i;
 
+	// int *pfd_malloc = malloc(2 * (argc - 4));
+
 	init_arg_info(argc, argv, envp, &arg_cve_info);
 	init_fd_info(argc, argv, &fd_info);
 	i = 0;
@@ -37,12 +37,7 @@ int	main(int argc, const char **argv, const char **envp)
 			fd_info.import_fd = pfd_pp[i - 1][0];
 		if (is_first(i) || is_middle(i, argc))
 			fd_info.export_fd = pfd_pp[i][1];
-		if (is_first(i))
-			fork_exec(i, fd_info.infile_fd, fd_info.export_fd, &arg_cve_info);
-		else if (is_last(i, argc))
-			fork_exec(i, fd_info.import_fd, fd_info.outfile_fd, &arg_cve_info);
-		else
-			fork_exec(i, fd_info.import_fd, fd_info.export_fd, &arg_cve_info);
+		xfork_exec(i, &fd_info, &arg_cve_info);
 		if (is_first(i) || is_middle(i, argc))
 			close(pfd_pp[i][1]);
 		i++;

@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/04 10:36:05 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/04 13:03:41 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,13 +61,13 @@ ORIGIN_HEADERS	:=	./inc/$(NAME).h \
 					./inc/utils.h \
 					./inc/dlist.h \
 					./inc/xwrapper.h \
-					./inc/process.h \
+					./inc/xfork_exec.h \
 					./inc/parse_string.h
 
 BASIC_SRCS 		:=	./src/main_helper.c \
-					./src/process/process.c \
-				  	./src/process/overtake_io.c \
-				  	./src/process/exec_process/exec_process.c \
+					./src/xfork_exec/xfork_exec.c \
+				  	./src/xfork_exec/overtake_io_fd.c \
+				  	./src/xfork_exec/exec_process/exec_process.c \
 					\
 				  	./src/utils/utils.c \
 				  	./src/utils/argv_check_utils.c \
@@ -82,13 +82,13 @@ BASIC_SRCS 		:=	./src/main_helper.c \
 				  	./src/utils/xwrapper/xfork.c \
 				  	./src/utils/xwrapper/xpipe.c \
 					\
-					./src/process/exec_process/return_entire_path.c \
-					./src/process/exec_process/parse_string/concat_token.c \
-					./src/process/exec_process/parse_string/parse_string.c \
-					./src/process/exec_process/parse_string/remove_quote.c \
-					./src/process/exec_process/parse_string/parse_string_by_blank.c \
-					./src/process/exec_process/parse_string/parse_string_extract.c \
-					./src/process/exec_process/parse_string/parse_string_helper.c
+					./src/xfork_exec/exec_process/return_entire_path.c \
+					./src/xfork_exec/exec_process/parse_string/concat_token.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string.c \
+					./src/xfork_exec/exec_process/parse_string/remove_quote.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string_by_blank.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string_extract.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string_helper.c
 
 # mandatory files
 SRCS			:= $(BASIC_SRCS) ./src/main.c
