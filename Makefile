@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/04 13:03:41 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/04 14:26:50 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,13 +58,15 @@ MAN_INC_DIR		:= $(LIB_INC_DIR) $(INC_DIR)
 LIB				:= $(LIB_DIR)/$(LIBRARY)
 
 ORIGIN_HEADERS	:=	./inc/$(NAME).h \
+					./inc/main_helper.h \
 					./inc/utils.h \
 					./inc/dlist.h \
 					./inc/xwrapper.h \
 					./inc/xfork_exec.h \
 					./inc/parse_string.h
 
-BASIC_SRCS 		:=	./src/main_helper.c \
+BASIC_SRCS 		:=	./src/main/main_helper/main_helper.c \
+					./src/main/main_helper/pipe_utils.c \
 					./src/xfork_exec/xfork_exec.c \
 				  	./src/xfork_exec/overtake_io_fd.c \
 				  	./src/xfork_exec/exec_process/exec_process.c \

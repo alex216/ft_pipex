@@ -6,11 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 09:26:06 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 09:40:04 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 14:23:28 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "main_helper.h"
 
 static int	return_infile_fd(const char *filename)
 {

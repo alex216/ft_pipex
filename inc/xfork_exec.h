@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:36:06 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 12:56:38 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 14:27:23 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@
 # include <string.h>
 
 # define PATH "PATH="
-
-typedef enum e_errno
-{
-	PERMISSION_DENIED = 13
-}						t_errno;
 
 typedef struct s_command
 {
