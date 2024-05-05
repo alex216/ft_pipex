@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 09:26:06 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 10:06:15 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 11:10:23 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_arg_info(int argc, const char **argv, const char **envp,
 	arg_info->argc = argc;
 	arg_info->envp = envp;
 	arg_info->is_heredoc = is_heredoc(argv);
-	arg_info->cmd_num = argc - arg_info->is_heredoc - 3;
+	arg_info->cmd_num = argc - 3 - arg_info->is_heredoc;
 }
 
 void	init_fd_info(t_arg *arg_info, t_fd *fd_info)
