@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:34:24 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 10:59:34 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 11:21:09 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@
  ------ ->[1]-> --- <-[1]<- ------
 
  first pipe:
- ------ <-[0]<- ---         ------  STDIN :infile
-| main |       | p |       | cmd1 |
+ ------ <-[0]<- --- -       ------  STDIN :infile or here_doc
+| main |       | p | \     | cmd1 |
  ------ ->[1]-> --- <-[1]<- ------  STDOUT:curr_pft[1]
-
- middle pipe:
- ------ <-[0]<- ---         ------  STDIN :prev_pfd[0]
-| main |       | p |       | cmd1 |
+                       \
+ middle pipe:           \
+ ------ <-[0]<- --- -    -> ------  STDIN :prev_pfd[0]
+| main |       | p | \     | cmd1 |
  ------ ->[1]-> --- <-[1]<- ------  STDOUT:curr_pfd[1]
-
- last pipe:
- ------ <-[0]<- --- ->[0]-> ------  STDIN :curr_pfd[0]
-| main |       | p |       | cmdX |
- ------ ->[1]-> ---         ------  STDOUT:outfile
+                       \
+ last pipe:             \
+ ------                  -> ------  STDIN :prev_pfd[0]
+| main |                   | cmdX |
+ ------                     ------  STDOUT:outfile
 */
 
 static void	_overtake_io(int cmd_i, t_fd *fd_info, int cmd_num)
@@ -49,7 +49,7 @@ static void	_overtake_io(int cmd_i, t_fd *fd_info, int cmd_num)
 		overtake_io_fd(fd_info->infile_fd, fd_info->export_fd);
 	else if (is_middle(cmd_i, cmd_num))
 		overtake_io_fd(fd_info->import_fd, fd_info->export_fd);
-	else
+	else if (is_last(cmd_i, cmd_num))
 		overtake_io_fd(fd_info->import_fd, fd_info->outfile_fd);
 }
 
