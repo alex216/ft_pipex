@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 21:50:51 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 10:19:50 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,7 @@
 # include "xwrapper.h"
 # include <fcntl.h>
 
-# define CHILD 0
-# define PARENT 1
-# ifndef FAIL
-#  define FAIL -1
-# endif
-
-void	exec_pipe(t_arg *arg_cve_info, t_fd *fd_info, int *pipefd);
+void	loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int *pipefd);
 int		main(int argc, const char **argv, const char *envp[]);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:52:00 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/01 10:46:08 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 09:52:10 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdbool.h>
 
 # define SUCCESS 0
+# define CHILD 0
+# define PARENT 1
 
 pid_t	xfork(void);
 void	xclose(int fd);

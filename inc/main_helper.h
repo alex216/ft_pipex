@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:19:15 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 22:26:22 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 10:16:46 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "xwrapper.h"
 # include <fcntl.h>
 
+# ifndef FAIL
+#  define FAIL -1
+# endif
 typedef enum e_errno
 {
 	PERMISSION_DENIED = 13
@@ -35,12 +38,13 @@ typedef struct s_arg
 	const char	**argv;
 	int			argc;
 	const char	**envp;
+	int			cmd_num;
 	bool		is_heredoc;
 }				t_arg;
 
-void			_mk_xpipe(int *pip_arr, int i);
-int				_pipe_read_fd(int *pipefd, int i);
-int				_pipe_write_fd(int *pipefd, int i);
+void			mk_xpipe(int *pip_arr, int i);
+int				pipe_read_fd(int *pipefd, int i);
+int				pipe_write_fd(int *pipefd, int i);
 void			init_arg_info(int argc, const char **argv, const char **envp,
 					t_arg *arg_info);
 void			init_fd_info(t_arg *arg_cve_info, t_fd *fd_info);

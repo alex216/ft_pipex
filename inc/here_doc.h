@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:50:55 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 22:41:31 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/04 23:55:56 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 # include "libft.h"
 
 int	is_heredoc(const char **argv);
+int	return_heredoc_fd(const char *limiter);
 
 #endif

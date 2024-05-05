@@ -6,13 +6,13 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:18:47 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 14:19:59 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 10:17:08 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_helper.h"
 
-void	_mk_xpipe(int *pip_arr, int i)
+void	mk_xpipe(int *pip_arr, int i)
 {
 	int	tmp_fd[2];
 
@@ -21,12 +21,12 @@ void	_mk_xpipe(int *pip_arr, int i)
 	pip_arr[2 * i + 1] = tmp_fd[1];
 }
 
-int	_pipe_read_fd(int *pipefd, int i)
+int	pipe_read_fd(int *pipefd, int i)
 {
 	return (pipefd[2 * i + 0]);
 }
 
-int	_pipe_write_fd(int *pipefd, int i)
+int	pipe_write_fd(int *pipefd, int i)
 {
 	return (pipefd[2 * i + 1]);
 }
