@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:50:30 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 09:54:35 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 11:29:54 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	is_heredoc(const char **argv)
 		return (0);
 }
 
-// int	return_heredoc_fd(const char *limiter)
-// {
-//
-// }
+int	return_heredoc_fd(const char *limiter)
+{
+	(void)limiter;
+	return (0);
+}

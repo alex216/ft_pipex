@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:19:15 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 10:16:46 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 13:14:12 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # ifndef FAIL
 #  define FAIL -1
 # endif
+
 typedef enum e_errno
 {
 	PERMISSION_DENIED = 13
@@ -47,5 +48,4 @@ int				pipe_read_fd(int *pipefd, int i);
 int				pipe_write_fd(int *pipefd, int i);
 void			init_arg_info(int argc, const char **argv, const char **envp,
 					t_arg *arg_info);
-void			init_fd_info(t_arg *arg_cve_info, t_fd *fd_info);
 #endif

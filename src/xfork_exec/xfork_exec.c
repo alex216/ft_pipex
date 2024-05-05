@@ -31,12 +31,12 @@
  ------ <-[0]<- --- -       ------  STDIN :infile or here_doc
 | main |       | p | \     | cmd1 |
  ------ ->[1]-> --- <-[1]<- ------  STDOUT:curr_pft[1]
-                       \
+						\
  middle pipe:           \
  ------ <-[0]<- --- -    -> ------  STDIN :prev_pfd[0]
 | main |       | p | \     | cmd1 |
  ------ ->[1]-> --- <-[1]<- ------  STDOUT:curr_pfd[1]
-                       \
+						\
  last pipe:             \
  ------                  -> ------  STDIN :prev_pfd[0]
 | main |                   | cmdX |
