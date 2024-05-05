@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argv_check_utils.c                                 :+:      :+:    :+:   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 09:40:35 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 10:53:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 14:18:47 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/05 13:35:05 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-bool	is_first(int cmd_i)
+void	mk_xpipe(int *pip_arr, int i)
 {
-	return (cmd_i == 0);
+	int	tmp_fd[2];
+
+	xpipe(tmp_fd);
+	pip_arr[2 * i] = tmp_fd[0];
+	pip_arr[2 * i + 1] = tmp_fd[1];
 }
 
-bool	is_last(int cmd_i, int cmd_num)
+int	pipe_read_fd(int *pipefd, int i)
 {
-	return (cmd_i == cmd_num - 1);
+	return (pipefd[2 * i + 0]);
 }
 
-bool	is_middle(int cmd_i, int cmd_num)
+int	pipe_write_fd(int *pipefd, int i)
 {
-	return (cmd_i > 0 && cmd_i < cmd_num - 1);
+	return (pipefd[2 * i + 1]);
 }

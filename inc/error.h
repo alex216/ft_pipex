@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argv_check_utils.c                                 :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 09:40:35 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 10:53:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/05 13:46:22 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/05 13:50:45 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-bool	is_first(int cmd_i)
-{
-	return (cmd_i == 0);
-}
+# include <sys/errno.h>
 
-bool	is_last(int cmd_i, int cmd_num)
-{
-	return (cmd_i == cmd_num - 1);
-}
+# define CMD_NOT_FOUND "command not found"
 
-bool	is_middle(int cmd_i, int cmd_num)
+typedef enum e_exit_status
 {
-	return (cmd_i > 0 && cmd_i < cmd_num - 1);
-}
+	NOT_EXECUTABLE = 126,
+	NO_FILE_OR_CMD_ERR = 127
+}	t_exit_status;
+
+int	print_error(const char *basename, char *str, int exit_status);
+int	print_errno(const char *errno_msg);
+int	print_quote_error(void);
+
+#endif

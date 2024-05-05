@@ -6,15 +6,21 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:19:15 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 16:30:01 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 13:34:44 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_HELPER_H
 # define MAIN_HELPER_H
 
+# include "here_doc.h"
+# include "xfork_exec.h"
 # include "xwrapper.h"
 # include <fcntl.h>
+
+# ifndef FAIL
+#  define FAIL -1
+# endif
 
 typedef enum e_errno
 {
@@ -34,12 +40,15 @@ typedef struct s_arg
 	const char	**argv;
 	int			argc;
 	const char	**envp;
+	int			cmd_num;
+	bool		is_heredoc;
 }				t_arg;
 
-void			_mk_xpipe(int *pip_arr, int i);
-int				_pipe_read_fd(int *pipefd, int i);
-int				_pipe_write_fd(int *pipefd, int i);
 void			init_arg_info(int argc, const char **argv, const char **envp,
 					t_arg *arg_info);
-void			init_fd_info(int argc, const char **argv, t_fd *fd_info);
+void			open_pipes(int cmd_i, int *pipefd, t_arg *arg_info,
+					t_fd *fd_info);
+void			close_pipes(int cmd_i, int *pipefd, t_arg *arg_info,
+					t_fd *fd_info);
+void			loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int *pipefd);
 #endif

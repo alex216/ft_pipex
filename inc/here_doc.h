@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argv_check_utils.c                                 :+:      :+:    :+:   */
+/*   here_doc.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 09:40:35 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 10:53:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 21:50:55 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/05 15:07:27 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef HERE_DOC_H
+# define HERE_DOC_H
 
-bool	is_first(int cmd_i)
-{
-	return (cmd_i == 0);
-}
+# include "get_next_line.h"
+# include "libft.h"
+# include "xwrapper.h"
 
-bool	is_last(int cmd_i, int cmd_num)
-{
-	return (cmd_i == cmd_num - 1);
-}
+int	is_heredoc(const char **argv);
+int	open_heredoc_fd(const char *limiter);
 
-bool	is_middle(int cmd_i, int cmd_num)
-{
-	return (cmd_i > 0 && cmd_i < cmd_num - 1);
-}
+#endif
