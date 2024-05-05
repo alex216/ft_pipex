@@ -6,10 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:47:03 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 16:04:08 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 18:46:24 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "main_helper.h"
 
 static void	_refresh_fd_info(int cmd_num, t_fd *fd_info, int cmd_i, int *pipefd)
@@ -36,4 +37,8 @@ void	loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int *pipefd)
 		close_pipes(cmd_i, pipefd, arg_cve_info, fd_info);
 		cmd_i++;
 	}
+	while (wait(NULL) != -1)
+		continue ;
+	if (errno != ECHILD)
+		exit(1);
 }
