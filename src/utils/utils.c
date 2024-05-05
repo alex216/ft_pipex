@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 13:00:47 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:33:49 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**lst_2_char(t_lst **lst_pp)
 	return (ans);
 }
 
-const char	*return_cmd(const char **argv, int cmd_num)
+const char	*return_cmd(const char **argv, int cmd_num, int is_heredoc)
 {
-	return (argv[cmd_num + 2]);
+	return (argv[cmd_num + 2 + is_heredoc]);
 }

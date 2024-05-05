@@ -6,13 +6,13 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:18:48 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 13:24:08 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 16:04:15 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_helper.h"
 
-static int	open_infile_fd(const char *filename)
+static int	_open_infile_fd(const char *filename)
 {
 	int	fd;
 
@@ -22,7 +22,7 @@ static int	open_infile_fd(const char *filename)
 	return (fd);
 }
 
-static int	open_created_outfile_fd(const char *filename)
+static int	_open_created_outfile_fd(const char *filename)
 {
 	int	fd;
 
@@ -32,7 +32,7 @@ static int	open_created_outfile_fd(const char *filename)
 	return (fd);
 }
 
-static int	open_appended_outfile_fd(const char *filename)
+static int	_open_appended_outfile_fd(const char *filename)
 {
 	int	fd;
 
@@ -56,15 +56,15 @@ void	open_pipes(int cmd_i, int *pipefd, t_arg *arg_info, t_fd *fd_info)
 	if (is_first(cmd_i))
 	{
 		if (arg_info->is_heredoc)
-			; // fd_info->infile_fd = return_heredoc_fd(argv[2]);
+			fd_info->infile_fd = open_heredoc_fd(argv[2]);
 		else
-			fd_info->infile_fd = open_infile_fd(argv[1]);
+			fd_info->infile_fd = _open_infile_fd(argv[1]);
 	}
 	if (is_last(cmd_i, cmd_num))
 	{
 		if (arg_info->is_heredoc)
-			fd_info->outfile_fd = open_appended_outfile_fd(argv[argc - 1]);
+			fd_info->outfile_fd = _open_appended_outfile_fd(argv[argc - 1]);
 		else
-			fd_info->outfile_fd = open_created_outfile_fd(argv[argc - 1]);
+			fd_info->outfile_fd = _open_created_outfile_fd(argv[argc - 1]);
 	}
 }

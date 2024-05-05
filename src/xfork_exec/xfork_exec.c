@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:34:24 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 11:21:09 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:33:21 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ static void	_overtake_io(int cmd_i, t_fd *fd_info, int cmd_num)
 
 pid_t	xfork_exec(int cmd_i, t_fd *fd_info, t_arg *arg_info)
 {
-	pid_t	pid;
+	pid_t		pid;
+	const char	*cmd;
 
 	pid = xfork();
 	if (pid == CHILD)
 	{
 		_overtake_io(cmd_i, fd_info, arg_info->cmd_num);
-		exec_process(return_cmd(arg_info->argv, cmd_i), arg_info->envp);
+		cmd = return_cmd(arg_info->argv, cmd_i, arg_info->is_heredoc);
+		exec_process(cmd, arg_info->envp);
 	}
 	return (pid);
 }
