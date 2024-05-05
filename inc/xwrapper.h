@@ -6,19 +6,25 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:52:00 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 09:52:10 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 13:50:38 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef XWRAPPER_H
 # define XWRAPPER_H
 
-# include "utils.h"
+# include "error.h"
 # include <stdbool.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
 # define SUCCESS 0
 # define CHILD 0
 # define PARENT 1
+# ifndef FAIL
+#  define FAIL -1
+# endif
 
 pid_t	xfork(void);
 void	xclose(int fd);

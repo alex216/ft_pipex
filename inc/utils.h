@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:38:42 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/04 09:41:21 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/05 13:50:33 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,9 @@
 
 # include "ft_printf.h"
 # include "libft.h"
+# include "xwrapper.h"
 # include <string.h>
-# include <sys/errno.h>
 # include <unistd.h>
-
-# ifndef FAIL
-#  define FAIL -1
-# endif
-# define CMD_NOT_FOUND "command not found"
-
-typedef enum e_exit_status
-{
-	NOT_EXECUTABLE = 126,
-	NO_FILE_OR_CMD_ERR = 127
-}			t_exit_status;
-
-// error.c
-int			print_error(const char *basename, char *str, int exit_status);
-int			print_errno(const char *errno_msg);
-int			print_quote_error(void);
 
 // utils.c
 const char	*search_path_list(const char *envp[]);
@@ -45,5 +29,10 @@ const char	*return_cmd(const char **argv, int cmd_num);
 bool		is_first(int cmd_num);
 bool		is_last(int cmd_num, int argc);
 bool		is_middle(int cmd_num, int argc);
+
+// pipe_utils.c
+void		mk_xpipe(int *pip_arr, int i);
+int			pipe_read_fd(int *pipefd, int i);
+int			pipe_write_fd(int *pipefd, int i);
 
 #endif
