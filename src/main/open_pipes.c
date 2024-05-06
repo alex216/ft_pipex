@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:18:48 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 18:06:34 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 22:54:07 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	_open_infile_fd(const char *filename)
 {
 	int	fd;
 
+	xaccess_is_f_ok(filename);
 	fd = open(filename, O_RDONLY | O_CLOEXEC);
 	if (fd == FAIL)
 		exit(print_error(filename, strerror(PERMISSION_DENIED), 1));
