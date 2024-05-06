@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:19:15 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 13:34:44 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 11:25:26 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ typedef struct s_arg
 
 void			init_arg_info(int argc, const char **argv, const char **envp,
 					t_arg *arg_info);
-void			open_pipes(int cmd_i, int *pipefd, t_arg *arg_info,
+void			open_pipes(int cmd_i, int **pipefd, t_arg *arg_info,
 					t_fd *fd_info);
-void			close_pipes(int cmd_i, int *pipefd, t_arg *arg_info,
+void			close_pipes(int cmd_i, int **pipefd, t_arg *arg_info,
 					t_fd *fd_info);
-void			loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int *pipefd);
+void			loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int **pipefd);
 #endif
