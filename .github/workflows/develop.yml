@@ -12,7 +12,7 @@ on:
 jobs:
     norm:
       name: check format(norminette).
-      runs-on: macos-latest
+      runs-on: ubuntu-latest
       steps:
         - name: Step 1:checkout repo
           uses: actions/checkout@v4
