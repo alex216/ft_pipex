@@ -1,4 +1,4 @@
-name: Build Check
+name: develop-branch Check
 
 on:
   push:
@@ -10,6 +10,36 @@ on:
   workflow_dispatch:
 
 jobs:
+    norm:
+      name: check format(norminette).
+      runs-on: macos-latest
+      steps:
+        - name: Step 1:checkout repo
+          uses: actions/checkout@v4
+          with:
+            submodules: true
+        - name: Step 2:install norm
+          run: |
+            python3 -m pip install --upgrade pip setuptools
+            python3 -m pip install norminette
+        - name: Step 3:run norm
+          run: |
+            norminette src
+            norminette inc
+            norminette libft/src
+            norminette libft/inc
+    forbidden:
+      name: check forbidden functions.
+      runs-on: macos-latest
+      steps:
+        - name: Step 1:checkout
+          uses: actions/checkout@v4
+          with:
+            submodules: true
+        - name: Step 2:build
+          run:  make
+        - name: Step 3:run cmd.
+          run: test/check_func.sh
     unit_test:
       name: check unit_test.
       runs-on: macos-14
