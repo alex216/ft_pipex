@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:29:58 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 14:33:49 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 10:26:51 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ const char	*search_path_list(const char *envp[])
 {
 	while (*envp)
 	{
-		if (!strncmp(*envp, PATH, ft_strlen(PATH)))
+		if (!ft_strncmp(*envp, PATH, ft_strlen(PATH)))
 			return (*envp);
 		envp++;
 	}

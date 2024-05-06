@@ -6,21 +6,15 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 12:43:01 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 13:12:28 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// __attribute__((destructor)) void destructor(void)
-// {
-// 	system("leaks --atExit -- ./pipex");
-// }
-//
-
-static void _alloc_pipes(int ***pipefd, int size)
+static void	_alloc_pipes(int ***pipefd, int size)
 {
-	int i;
+	int	i;
 
 	*pipefd = ft_xcalloc(sizeof(int *) * size);
 	i = 0;
@@ -31,9 +25,9 @@ static void _alloc_pipes(int ***pipefd, int size)
 	}
 }
 
-static void _free_pipes(int **pipefd, int size)
+static void	_free_pipes(int **pipefd, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < size)

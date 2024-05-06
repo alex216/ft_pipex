@@ -13,7 +13,8 @@
 #include "ft_printf.h"
 #include "main_helper.h"
 
-static void	_refresh_fd_info(int cmd_num, t_fd *fd_info, int cmd_i, int **pipefd)
+static void	_refresh_fd_info(int cmd_num, t_fd *fd_info, int cmd_i,
+		int **pipefd)
 {
 	if (is_middle(cmd_i, cmd_num) || is_last(cmd_i, cmd_num))
 		fd_info->import_fd = pipe_read_fd(pipefd, cmd_i - 1);
