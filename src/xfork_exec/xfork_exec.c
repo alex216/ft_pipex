@@ -6,15 +6,12 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:34:24 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 09:47:27 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 10:45:57 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "pipex.h"
-#include "utils.h"
 #include "xfork_exec.h"
-#include "xwrapper.h"
 
 /*
  pipe():

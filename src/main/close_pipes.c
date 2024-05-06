@@ -6,13 +6,13 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:21:45 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 08:41:27 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 11:28:04 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_helper.h"
 
-void	close_pipes(int cmd_i, int *pipefd, t_arg *arg_info, t_fd *fd_info)
+void	close_pipes(int cmd_i, int **pipefd, t_arg *arg_info, t_fd *fd_info)
 {
 	int	cmd_num;
 

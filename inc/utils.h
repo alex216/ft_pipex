@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 14:38:42 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 14:33:37 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 12:13:21 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ bool		is_last(int cmd_num, int argc);
 bool		is_middle(int cmd_num, int argc);
 
 // pipe_utils.c
-void		mk_xpipe(int *pip_arr, int i);
-int			pipe_read_fd(int *pipefd, int i);
-int			pipe_write_fd(int *pipefd, int i);
+int			pipe_read_fd(int **pipe_fd, int i);
+int			pipe_write_fd(int **pipe_fd, int i);
 
 #endif
