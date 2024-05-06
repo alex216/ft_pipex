@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:53 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 13:12:28 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 18:08:49 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	main(int argc, const char **argv, const char **envp)
 	if (argc < 5 || (argc < 6 && is_heredoc(argv)))
 		exit(0);
 	init_arg_info(argc, argv, envp, &arg_info);
-	_alloc_pipes(&pipefd, arg_info.cmd_num - 1);
+	_alloc_pipes(&pipefd, arg_info.cmd_num);
 	loop_xfork(&arg_info, &fd_info, pipefd);
-	_free_pipes(pipefd, arg_info.cmd_num - 1);
+	_free_pipes(pipefd, arg_info.cmd_num);
 	return (0);
 }
