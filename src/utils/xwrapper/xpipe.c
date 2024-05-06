@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_infile_fd.c                                 :+:      :+:    :+:   */
+/*   xpipe.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:06:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/24 22:35:11 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/30 10:01:53 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/01 10:44:05 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "process.h"
+#include "xwrapper.h"
 
-int	return_infile_fd(const char **argv, const char *filename)
+void	xpipe(int *pipefd)
 {
-	int	fd;
-
-	(void)argv;
-	fd = open(filename, O_RDONLY);
-	if (fd == FAIL)
-		exit(print_error(filename, strerror(PERMISSION_DENIED), 1));
-	return (fd);
+	if (pipe(pipefd) == FAIL)
+		exit(print_errno(strerror(errno)));
 }

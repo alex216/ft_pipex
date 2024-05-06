@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   overtake_io_fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 13:20:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/03 17:56:57 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/06 09:05:16 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "xfork_exec.h"
 
-# include "dlist.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "here_doc.h"
-# include "libft.h"
-# include "main_helper.h"
-# include "parse_string.h"
-# include "utils.h"
-# include "xfork_exec.h"
-# include "xwrapper.h"
-# include <fcntl.h>
+static void	_overtake_stdin_fd(int pfd)
+{
+	xdup2(pfd, STDIN_FILENO);
+	xclose(pfd);
+}
 
-int	main(int argc, const char **argv, const char *envp[]);
+static void	_overtake_stdout_fd(int pfd)
+{
+	xdup2(pfd, STDOUT_FILENO);
+	xclose(pfd);
+}
 
-#endif
+void	overtake_io_fd(int new_in, int new_out)
+{
+	_overtake_stdin_fd(new_in);
+	_overtake_stdout_fd(new_out);
+}

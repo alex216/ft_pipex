@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   concat_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 13:20:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 10:32:43 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/04 10:38:39 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "parse_string.h"
 
-# include "dlist.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "here_doc.h"
-# include "libft.h"
-# include "main_helper.h"
-# include "parse_string.h"
-# include "utils.h"
-# include "xfork_exec.h"
-# include "xwrapper.h"
-# include <fcntl.h>
+void	concate_token(void *void_p)
+{
+	char		*a;
+	char		*b;
+	t_record	*record_p;
+	t_lst		*lst_p;
 
-int	main(int argc, const char **argv, const char *envp[]);
-
-#endif
+	lst_p = (t_lst *)void_p;
+	a = get_char_of(lst_p);
+	b = get_char_of(lst_p->next_p);
+	record_p = (lst_p->payload_p);
+	record_p->str = ft_strjooin(2, a, b);
+	free(a);
+	record_p->length = record_p->length + (lst_p->next_p->payload_p->length);
+	ft_dl_lstdelone(lst_p->next_p, *del);
+}

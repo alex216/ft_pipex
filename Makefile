@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/04/29 13:00:22 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/06 10:37:57 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,11 @@ CYAN			:=	\033[0;96m
 WHITE			:=	\033[0;97m
 
 -				:=	━
-FILE_NUM		= $(words $(SRCS))
-LINE			= $(shell yes $- | head -n $(BAR_LEN) | tr -d '\n'; echo)
-DIFF_LINE		= $(shell yes $- | head -n $(DIFF) | tr -d '\n'; echo)
 BAR_LEN			= 42
+LINE			= $(shell yes $- | head -n $(BAR_LEN) | tr -d '\n'; echo)
+
+FILE_NUM		= $(words $(SRCS))
+DIFF_LINE		= $(shell yes $- | head -n $(DIFF) | tr -d '\n'; echo)
 
 ##########################################
 # library directory
@@ -58,18 +59,29 @@ MAN_INC_DIR		:= $(LIB_INC_DIR) $(INC_DIR)
 LIB				:= $(LIB_DIR)/$(LIBRARY)
 
 ORIGIN_HEADERS	:=	./inc/$(NAME).h \
+					./inc/main_helper.h \
+					./inc/error.h \
 					./inc/utils.h \
 					./inc/dlist.h \
 					./inc/xwrapper.h \
-					./inc/process.h \
+					./inc/xfork_exec.h \
+					./inc/here_doc.h \
 					./inc/parse_string.h
 
-BASIC_SRCS 		:=	./src/process/process.c \
-				  	./src/process/return_infile_fd.c \
-				  	./src/process/return_outfile_fd.c \
-				  	./src/process/exec_process/exec_process.c \
+BASIC_SRCS 		:=	./src/main/init_info.c \
+					./src/utils/pipe_utils.c \
+					./src/main/open_pipes.c \
+					./src/main/close_pipes.c \
+					./src/main/loop_xfork.c \
+					\
+					./src/here_doc/here_doc.c \
+					\
+					./src/xfork_exec/xfork_exec.c \
+				  	./src/xfork_exec/overtake_io_fd.c \
+				  	./src/xfork_exec/exec_process/exec_process.c \
 					\
 				  	./src/utils/utils.c \
+				  	./src/utils/argv_check_utils.c \
 					./src/utils/error.c \
 					\
 					./src/utils/dlist/query_dlist.c \
@@ -78,13 +90,16 @@ BASIC_SRCS 		:=	./src/process/process.c \
 					./src/utils/xwrapper/xaccess_is.c \
 				  	./src/utils/xwrapper/xclose.c \
 				  	./src/utils/xwrapper/xdup2.c \
+				  	./src/utils/xwrapper/xfork.c \
+				  	./src/utils/xwrapper/xpipe.c \
 					\
-					./src/process/exec_process/return_entire_path.c \
-					./src/process/exec_process/parse_string/parse_string.c \
-					./src/process/exec_process/parse_string/remove_quote.c \
-					./src/process/exec_process/parse_string/parse_string_by_blank.c \
-					./src/process/exec_process/parse_string/parse_string_extract.c \
-					./src/process/exec_process/parse_string/parse_string_helper.c
+					./src/xfork_exec/exec_process/return_entire_path.c \
+					./src/xfork_exec/exec_process/parse_string/concat_token.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string.c \
+					./src/xfork_exec/exec_process/parse_string/remove_quote.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string_by_blank.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string_extract.c \
+					./src/xfork_exec/exec_process/parse_string/parse_string_helper.c
 
 # mandatory files
 SRCS			:= $(BASIC_SRCS) ./src/main.c
@@ -126,6 +141,7 @@ $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c
 ITER			= 0
 DIFF			= 0
 PREV			= 0
+.PHONY:			output_diff
 output_diff:
 				$(eval ITER=$(shell echo $$(($(ITER) + 1))))
 				$(eval NEW=$(shell echo $$(($(ITER) * $(BAR_LEN) / $(FILE_NUM)))))

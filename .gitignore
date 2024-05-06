@@ -62,7 +62,6 @@ libft/src/a.out*
 pipex
 
 # tester
-xtest.sh
 tester
 test/unit/gtest/*
 pipexMedic

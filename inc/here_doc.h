@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_outfile_fd.c                                :+:      :+:    :+:   */
+/*   here_doc.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:04:47 by yliu              #+#    #+#             */
-/*   Updated: 2024/04/24 21:55:50 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 21:50:55 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/06 18:09:47 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "process.h"
+#ifndef HERE_DOC_H
+# define HERE_DOC_H
 
-int	return_outfile_fd(const char *filename)
-{
-	int	fd;
+# include "get_next_line.h"
+# include "libft.h"
+# include "xwrapper.h"
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == FAIL)
-		exit(print_error(filename, strerror(errno), 1));
-	return (fd);
-}
+typedef struct s_fd		t_fd;
+typedef struct s_arg	t_arg;
+
+int						is_heredoc(const char **argv);
+int						open_heredoc_fd(const char *limiter, int **fd_info,
+							int cmd_num);
+
+#endif

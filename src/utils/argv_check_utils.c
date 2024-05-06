@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   argv_check_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 13:20:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 09:40:35 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/05 10:53:45 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "utils.h"
 
-# include "dlist.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "here_doc.h"
-# include "libft.h"
-# include "main_helper.h"
-# include "parse_string.h"
-# include "utils.h"
-# include "xfork_exec.h"
-# include "xwrapper.h"
-# include <fcntl.h>
+bool	is_first(int cmd_i)
+{
+	return (cmd_i == 0);
+}
 
-int	main(int argc, const char **argv, const char *envp[]);
+bool	is_last(int cmd_i, int cmd_num)
+{
+	return (cmd_i == cmd_num - 1);
+}
 
-#endif
+bool	is_middle(int cmd_i, int cmd_num)
+{
+	return (cmd_i > 0 && cmd_i < cmd_num - 1);
+}
