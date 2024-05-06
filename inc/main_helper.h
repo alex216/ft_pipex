@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:19:15 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 11:25:26 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 13:14:43 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MAIN_HELPER_H
 
 # include "here_doc.h"
+# include "sys/wait.h"
 # include "xfork_exec.h"
 # include "xwrapper.h"
 # include <fcntl.h>
