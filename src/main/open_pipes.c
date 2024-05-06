@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:18:48 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 16:04:15 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/06 09:53:06 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	_open_infile_fd(const char *filename)
 {
 	int	fd;
 
-	fd = open(filename, O_RDONLY);
+	fd = open(filename, O_RDONLY | O_CLOEXEC);
 	if (fd == FAIL)
 		exit(print_error(filename, strerror(PERMISSION_DENIED), 1));
 	return (fd);
@@ -26,7 +26,7 @@ static int	_open_created_outfile_fd(const char *filename)
 {
 	int	fd;
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644);
 	if (fd == FAIL)
 		exit(print_error(filename, strerror(errno), 1));
 	return (fd);
@@ -36,7 +36,7 @@ static int	_open_appended_outfile_fd(const char *filename)
 {
 	int	fd;
 
-	fd = open(filename, O_WRONLY | O_APPEND | O_TRUNC, 0644);
+	fd = open(filename, O_WRONLY | O_APPEND | O_TRUNC | O_CLOEXEC, 0644);
 	if (fd == FAIL)
 		exit(print_error(filename, strerror(errno), 1));
 	return (fd);
