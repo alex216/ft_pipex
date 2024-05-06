@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 13:20:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 09:26:06 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/05 13:07:21 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "main_helper.h"
 
-# include "dlist.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "here_doc.h"
-# include "libft.h"
-# include "main_helper.h"
-# include "parse_string.h"
-# include "utils.h"
-# include "xfork_exec.h"
-# include "xwrapper.h"
-# include <fcntl.h>
-
-int	main(int argc, const char **argv, const char *envp[]);
-
-#endif
+void	init_arg_info(int argc, const char **argv, const char **envp,
+		t_arg *arg_info)
+{
+	arg_info->argv = argv;
+	arg_info->argc = argc;
+	arg_info->envp = envp;
+	arg_info->is_heredoc = is_heredoc(argv);
+	arg_info->cmd_num = argc - 3 - arg_info->is_heredoc;
+}

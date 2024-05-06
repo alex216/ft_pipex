@@ -62,7 +62,6 @@ libft/src/a.out*
 pipex
 
 # tester
-xtest.sh
 tester
 test/unit/gtest/*
 pipexMedic
@@ -75,7 +74,8 @@ bonus_obj
 .vscode/*
 
 # other
+*.swp
 tags
 compile_flags.txt
-infile
+infile*
 outfile

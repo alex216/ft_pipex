@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_infile_fd.c                                 :+:      :+:    :+:   */
+/*   xpipe.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:06:16 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/19 18:40:28 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/30 10:01:53 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/01 10:44:05 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "xwrapper.h"
 
-int	return_infile_fd(const char *filename)
+void	xpipe(int *pipefd)
 {
-	int	fd;
-
-	// need executable for bash
-	// many flags to explore
-	fd = open(filename, O_RDONLY);
-	if (fd == FAIL)
-		exit_with_perror(ft_strjoin("bash: ", filename));
-	return (fd);
+	if (pipe(pipefd) == FAIL)
+		exit(print_errno(strerror(errno)));
 }

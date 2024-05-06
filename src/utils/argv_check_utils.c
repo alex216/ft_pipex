@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   return_outfile_fd.c                                :+:      :+:    :+:   */
+/*   argv_check_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:04:47 by yliu              #+#    #+#             */
-/*   Updated: 2024/02/20 13:00:18 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/04 09:40:35 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/05 10:53:45 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "utils.h"
 
-int	return_outfile_fd(const char *filename)
+bool	is_first(int cmd_i)
 {
-	int	fd;
+	return (cmd_i == 0);
+}
 
-	// need executable for bash
-	// many flags to explore
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == FAIL)
-		exit_errno_msg(strerror(errno));
-	return (fd);
+bool	is_last(int cmd_i, int cmd_num)
+{
+	return (cmd_i == cmd_num - 1);
+}
+
+bool	is_middle(int cmd_i, int cmd_num)
+{
+	return (cmd_i > 0 && cmd_i < cmd_num - 1);
 }

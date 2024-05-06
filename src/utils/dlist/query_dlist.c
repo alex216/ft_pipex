@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   query_dlist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 18:16:51 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/05 13:20:45 by yliu             ###   ########.fr       */
+/*   Created: 2024/04/21 16:56:10 by yliu              #+#    #+#             */
+/*   Updated: 2024/04/28 19:31:01 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "dlist.h"
 
-# include "dlist.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "here_doc.h"
-# include "libft.h"
-# include "main_helper.h"
-# include "parse_string.h"
-# include "utils.h"
-# include "xfork_exec.h"
-# include "xwrapper.h"
-# include <fcntl.h>
+char	*get_char_of(const t_lst *lst_p)
+{
+	if (!lst_p)
+		return (NULL);
+	return (lst_p->payload_p->str);
+}
 
-int	main(int argc, const char **argv, const char *envp[]);
+int	get_type_of(const t_lst *lst_p)
+{
+	if (!lst_p)
+		return (-1);
+	return (lst_p->payload_p->type);
+}
 
-#endif
+bool	is_node_token(const t_lst *lst_p)
+{
+	return (get_type_of(lst_p) != BLANK);
+}
