@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 13:18:48 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 22:54:07 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/07 21:45:33 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	_open_appended_outfile_fd(const char *filename)
 {
 	int	fd;
 
-	fd = open(filename, O_WRONLY | O_APPEND | O_TRUNC | O_CLOEXEC, 0644);
+	fd = open(filename, O_WRONLY | O_APPEND | O_CREAT | O_CLOEXEC, 0644);
 	if (fd == FAIL)
 		exit(print_error(filename, strerror(errno), 1));
 	return (fd);
