@@ -6,12 +6,12 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:50:30 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 18:10:31 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/08 11:50:20 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "here_doc.h"
-#include "xfork_exec.h"
+#include "main_helper.h"
 
 int	is_heredoc(const char **argv)
 {
@@ -21,12 +21,27 @@ int	is_heredoc(const char **argv)
 		return (0);
 }
 
-int	open_heredoc_fd(const char *limiter, int **pipefd, int cmd_num)
+static char	*_randomized_filename(char *seed)
 {
-	char	*line;
-	char	*limiter_nl;
+	char	*filename;
+	int		n;
 
-	xpipe(pipefd[cmd_num - 1]);
+	n = (int)(unsigned long long)&seed;
+	filename = ft_strjooin(2, ".heredoc_tmp_", ft_itoa(n));
+	return (filename);
+}
+
+char	*heredoc_file(const char *limiter, t_arg *arg_info)
+{
+	char	*limiter_nl;
+	char	*line;
+	int		heredoc_fd;
+	char	*filename;
+
+	filename = _randomized_filename((char *)limiter);
+	arg_info->heredoc_filename = filename;
+	heredoc_fd = open(filename,
+			O_WRONLY | O_CREAT | O_TRUNC | O_EXCL | O_CLOEXEC, 0644);
 	limiter_nl = ft_strjooin(2, limiter, "\n");
 	while (1)
 	{
@@ -34,11 +49,11 @@ int	open_heredoc_fd(const char *limiter, int **pipefd, int cmd_num)
 		line = get_next_line(STDIN_FILENO);
 		if (!ft_strcmp(line, limiter_nl))
 			break ;
-		write(pipefd[cmd_num - 1][1], line, ft_strlen(line));
+		write(heredoc_fd, line, ft_strlen(line));
 		free(line);
 	}
+	close(heredoc_fd);
 	free(line);
 	free(limiter_nl);
-	close(pipefd[cmd_num - 1][1]);
-	return (pipefd[cmd_num - 1][0]);
+	return (filename);
 }
