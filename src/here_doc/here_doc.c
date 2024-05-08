@@ -6,10 +6,11 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 21:50:30 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/08 11:50:20 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/08 16:20:24 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "here_doc.h"
 #include "main_helper.h"
 
@@ -25,9 +26,12 @@ static char	*_randomized_filename(char *seed)
 {
 	char	*filename;
 	int		n;
+	char	*rand_str;
 
 	n = (int)(unsigned long long)&seed;
-	filename = ft_strjooin(2, ".heredoc_tmp_", ft_itoa(n));
+	rand_str = ft_itoa(n);
+	filename = ft_strjooin(2, ".heredoc_tmp_", rand_str);
+	free(rand_str);
 	return (filename);
 }
 
