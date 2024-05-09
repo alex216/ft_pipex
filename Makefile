@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/08 11:30:54 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/09 12:20:49 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,6 +115,9 @@ all:			$(NAME)
 
 $(NAME):		$(LIB) $(SRCS)
 				@make -s man_step_0
+
+.PHONY:
+bonus:			$(NAME)
 
 $(LIB):
 				@git submodule update --init --recursive
