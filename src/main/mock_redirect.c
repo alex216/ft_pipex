@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_fds.c                                         :+:      :+:    :+:   */
+/*   mock_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 13:18:48 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/08 11:51:26 by yliu             ###   ########.fr       */
+/*   Created: 2024/05/26 12:50:50 by yliu              #+#    #+#             */
+/*   Updated: 2024/05/26 12:55:36 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,14 @@ static int	_open_appended_outfile_fd(const char *filename)
 	return (fd);
 }
 
-void	open_fds(int cmd_i, int **pipefd, t_arg *arg_info, t_fd *fd_info)
+void	mock_redirect_ope(int cmd_i, int cmd_num, t_arg *arg_info,
+		t_fd *fd_info)
 {
 	const char	**argv;
-	int			cmd_num;
 	int			argc;
 
 	argv = arg_info->argv;
 	argc = arg_info->argc;
-	cmd_num = arg_info->cmd_num;
-	if (is_first(cmd_i) || is_middle(cmd_i, cmd_num))
-		xpipe(pipefd[cmd_i]);
 	if (is_first(cmd_i))
 	{
 		if (arg_info->is_heredoc)

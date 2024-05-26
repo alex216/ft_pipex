@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:47:03 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/08 16:20:31 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/26 12:55:16 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int **pipefd)
 	while (is_first(cmd_i) || is_middle(cmd_i, cmd_num) || is_last(cmd_i,
 			cmd_num))
 	{
-		open_fds(cmd_i, pipefd, arg_cve_info, fd_info);
+		open_pipe_fds(cmd_i, pipefd, cmd_num);
 		_refresh_fd_info(cmd_num, fd_info, cmd_i, pipefd);
 		xfork_exec(cmd_i, fd_info, arg_cve_info);
-		close_fds(cmd_i, pipefd, arg_cve_info, fd_info);
+		close_pipe_fds(cmd_i, pipefd, cmd_num);
 		cmd_i++;
 	}
 	if (arg_cve_info->is_heredoc)
