@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:19:15 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/26 12:54:46 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/26 16:20:43 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ void			close_pipe_fds(int cmd_i, int **pipefd, int cmd_num);
 void			mock_redirect_ope(int cmd_i, int cmd_num, t_arg *arg_info,
 					t_fd *fd_info);
 void			loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int **pipefd);
+int				_open_infile_fd(const char *filename);
 #endif

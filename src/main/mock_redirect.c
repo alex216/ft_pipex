@@ -6,13 +6,13 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 12:50:50 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/26 12:55:36 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/26 14:23:11 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_helper.h"
 
-static int	_open_infile_fd(const char *filename)
+int	_open_infile_fd(const char *filename)
 {
 	int	fd;
 
@@ -51,14 +51,8 @@ void	mock_redirect_ope(int cmd_i, int cmd_num, t_arg *arg_info,
 
 	argv = arg_info->argv;
 	argc = arg_info->argc;
-	if (is_first(cmd_i))
-	{
-		if (arg_info->is_heredoc)
-			fd_info->infile_fd = _open_infile_fd(heredoc_file(argv[2],
-						arg_info));
-		else
-			fd_info->infile_fd = _open_infile_fd(argv[1]);
-	}
+	if (is_first(cmd_i) && !arg_info->is_heredoc)
+		fd_info->infile_fd = _open_infile_fd(argv[1]);
 	if (is_last(cmd_i, cmd_num))
 	{
 		if (arg_info->is_heredoc)
