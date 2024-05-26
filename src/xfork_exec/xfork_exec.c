@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 16:34:24 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/06 10:45:57 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/26 12:51:47 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ pid_t	xfork_exec(int cmd_i, t_fd *fd_info, t_arg *arg_info)
 	pid = xfork();
 	if (pid == CHILD)
 	{
+		mock_redirect_ope(cmd_i, arg_info->cmd_num, arg_info, fd_info);
 		_overtake_io(cmd_i, fd_info, arg_info->cmd_num);
 		cmd = return_cmd(arg_info->argv, cmd_i, arg_info->is_heredoc);
 		exec_process(cmd, arg_info->envp);

@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/09 12:20:49 by yliu             ###   ########.fr        #
+#    Updated: 2024/05/26 12:50:59 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,9 +70,10 @@ ORIGIN_HEADERS	:=	./inc/$(NAME).h \
 
 BASIC_SRCS 		:=	./src/main/init_info.c \
 					./src/utils/pipe_utils.c \
-					./src/main/open_fds.c \
-					./src/main/close_fds.c \
+					./src/main/open_pipe_fds.c \
+					./src/main/close_pipe_fds.c \
 					./src/main/loop_xfork.c \
+					./src/main/mock_redirect.c \
 					\
 					./src/here_doc/here_doc.c \
 					\

@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:19:15 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/08 11:50:27 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/26 16:20:43 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ typedef struct s_arg
 
 void			init_arg_info(int argc, const char **argv, const char **envp,
 					t_arg *arg_info);
-void			open_fds(int cmd_i, int **pipefd, t_arg *arg_info,
-					t_fd *fd_info);
-void			close_fds(int cmd_i, int **pipefd, t_arg *arg_info,
+void			open_pipe_fds(int cmd_i, int **pipefd, int cmd_num);
+void			close_pipe_fds(int cmd_i, int **pipefd, int cmd_num);
+void			mock_redirect_ope(int cmd_i, int cmd_num, t_arg *arg_info,
 					t_fd *fd_info);
 void			loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int **pipefd);
+int				_open_infile_fd(const char *filename);
 #endif

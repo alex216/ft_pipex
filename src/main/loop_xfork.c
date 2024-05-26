@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:47:03 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/08 16:20:31 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/26 16:22:39 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include "main_helper.h"
 #include "utils.h"
 
-static void	_del_heredoc(char *filename)
+static void	_del_heredoc(int heredoc_fd, char *filename)
 {
+	close(heredoc_fd);
 	unlink(filename);
 	free(filename);
 }
@@ -29,24 +30,41 @@ static void	_refresh_fd_info(int cmd_num, t_fd *fd_info, int cmd_i,
 		fd_info->export_fd = pipe_write_fd(pipefd, cmd_i);
 }
 
-void	loop_xfork(t_arg *arg_cve_info, t_fd *fd_info, int **pipefd)
+static void	_open_pipe_exec_close_pipe(int cmd_i, int **pipefd, t_arg *arg_info,
+		t_fd *fd_info)
+{
+	int	cmd_num;
+
+	cmd_num = arg_info->cmd_num;
+	open_pipe_fds(cmd_i, pipefd, cmd_num);
+	_refresh_fd_info(cmd_num, fd_info, cmd_i, pipefd);
+	xfork_exec(cmd_i, fd_info, arg_info);
+	close_pipe_fds(cmd_i, pipefd, cmd_num);
+}
+
+static void	_exec_first_proc(t_arg *arg_info, t_fd *fd_info, int **pipefd)
+{
+	if (arg_info->is_heredoc)
+		fd_info->infile_fd = _open_infile_fd(heredoc_file(arg_info->argv[2],
+					arg_info));
+	_open_pipe_exec_close_pipe(0, pipefd, arg_info->cmd_num, arg_info, fd_info);
+	if (arg_info->is_heredoc)
+		_del_heredoc(fd_info->infile_fd, arg_info->heredoc_filename);
+}
+
+void	loop_xfork(t_arg *arg_info, t_fd *fd_info, int **pipefd)
 {
 	int	cmd_i;
 	int	cmd_num;
 
-	cmd_num = arg_cve_info->cmd_num;
-	cmd_i = 0;
-	while (is_first(cmd_i) || is_middle(cmd_i, cmd_num) || is_last(cmd_i,
-			cmd_num))
+	cmd_num = arg_info->cmd_num;
+	_exec_first_proc(arg_info, fd_info, pipefd);
+	cmd_i = 1;
+	while (is_middle(cmd_i, cmd_num) || is_last(cmd_i, cmd_num))
 	{
-		open_fds(cmd_i, pipefd, arg_cve_info, fd_info);
-		_refresh_fd_info(cmd_num, fd_info, cmd_i, pipefd);
-		xfork_exec(cmd_i, fd_info, arg_cve_info);
-		close_fds(cmd_i, pipefd, arg_cve_info, fd_info);
+		_open_pipe_exec_close_pipe(cmd_i, pipefd, cmd_num, arg_info, fd_info);
 		cmd_i++;
 	}
-	if (arg_cve_info->is_heredoc)
-		_del_heredoc(arg_cve_info->heredoc_filename);
 	while (wait(NULL) != -1)
 		continue ;
 	if (errno != ECHILD)
