@@ -6,7 +6,7 @@
 /*   By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:47:03 by yliu              #+#    #+#             */
-/*   Updated: 2024/05/26 16:22:39 by yliu             ###   ########.fr       */
+/*   Updated: 2024/05/29 21:26:45 by yliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	_exec_first_proc(t_arg *arg_info, t_fd *fd_info, int **pipefd)
 	if (arg_info->is_heredoc)
 		fd_info->infile_fd = _open_infile_fd(heredoc_file(arg_info->argv[2],
 					arg_info));
-	_open_pipe_exec_close_pipe(0, pipefd, arg_info->cmd_num, arg_info, fd_info);
+	_open_pipe_exec_close_pipe(0, pipefd, arg_info, fd_info);
 	if (arg_info->is_heredoc)
 		_del_heredoc(fd_info->infile_fd, arg_info->heredoc_filename);
 }
@@ -62,7 +62,7 @@ void	loop_xfork(t_arg *arg_info, t_fd *fd_info, int **pipefd)
 	cmd_i = 1;
 	while (is_middle(cmd_i, cmd_num) || is_last(cmd_i, cmd_num))
 	{
-		_open_pipe_exec_close_pipe(cmd_i, pipefd, cmd_num, arg_info, fd_info);
+		_open_pipe_exec_close_pipe(cmd_i, pipefd, arg_info, fd_info);
 		cmd_i++;
 	}
 	while (wait(NULL) != -1)
