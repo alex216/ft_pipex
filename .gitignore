@@ -77,5 +77,11 @@ bonus_obj
 *.swp
 tags
 compile_flags.txt
-infile*
+infile
 outfile
+
+# for review
+./test/
+!./libft/
+./libft/*
+README.md

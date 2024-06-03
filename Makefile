@@ -6,7 +6,7 @@
 #    By: yliu <yliu@student.42.jp>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 12:04:47 by yliu              #+#    #+#              #
-#    Updated: 2024/05/26 12:50:59 by yliu             ###   ########.fr        #
+#    Updated: 2024/06/03 20:10:23 by yliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -157,7 +157,7 @@ output_diff:
 ##########################################
 # other cmds
 .PHONY:			clean
-clean:			test_clean
+clean:
 				@make -s fclean -C $(LIB_DIR) || true
 				@$(RM) $(OBJS_DIR)
 				@$(ECHO) "$(DEF_COLOR)$(BLUE)[$(NAME)]\t\tobject files \t$(GREEN)deleted ✓$(DEF_COLOR)\n"
@@ -178,10 +178,3 @@ norm:
 format_norm:
 				@c_formatter_42 $(SRCS) $(HEADERS)
 				@make -s norm
-
-.PHONY:			xtest
-xtest:
-				@make -s all
-				@xtest.sh
-
-include Makefile_tester.mk
